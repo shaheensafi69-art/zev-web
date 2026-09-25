@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" width="100%" height="100%">
+  <rect width="900" height="600" fill="#de2910"/>
+  <polygon fill="#ffde00" points="150,50 180,140 90,85 210,85 120,140"/>
+  <polygon fill="#ffde00" points="300,40 307,63 285,49 315,49 293,63"/>
+  <polygon fill="#ffde00" points="360,90 367,113 345,99 375,99 353,113"/>
+  <polygon fill="#ffde00" points="360,170 367,193 345,179 375,179 353,193"/>
+  <polygon fill="#ffde00" points="300,220 307,243 285,229 315,229 293,243"/>
+</svg>
