@@ -447,6 +447,11 @@ export const Footer: React.FC<FooterProps> = ({ locale, dict }) => {
                 </Link>
               </li>
               <li>
+                <Link href={`/${locale}/delete-account`} style={{ fontSize: 14, color: '#FC466B', fontWeight: 700 }}>
+                  {dict.nav.deleteAccount || (isFa ? 'حذف حساب کاربری' : 'Delete Account')}
+                </Link>
+              </li>
+              <li>
                 <Link href={`/${locale}/support`} style={{ fontSize: 14, color: '#334155', fontWeight: 600 }}>
                   {isFa ? 'مرکز گزارش تخلف و امنیت' : 'Security Escalation Desk'}
                 </Link>

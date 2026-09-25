@@ -16,6 +16,8 @@ export interface Dictionary {
     privacyDesc: string;
     terms: string;
     termsDesc: string;
+    deleteAccount?: string;
+    deleteAccountDesc?: string;
     support: string;
     openWebApp: string;
     download: string;

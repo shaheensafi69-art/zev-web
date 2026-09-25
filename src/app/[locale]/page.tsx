@@ -100,8 +100,8 @@ export default function LocalizedHomePage({
     {
       q: isFa ? 'چگونه می‌توانم از زو در کامپیوتر یا لپتاپ استفاده کنم؟' : 'How can I access ZEV on my desktop or laptop?',
       a: isFa
-        ? 'ما زو را با فناوری پیشرفته چندپلتفرمه فلاتر ساخته‌ایم! شما می‌توانید بدون نیاز به شبیه‌ساز یا نصب سنگین، مستقیماً از طریق مرورگر وب در سایت zevapp.com وارد اکانت خود شوید و از تمام امکانات فید، چت و ریلز لذت ببرید.'
-        : 'ZEV is engineered with modern cross-platform technology. You can launch the web application directly in your browser at zevapp.com with full access to feeds, reels, messages, and stories without any emulator.',
+        ? 'ما زو را با فناوری پیشرفته چندپلتفرمه فلاتر ساخته‌ایم! شما می‌توانید بدون نیاز به شبیه‌ساز یا نصب سنگین، مستقیماً از طریق مرورگر وب در سایت web.zevapp.com وارد اکانت خود شوید و از تمام امکانات فید، چت و ریلز لذت ببرید.'
+        : 'ZEV is engineered with modern cross-platform technology. You can launch the web application directly in your browser at web.zevapp.com with full access to feeds, reels, messages, and stories without any emulator.',
     },
     {
       q: isFa ? 'چگونه حریم خصوصی و امنیت اطلاعات من تضمین می‌شود؟' : 'How does ZEV protect my data and privacy?',
@@ -191,7 +191,7 @@ export default function LocalizedHomePage({
                 }}
               >
                 <a
-                  href="https://zevapp.com"
+                  href="https://web.zevapp.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-primary"
@@ -686,7 +686,7 @@ export default function LocalizedHomePage({
               }}
             >
               <a
-                href="https://zevapp.com"
+                href="https://web.zevapp.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-white"

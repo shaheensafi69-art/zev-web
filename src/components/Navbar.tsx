@@ -23,6 +23,7 @@ import {
   Heart,
   ChevronRight,
   ChevronLeft,
+  UserX,
 } from 'lucide-react';
 import { languages, isRtlLocale, Dictionary } from '@/dictionaries';
 import { DownloadModal } from './DownloadModal';
@@ -76,7 +77,8 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
   const isLegalActive =
     pathname.startsWith(`/${locale}/child-safety`) ||
     pathname.startsWith(`/${locale}/privacy`) ||
-    pathname.startsWith(`/${locale}/terms`);
+    pathname.startsWith(`/${locale}/terms`) ||
+    pathname.startsWith(`/${locale}/delete-account`);
   const isSupportActive = pathname.startsWith(`/${locale}/support`);
 
   return (
@@ -392,7 +394,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                     </Link>
 
                     <a
-                      href="https://zevapp.com"
+                      href="https://web.zevapp.com"
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => setActiveDropdown(null)}
@@ -670,6 +672,51 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                         </div>
                       </div>
                     </Link>
+
+                    <Link
+                      href={`/${locale}/delete-account`}
+                      onClick={() => setActiveDropdown(null)}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 12,
+                        padding: '10px 14px',
+                        borderRadius: 16,
+                        background: pathname.startsWith(`/${locale}/delete-account`) ? '#FFF1F4' : 'transparent',
+                        transition: 'all 0.2s ease',
+                      }}
+                      onMouseEnter={(e) => (e.currentTarget.style.background = '#FFF1F4')}
+                      onMouseLeave={(e) => {
+                        if (!pathname.startsWith(`/${locale}/delete-account`)) {
+                          e.currentTarget.style.background = 'transparent';
+                        }
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: 36,
+                          height: 36,
+                          borderRadius: 12,
+                          background: '#FFF1F4',
+                          border: '1.5px solid rgba(252, 70, 107, 0.4)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: '#FC466B',
+                          flexShrink: 0,
+                        }}
+                      >
+                        <UserX size={18} />
+                      </div>
+                      <div>
+                        <div style={{ fontSize: 14, fontWeight: 800, color: '#000000' }}>
+                          {dict.nav.deleteAccount || (locale === 'fa' ? 'حذف حساب کاربری' : 'Delete Account')}
+                        </div>
+                        <div style={{ fontSize: 11.5, color: '#475569', marginTop: 2 }}>
+                          {dict.nav.deleteAccountDesc || (locale === 'fa' ? 'ثبت درخواست حذف دائمی اکانت و تمامی اطلاعات' : 'Permanent account and personal data deletion')}
+                        </div>
+                      </div>
+                    </Link>
                   </div>
                 </div>
               )}
@@ -883,7 +930,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
 
             {/* Launch Web App Button */}
             <a
-              href="https://zevapp.com"
+              href="https://web.zevapp.com"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-secondary desktop-only"
@@ -1096,6 +1143,24 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                   <FileText size={15} color={pathname.startsWith(`/${locale}/terms`) ? '#FFFFFF' : '#FC466B'} />
                   <span>{dict.nav.terms}</span>
                 </Link>
+                <Link
+                  href={`/${locale}/delete-account`}
+                  onClick={() => setMobileMenuOpen(false)}
+                  style={{
+                    fontSize: 14,
+                    fontWeight: pathname.startsWith(`/${locale}/delete-account`) ? 900 : 700,
+                    color: pathname.startsWith(`/${locale}/delete-account`) ? '#FFFFFF' : '#0F172A',
+                    padding: '9px 14px',
+                    borderRadius: 12,
+                    background: pathname.startsWith(`/${locale}/delete-account`) ? '#FC466B' : '#FFF7F9',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 8,
+                  }}
+                >
+                  <UserX size={15} color={pathname.startsWith(`/${locale}/delete-account`) ? '#FFFFFF' : '#FC466B'} />
+                  <span>{dict.nav.deleteAccount || (locale === 'fa' ? 'حذف حساب کاربری' : 'Delete Account')}</span>
+                </Link>
               </div>
             </div>
 
@@ -1127,7 +1192,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
             {/* Mobile Actions */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10, paddingTop: 10, borderTop: '1px solid rgba(252, 70, 107, 0.2)' }}>
               <a
-                href="https://zevapp.com"
+                href="https://web.zevapp.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary"

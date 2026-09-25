@@ -171,7 +171,7 @@ export default function AboutPage({
 
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14 }}>
                 <a
-                  href="https://zevapp.com"
+                  href="https://web.zevapp.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-primary"

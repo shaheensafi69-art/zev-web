@@ -70,10 +70,10 @@ export default function FeaturesPage({
       color: '#FC466B',
       image: '/screenshots/3.jpg',
       desc: isFa
-        ? 'یک پایگاه کد مدرن که همزمان تجربه روان نیتیو را روی اندروید، آیفون، نسخه وب zevapp.com و ویندوز/مک ارائه می‌کند.'
-        : 'Single unified Flutter codebase delivering identical 60fps fluid interfaces across Android, iOS, Web browsers, and desktop PCs.',
+        ? 'یک پایگاه کد مدرن که همزمان تجربه روان نیتیو را روی اندروید، آیفون، نسخه وب web.zevapp.com و ویندوز/مک ارائه می‌کند.'
+        : 'Single unified Flutter codebase delivering identical 60fps fluid interfaces across Android, iOS, Web browsers at web.zevapp.com, and desktop PCs.',
       bullets: [
-        isFa ? 'ورود مستقیم از طریق وب در کامپیوتر بدون نیاز به شبیه‌ساز' : 'Instant browser access at zevapp.com with zero installation',
+        isFa ? 'ورود مستقیم از طریق وب در کامپیوتر بدون نیاز به شبیه‌ساز' : 'Instant browser access at web.zevapp.com with zero installation',
         isFa ? 'همگام‌سازی لحظه‌ای نشست‌ها و پیام‌ها در تمام پلتفرم‌ها' : 'Instant cross-device message and feed state synchronization',
         isFa ? 'مصرف بهینه باتری و رم دستگاه با رندرینگ سخت‌افزاری' : 'Optimized GPU-accelerated rendering and low memory footprint',
       ],
@@ -271,7 +271,7 @@ export default function FeaturesPage({
               : 'Launch ZEV directly in your desktop browser or download for Android & iOS.'}
           </p>
           <a
-            href="https://zevapp.com"
+            href="https://web.zevapp.com"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary"
