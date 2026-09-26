@@ -86,37 +86,10 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
       {/* Floating Header Wrapper */}
       <header
         ref={navContainerRef}
-        style={{
-          position: 'fixed',
-          top: 14,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 100,
-          width: '97%',
-          maxWidth: 2150,
-          pointerEvents: 'none',
-          transition: 'all 0.3s ease',
-        }}
+        className="navbar-floating-header"
         dir={isRtl ? 'rtl' : 'ltr'}
       >
-        <div
-          style={{
-            position: 'relative',
-            width: '100%',
-            height: 74,
-            padding: '0 24px',
-            backgroundColor: 'rgba(255, 255, 255, 0.95)',
-            backdropFilter: 'blur(25px)',
-            WebkitBackdropFilter: 'blur(25px)',
-            border: '1.5px solid rgba(252, 70, 107, 0.35)',
-            borderRadius: 40,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            boxShadow: '0 12px 35px rgba(0, 0, 0, 0.08), 0 0 25px rgba(252, 70, 107, 0.12)',
-            pointerEvents: 'auto',
-          }}
-        >
+        <div className="navbar-floating-bar">
           {/* Subtle bottom glowing line */}
           <div
             style={{
@@ -136,12 +109,13 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: 12,
+              gap: 10,
               textDecoration: 'none',
               flexShrink: 0,
             }}
           >
             <div
+              className="navbar-logo-icon"
               style={{
                 position: 'relative',
                 width: 42,
@@ -154,13 +128,14 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 boxShadow: '0 4px 12px rgba(252, 70, 107, 0.2)',
+                flexShrink: 0,
               }}
             >
               <Image
                 src="/assets/icon-clean.png"
                 alt="ZEV Icon"
-                width={32}
-                height={32}
+                width={30}
+                height={30}
                 style={{ objectFit: 'contain' }}
                 priority
               />
@@ -168,6 +143,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                 <span
+                  className="navbar-logo-title"
                   style={{
                     fontSize: 22,
                     fontWeight: 900,
@@ -189,6 +165,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                 />
               </div>
               <span
+                className="navbar-logo-sub"
                 style={{
                   fontSize: 10,
                   letterSpacing: '1px',
@@ -762,6 +739,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
             <div style={{ position: 'relative' }}>
               <button
                 type="button"
+                className="navbar-lang-btn"
                 onClick={() => setActiveDropdown(activeDropdown === 'lang' ? null : 'lang')}
                 style={{
                   display: 'flex',
@@ -776,6 +754,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                   fontWeight: 700,
                   cursor: 'pointer',
                   transition: 'all 0.2s ease',
+                  flexShrink: 0,
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = '#FC466B';
@@ -810,9 +789,10 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
                 </div>
-                <span>{currentLang.native}</span>
+                <span className="lang-text">{currentLang.native}</span>
                 <ChevronDown
                   size={14}
+                  className="lang-chevron"
                   style={{
                     transform: activeDropdown === 'lang' ? 'rotate(180deg)' : 'none',
                     transition: 'transform 0.2s ease',
@@ -949,10 +929,11 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
             <button
               type="button"
               onClick={() => setDownloadModalOpen(true)}
-              className="btn-primary"
+              className="navbar-download-btn btn-primary"
               style={{
-                padding: '9px 20px',
+                padding: '9px 18px',
                 fontSize: 13,
+                flexShrink: 0,
               }}
             >
               <Download size={15} />
@@ -974,6 +955,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                 borderRadius: 12,
                 color: '#FC466B',
                 cursor: 'pointer',
+                flexShrink: 0,
               }}
               className="mobile-toggle"
               aria-label="Toggle navigation menu"
@@ -987,18 +969,111 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
         {mobileMenuOpen && (
           <div
             style={{
-              marginTop: 10,
+              marginTop: 8,
               background: '#FFFFFF',
               backdropFilter: 'blur(25px)',
+              WebkitBackdropFilter: 'blur(25px)',
               border: '1.5px solid rgba(252, 70, 107, 0.35)',
-              borderRadius: 28,
-              padding: '24px 20px 30px',
+              borderRadius: 24,
+              padding: '20px 16px 24px',
               pointerEvents: 'auto',
               boxShadow: '0 20px 60px rgba(0,0,0,0.15), 0 0 30px rgba(252,70,107,0.15)',
-              maxHeight: '80vh',
+              maxHeight: 'calc(100vh - 85px)',
               overflowY: 'auto',
+              WebkitOverflowScrolling: 'touch',
             }}
           >
+            {/* Quick 19-Language Selector inside Drawer */}
+            <div
+              style={{
+                marginBottom: 18,
+                padding: '12px 14px',
+                background: '#FFF1F4',
+                borderRadius: 18,
+                border: '1px solid rgba(252, 70, 107, 0.25)',
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginBottom: 10,
+                }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    fontSize: 12,
+                    fontWeight: 900,
+                    color: '#FC466B',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  <Globe size={14} />
+                  <span>19 Languages / ۱۹ زبان</span>
+                </div>
+                <span
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 800,
+                    color: '#0F172A',
+                    background: '#FFFFFF',
+                    padding: '2px 8px',
+                    borderRadius: 999,
+                    border: '1px solid rgba(252, 70, 107, 0.3)',
+                  }}
+                >
+                  {currentLang.native}
+                </span>
+              </div>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fill, minmax(90px, 1fr))',
+                  gap: 6,
+                  maxHeight: 140,
+                  overflowY: 'auto',
+                  paddingRight: 2,
+                }}
+              >
+                {languages.map((l) => {
+                  const isSel = l.code === locale;
+                  return (
+                    <button
+                      key={l.code}
+                      type="button"
+                      onClick={() => handleLocaleChange(l.code)}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 6,
+                        padding: '6px 8px',
+                        borderRadius: 10,
+                        background: isSel ? '#FC466B' : '#FFFFFF',
+                        color: isSel ? '#FFFFFF' : '#0F172A',
+                        border: isSel ? '1px solid #FC466B' : '1px solid rgba(252, 70, 107, 0.2)',
+                        fontSize: 11,
+                        fontWeight: isSel ? 800 : 600,
+                        cursor: 'pointer',
+                        textAlign: 'left',
+                      }}
+                    >
+                      <img
+                        src={l.flagUrl}
+                        alt={l.name}
+                        style={{ width: 14, height: 14, borderRadius: '50%', objectFit: 'cover' }}
+                      />
+                      <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        {l.name}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
             {/* Group 1: Platform & Main */}
             <div style={{ marginBottom: 18 }}>
               <div style={{ fontSize: 11, fontWeight: 900, color: '#FC466B', textTransform: 'uppercase', marginBottom: 8, padding: '0 8px' }}>
@@ -1217,32 +1292,6 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
           </div>
         )}
       </header>
-
-      {/* Global CSS for Navbar breakpoints */}
-      <style jsx global>{`
-        @media (min-width: 1200px) {
-          .desktop-nav {
-            display: flex !important;
-          }
-          .desktop-only {
-            display: inline-flex !important;
-          }
-          .mobile-toggle {
-            display: none !important;
-          }
-        }
-        @media (max-width: 1199px) {
-          .desktop-nav {
-            display: none !important;
-          }
-          .desktop-only {
-            display: none !important;
-          }
-          .mobile-toggle {
-            display: flex !important;
-          }
-        }
-      `}</style>
 
       {/* Download Modal */}
       <DownloadModal isOpen={downloadModalOpen} onClose={() => setDownloadModalOpen(false)} />

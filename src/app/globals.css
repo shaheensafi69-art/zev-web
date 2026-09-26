@@ -410,3 +410,152 @@ a {
     grid-template-columns: 1fr !important;
   }
 }
+
+/* ==========================================================================
+   RESPONSIVE NAVBAR STYLES
+   ========================================================================== */
+.navbar-floating-header {
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: 97%;
+  max-width: 2150px;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.navbar-floating-bar {
+  position: relative;
+  width: 100%;
+  height: 74px;
+  padding: 0 24px;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1.5px solid rgba(252, 70, 107, 0.35);
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08), 0 0 25px rgba(252, 70, 107, 0.12);
+  pointer-events: auto;
+  box-sizing: border-box;
+}
+
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.desktop-only {
+  display: inline-flex !important;
+}
+
+.mobile-toggle {
+  display: none !important;
+}
+
+/* Tablet & Mobile Navigation Breakpoint (Below 1200px) */
+@media (max-width: 1199px) {
+  .desktop-nav {
+    display: none !important;
+  }
+  .desktop-only {
+    display: none !important;
+  }
+  .mobile-toggle {
+    display: flex !important;
+  }
+}
+
+/* Mobile Breakpoint (Below 768px) */
+@media (max-width: 768px) {
+  .navbar-floating-header {
+    top: 10px;
+    width: 95%;
+  }
+
+  .navbar-floating-bar {
+    height: 62px;
+    padding: 0 14px;
+    border-radius: 30px;
+  }
+
+  .navbar-logo-icon {
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 10px !important;
+  }
+
+  .navbar-logo-title {
+    font-size: 18px !important;
+  }
+
+  .navbar-lang-btn {
+    padding: 6px 10px !important;
+  }
+
+  .navbar-lang-btn .lang-text {
+    display: none !important;
+  }
+
+  .navbar-lang-btn .lang-chevron {
+    display: none !important;
+  }
+
+  .navbar-download-btn .desktop-text {
+    display: none !important;
+  }
+
+  .navbar-download-btn {
+    padding: 8px 10px !important;
+    border-radius: 50% !important;
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+  }
+}
+
+/* Small Phone Screens (Below 480px) */
+@media (max-width: 480px) {
+  .navbar-floating-header {
+    top: 8px;
+    width: calc(100% - 16px);
+  }
+
+  .navbar-floating-bar {
+    height: 58px;
+    padding: 0 10px;
+    border-radius: 26px;
+  }
+
+  .navbar-logo-sub {
+    display: none !important;
+  }
+
+  .navbar-download-btn {
+    display: none !important;
+  }
+
+  .navbar-lang-btn {
+    padding: 4px !important;
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .mobile-toggle {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    border-radius: 10px !important;
+  }
+}
+
