@@ -52,6 +52,45 @@ export const id: Dictionary = {
     tag: 'KEPEMIMPINAN & VISI',
     title: 'Pendiri dan Tim Pimpinan ZEV',
     subtitle: 'Para pemikir visioner yang membangun jembatan digital untuk memberdayakan komunitas teknologi Afghanistan dan global.',
+    roles: {
+          "directorFounder": "Direktur & Pendiri",
+          "ceoEurope": "CEO & Hubungan Eropa",
+          "coFounder": "Rekan Pendiri",
+          "ecosystemManager": "Manajer Umum Ekosistem",
+          "leadDeveloper": "Ketua Tim Pengembang"
+    },
+    members: {
+          "shaheen": {
+                "name": "Shaheen Safi",
+                "role": "Direktur & Pendiri (Director & Founder)",
+                "badge": "Direktur & Pendiri",
+                "bio": "Pendiri dan Direktur Ekosistem Safi dan platform ZEV, arsitek cloud dan sistem Flutter lintas platform."
+          },
+          "sahel": {
+                "name": "Sahel Salem",
+                "role": "Chief Executive Officer (CEO) & Hubungan Eropa",
+                "badge": "CEO & Hubungan Eropa",
+                "bio": "CEO yang memimpin tata kelola korporat, kemitraan strategis internasional, dan hubungan lintas negara di seluruh Eropa."
+          },
+          "mujtaba": {
+                "name": "Mujtaba Rahmani",
+                "role": "Rekan Pendiri (Co-Founder)",
+                "badge": "Rekan Pendiri",
+                "bio": "Rekan Pendiri ZEV, mengarahkan infrastruktur platform, ketahanan operasional, dan keamanan siber."
+          },
+          "shirin": {
+                "name": "Shirin Gol Ahmadi",
+                "role": "Manajer Umum Ekosistem (Ecosystem Manager)",
+                "badge": "Manajer Ekosistem",
+                "bio": "Memimpin sinergi seluruh ekosistem platform Safi, menyelaraskan inovasi teknologi, edukasi, dan ZEV."
+          },
+          "mobin": {
+                "name": "Mobin Hassani",
+                "role": "Ketua Tim Pengembang (Lead Developer)",
+                "badge": "Lead Developer",
+                "bio": "Kepala rekayasa perangkat lunak, memimpin pengembang Flutter dan optimalisasi arsitektur performa tinggi."
+          }
+    },
   },
   features: {
     tag: 'JELAJAHI KEMAMPUAN',

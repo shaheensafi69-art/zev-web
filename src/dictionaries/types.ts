@@ -50,6 +50,20 @@ export interface Dictionary {
     tag: string;
     title: string;
     subtitle: string;
+    roles?: {
+      directorFounder: string;
+      ceoEurope: string;
+      coFounder: string;
+      ecosystemManager: string;
+      leadDeveloper: string;
+    };
+    members?: {
+      shaheen: { name: string; role: string; badge: string; bio: string };
+      sahel: { name: string; role: string; badge: string; bio: string };
+      mujtaba: { name: string; role: string; badge: string; bio: string };
+      shirin: { name: string; role: string; badge: string; bio: string };
+      mobin: { name: string; role: string; badge: string; bio: string };
+    };
   };
   features: {
     tag: string;

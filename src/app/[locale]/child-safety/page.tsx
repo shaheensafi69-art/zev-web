@@ -97,7 +97,7 @@ export default function LocalizedChildSafetyPage({
   ];
 
   return (
-    <div style={{ padding: '40px 0 100px', minHeight: '85vh', backgroundColor: '#FFFFFF' }}>
+    <div style={{ padding: '40px 0 100px', minHeight: '85vh', backgroundColor: '#07090E' }}>
       <div className="container">
         {/* Top Breadcrumb */}
         <Link
@@ -108,7 +108,7 @@ export default function LocalizedChildSafetyPage({
             gap: 8,
             fontSize: 14,
             fontWeight: 700,
-            color: '#475569',
+            color: '#94A3B8',
             marginBottom: 28,
             transition: 'color 0.2s',
           }}
@@ -125,8 +125,8 @@ export default function LocalizedChildSafetyPage({
           style={{
             padding: '36px clamp(20px, 3vw, 48px)',
             borderRadius: 32,
-            background: '#FFF1F4',
-            border: '1.5px solid rgba(252, 70, 107, 0.4)',
+            background: 'rgba(13, 18, 30, 0.75)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
             boxShadow: '0 12px 35px rgba(252, 70, 107, 0.1)',
             marginBottom: 36,
           }}
@@ -139,8 +139,8 @@ export default function LocalizedChildSafetyPage({
                 gap: 8,
                 padding: '6px 16px',
                 borderRadius: 999,
-                background: '#FFFFFF',
-                border: '1.5px solid rgba(252, 70, 107, 0.4)',
+                background: 'rgba(13, 18, 30, 0.75)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
                 fontSize: 13,
                 fontWeight: 800,
                 color: '#FC466B',
@@ -153,11 +153,11 @@ export default function LocalizedChildSafetyPage({
               style={{
                 padding: '6px 14px',
                 borderRadius: 999,
-                background: '#FFFFFF',
+                background: 'rgba(13, 18, 30, 0.75)',
                 border: '1px solid rgba(252, 70, 107, 0.25)',
                 fontSize: 12,
                 fontWeight: 700,
-                color: '#475569',
+                color: '#94A3B8',
               }}
             >
               zevapp.com/child-safety
@@ -169,7 +169,7 @@ export default function LocalizedChildSafetyPage({
               fontSize: 'clamp(28px, 3.5vw, 44px)',
               fontWeight: 900,
               lineHeight: 1.2,
-              color: '#000000',
+              color: '#FFFFFF',
               marginBottom: 16,
               letterSpacing: '-0.5px',
             }}
@@ -180,7 +180,7 @@ export default function LocalizedChildSafetyPage({
           <p
             style={{
               fontSize: 'clamp(15px, 1.2vw, 17px)',
-              color: '#334155',
+              color: '#94A3B8',
               maxWidth: 1200,
               lineHeight: 1.8,
               margin: 0,
@@ -198,8 +198,8 @@ export default function LocalizedChildSafetyPage({
           style={{
             padding: '20px 28px',
             borderRadius: 22,
-            background: '#FFF7F9',
-            border: '1.5px solid rgba(252, 70, 107, 0.4)',
+            background: 'rgba(13, 18, 30, 0.75)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
             marginBottom: 40,
             display: 'flex',
             alignItems: 'center',
@@ -227,10 +227,10 @@ export default function LocalizedChildSafetyPage({
               <AlertOctagon size={24} />
             </div>
             <div>
-              <div style={{ fontSize: 16, fontWeight: 900, color: '#000000' }}>
+              <div style={{ fontSize: 16, fontWeight: 900, color: '#FFFFFF' }}>
                 {isFa ? 'رسیدگی اضطراری کمتر از ۱ ساعت' : 'Urgent Safety Escalation Protocol'}
               </div>
-              <div style={{ fontSize: 13.5, color: '#334155', marginTop: 2 }}>
+              <div style={{ fontSize: 13.5, color: '#94A3B8', marginTop: 2 }}>
                 {isFa
                   ? 'گزارش‌های سوءاستفاده از کودکان فوراً به صورت خودکار به تیم امنیتی ارجاع و منجر به مسدودسازی حساب، ضبط IP و ارسال به NCMEC می‌گردد.'
                   : 'Incidents flagged for minor endangerment trigger automated account freeze, IP logging, and instantaneous notification of NCMEC & law enforcement.'}
@@ -268,13 +268,13 @@ export default function LocalizedChildSafetyPage({
                 style={{
                   fontSize: 24,
                   fontWeight: 900,
-                  color: '#000000',
+                  color: '#FFFFFF',
                   marginBottom: 8,
                 }}
               >
                 {isFa ? 'اصول شش‌گانه تضمین سلامت و امنیت کودکان در زو' : 'ZEV Six-Pillar Safety Architecture'}
               </h2>
-              <p style={{ fontSize: 15, color: '#475569' }}>
+              <p style={{ fontSize: 15, color: '#94A3B8' }}>
                 {isFa
                   ? 'تمامی این تدابیر به صورت سخت‌گیرانه و غیرقابل دور زدن در نسخه وب، اندروید، iOS و دسکتاپ فعال هستند.'
                   : 'All security layers are architected directly into the Flutter runtime and Supabase cloud infrastructure.'}
@@ -299,8 +299,8 @@ export default function LocalizedChildSafetyPage({
                     style={{
                       padding: 24,
                       borderRadius: 24,
-                      background: '#FFF7F9',
-                      border: '1.5px solid rgba(252, 70, 107, 0.35)',
+                      background: 'rgba(13, 18, 30, 0.75)',
+                      border: '1px solid rgba(255, 255, 255, 0.08)',
                       display: 'flex',
                       flexDirection: 'column',
                       justifyContent: 'space-between',
@@ -337,8 +337,8 @@ export default function LocalizedChildSafetyPage({
                             fontWeight: 800,
                             padding: '4px 10px',
                             borderRadius: 999,
-                            background: '#FFFFFF',
-                            border: '1px solid rgba(252, 70, 107, 0.3)',
+                            background: 'rgba(13, 18, 30, 0.75)',
+                            border: '1px solid rgba(255, 255, 255, 0.08)',
                             color: '#FC466B',
                           }}
                         >
@@ -350,7 +350,7 @@ export default function LocalizedChildSafetyPage({
                         style={{
                           fontSize: 17,
                           fontWeight: 900,
-                          color: '#000000',
+                          color: '#FFFFFF',
                           marginBottom: 8,
                           lineHeight: 1.35,
                         }}
@@ -361,7 +361,7 @@ export default function LocalizedChildSafetyPage({
                       <p
                         style={{
                           fontSize: 14,
-                          color: '#334155',
+                          color: '#94A3B8',
                           lineHeight: 1.7,
                           margin: 0,
                         }}
@@ -380,16 +380,16 @@ export default function LocalizedChildSafetyPage({
               style={{
                 padding: '32px 32px',
                 borderRadius: 28,
-                background: '#FFF1F4',
-                border: '1.5px solid rgba(252, 70, 107, 0.4)',
+                background: 'rgba(13, 18, 30, 0.75)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
                 marginBottom: 30,
                 boxShadow: '0 10px 30px rgba(252, 70, 107, 0.1)',
               }}
             >
-              <h3 style={{ fontSize: 20, fontWeight: 900, color: '#000000', marginBottom: 14 }}>
+              <h3 style={{ fontSize: 20, fontWeight: 900, color: '#FFFFFF', marginBottom: 14 }}>
                 {isFa ? 'تعهد قانونی و همکاری با سازمان‌های بین‌المللی' : 'Statutory Obligations & International Cooperation'}
               </h3>
-              <p style={{ fontSize: 14.5, color: '#1E293B', lineHeight: 1.8, marginBottom: 20 }}>
+              <p style={{ fontSize: 14.5, color: '#CBD5E1', lineHeight: 1.8, marginBottom: 20 }}>
                 {isFa
                   ? 'بر اساس قوانین بین‌المللی و تعهدات ما نسبت به استانداردهای فروشگاه‌های Google Play و Apple App Store، هرگونه تخلف مرتبط با کودکان بلافاصله با تمام اطلاعات هویتی و ردپای فنی شامل آدرس‌های آی‌پی و مشخصات دستگاه‌ها ثبت شده و در اختیار مراجع قانونی صلاحیت‌دار قرار خواهد گرفت.'
                   : 'In compliance with international child welfare conventions and major application platform requirements, ZEV maintains non-negotiable logging protocols for illicit activities, expediting lawful submittal of forensic records to domestic and international child defense bodies.'}
@@ -402,31 +402,31 @@ export default function LocalizedChildSafetyPage({
                   gap: 14,
                   padding: 18,
                   borderRadius: 18,
-                  background: '#FFFFFF',
-                  border: '1.5px solid rgba(252, 70, 107, 0.3)',
+                  background: 'rgba(13, 18, 30, 0.75)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <CheckCircle2 size={18} color="#FC466B" />
-                  <span style={{ fontSize: 13.5, color: '#000000', fontWeight: 700 }}>
+                  <span style={{ fontSize: 13.5, color: '#FFFFFF', fontWeight: 700 }}>
                     {isFa ? 'انطباق کامل با دستورالعمل NCMEC' : 'NCMEC Reporting Framework'}
                   </span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <CheckCircle2 size={18} color="#FC466B" />
-                  <span style={{ fontSize: 13.5, color: '#000000', fontWeight: 700 }}>
+                  <span style={{ fontSize: 13.5, color: '#FFFFFF', fontWeight: 700 }}>
                     {isFa ? 'مطابق با استاندارد COPPA' : 'COPPA Compliant Age Protection'}
                   </span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <CheckCircle2 size={18} color="#FC466B" />
-                  <span style={{ fontSize: 13.5, color: '#000000', fontWeight: 700 }}>
+                  <span style={{ fontSize: 13.5, color: '#FFFFFF', fontWeight: 700 }}>
                     {isFa ? 'پایش هوشمند فیلتر محتوا' : 'Automated Content Safety Guardrails'}
                   </span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <CheckCircle2 size={18} color="#FC466B" />
-                  <span style={{ fontSize: 13.5, color: '#000000', fontWeight: 700 }}>
+                  <span style={{ fontSize: 13.5, color: '#FFFFFF', fontWeight: 700 }}>
                     {isFa ? 'مسدودسازی سخت‌افزاری دستگاه' : 'Hardware & IMEI Device Banning'}
                   </span>
                 </div>
@@ -451,8 +451,8 @@ export default function LocalizedChildSafetyPage({
               style={{
                 padding: 30,
                 borderRadius: 28,
-                background: '#FFFFFF',
-                border: '1.5px solid rgba(252, 70, 107, 0.4)',
+                background: 'rgba(13, 18, 30, 0.75)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
                 boxShadow: '0 12px 35px rgba(252, 70, 107, 0.15)',
               }}
             >
@@ -465,8 +465,8 @@ export default function LocalizedChildSafetyPage({
                     fontSize: 12,
                     fontWeight: 800,
                     color: '#FC466B',
-                    background: '#FFF1F4',
-                    border: '1px solid rgba(252, 70, 107, 0.3)',
+                    background: 'rgba(13, 18, 30, 0.75)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
                     padding: '4px 12px',
                     borderRadius: 999,
                     marginBottom: 8,
@@ -475,10 +475,10 @@ export default function LocalizedChildSafetyPage({
                   <ShieldAlert size={14} />
                   <span>{isFa ? 'فرم گزارش اورژانسی' : 'Emergency Report Desk'}</span>
                 </div>
-                <h3 style={{ fontSize: 20, fontWeight: 900, color: '#000000', marginBottom: 6 }}>
+                <h3 style={{ fontSize: 20, fontWeight: 900, color: '#FFFFFF', marginBottom: 6 }}>
                   {isFa ? 'گزارش تخلف یا سوءاستفاده' : 'Submit Safety Report'}
                 </h3>
-                <p style={{ fontSize: 13.5, color: '#475569', margin: 0, lineHeight: 1.6 }}>
+                <p style={{ fontSize: 13.5, color: '#94A3B8', margin: 0, lineHeight: 1.6 }}>
                   {isFa
                     ? 'مشاهده هرگونه محتوا یا پروفایل مشکوک مرتبط با خردسالان را فوراً با لینک یا نام کاربری گزارش دهید.'
                     : 'Report suspicious behavior, predatory contact, or underage exploitation. All submittals are handled anonymously and promptly.'}
@@ -490,7 +490,7 @@ export default function LocalizedChildSafetyPage({
                   style={{
                     padding: 24,
                     borderRadius: 20,
-                    background: '#FFF1F4',
+                    background: 'rgba(13, 18, 30, 0.75)',
                     border: '1.5px solid #FC466B',
                     textAlign: 'center',
                   }}
@@ -510,10 +510,10 @@ export default function LocalizedChildSafetyPage({
                   >
                     <Check size={26} />
                   </div>
-                  <h4 style={{ fontSize: 17, fontWeight: 900, color: '#000000', marginBottom: 6 }}>
+                  <h4 style={{ fontSize: 17, fontWeight: 900, color: '#FFFFFF', marginBottom: 6 }}>
                     {isFa ? 'گزارش شما با موفقیت دریافت شد' : 'Report Received Successfully'}
                   </h4>
-                  <p style={{ fontSize: 13.5, color: '#334155', lineHeight: 1.6, margin: 0 }}>
+                  <p style={{ fontSize: 13.5, color: '#94A3B8', lineHeight: 1.6, margin: 0 }}>
                     {isFa
                       ? 'تیم حراست و کارشناسان امنیتی زو فوراً اطلاعات ارائه شده را ارزیابی و اقدامات لازم را اعمال خواهند کرد.'
                       : 'Our dedicated child safety unit is reviewing the evidence. High-priority interventions are being enacted.'}
@@ -522,7 +522,7 @@ export default function LocalizedChildSafetyPage({
               ) : (
                 <form onSubmit={handleReportSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: 13, fontWeight: 800, color: '#000000', marginBottom: 6 }}>
+                    <label style={{ display: 'block', fontSize: 13, fontWeight: 800, color: '#FFFFFF', marginBottom: 6 }}>
                       {isFa ? 'لینک پست / استوری یا پروفایل متخلف' : 'Profile URL or Post Link'} *
                     </label>
                     <input
@@ -537,7 +537,7 @@ export default function LocalizedChildSafetyPage({
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: 13, fontWeight: 800, color: '#000000', marginBottom: 6 }}>
+                    <label style={{ display: 'block', fontSize: 13, fontWeight: 800, color: '#FFFFFF', marginBottom: 6 }}>
                       {isFa ? 'نام کاربری حساب مشکوک (اختیاری)' : 'Suspect Username (Optional)'}
                     </label>
                     <input
@@ -551,7 +551,7 @@ export default function LocalizedChildSafetyPage({
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: 13, fontWeight: 800, color: '#000000', marginBottom: 6 }}>
+                    <label style={{ display: 'block', fontSize: 13, fontWeight: 800, color: '#FFFFFF', marginBottom: 6 }}>
                       {isFa ? 'توضیحات و نوع تخلف' : 'Incident Details'} *
                     </label>
                     <textarea
@@ -566,7 +566,7 @@ export default function LocalizedChildSafetyPage({
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: 13, fontWeight: 800, color: '#000000', marginBottom: 6 }}>
+                    <label style={{ display: 'block', fontSize: 13, fontWeight: 800, color: '#FFFFFF', marginBottom: 6 }}>
                       {isFa ? 'ایمیل شما (جهت پیگیری وضعیت گزارش)' : 'Your Email (For Follow-up)'} *
                     </label>
                     <input
@@ -603,11 +603,11 @@ export default function LocalizedChildSafetyPage({
               style={{
                 padding: 22,
                 borderRadius: 24,
-                background: '#FFF7F9',
-                border: '1.5px solid rgba(252, 70, 107, 0.35)',
+                background: 'rgba(13, 18, 30, 0.75)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
               }}
             >
-              <h4 style={{ fontSize: 15, fontWeight: 900, color: '#000000', marginBottom: 12 }}>
+              <h4 style={{ fontSize: 15, fontWeight: 900, color: '#FFFFFF', marginBottom: 12 }}>
                 {isFa ? 'کانال‌های مستقیم تماس امنیتی' : 'Direct Child Safety Desk'}
               </h4>
 
@@ -620,16 +620,16 @@ export default function LocalizedChildSafetyPage({
                     gap: 12,
                     padding: '12px 14px',
                     borderRadius: 14,
-                    background: '#FFFFFF',
-                    border: '1px solid rgba(252, 70, 107, 0.3)',
+                    background: 'rgba(13, 18, 30, 0.75)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
                     textDecoration: 'none',
-                    color: '#000000',
+                    color: '#FFFFFF',
                     fontSize: 13.5,
                   }}
                 >
                   <Mail size={18} color="#FC466B" />
                   <div>
-                    <div style={{ fontWeight: 800, color: '#000000' }}>safety@zevapp.com</div>
+                    <div style={{ fontWeight: 800, color: '#FFFFFF' }}>safety@zevapp.com</div>
                     <div style={{ fontSize: 11.5, color: '#64748B' }}>{isFa ? 'ایمیل مستقیم تیم امنیت' : 'Direct Escalation Email'}</div>
                   </div>
                 </a>
@@ -642,16 +642,16 @@ export default function LocalizedChildSafetyPage({
                     gap: 12,
                     padding: '12px 14px',
                     borderRadius: 14,
-                    background: '#FFFFFF',
-                    border: '1px solid rgba(252, 70, 107, 0.3)',
+                    background: 'rgba(13, 18, 30, 0.75)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
                     textDecoration: 'none',
-                    color: '#000000',
+                    color: '#FFFFFF',
                     fontSize: 13.5,
                   }}
                 >
                   <FileCheck size={18} color="#FC466B" />
                   <div>
-                    <div style={{ fontWeight: 800, color: '#000000' }}>legal@zevapp.com</div>
+                    <div style={{ fontWeight: 800, color: '#FFFFFF' }}>legal@zevapp.com</div>
                     <div style={{ fontSize: 11.5, color: '#64748B' }}>{isFa ? 'واحد حقوقی و انطباق قوانین' : 'Compliance & Legal Counsel'}</div>
                   </div>
                 </a>

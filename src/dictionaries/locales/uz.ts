@@ -52,6 +52,45 @@ export const uz: Dictionary = {
     tag: 'RAHBARIYAT VA QARASHLAR',
     title: 'ZEV asoschilari va yetakchi jamoasi',
     subtitle: 'Afg‘oniston va global texnologiya hamjamiyatini kuchaytirish uchun raqamli ko‘priklar qurayotgan iqtidorli muhandislar.',
+    roles: {
+          "directorFounder": "Direktor va Asoschi",
+          "ceoEurope": "CEO va Yevropa aloqalari",
+          "coFounder": "Hammuassis",
+          "ecosystemManager": "Butun Ekotizim Bosh Menejeri",
+          "leadDeveloper": "Bosh Dasturchi"
+    },
+    members: {
+          "shaheen": {
+                "name": "Shahin Sofiy",
+                "role": "Direktor va Asoschi (Director & Founder)",
+                "badge": "Direktor va Asoschi",
+                "bio": "Safi Xalqaro Ekotizimi va ZEV platformasi asoschisi va direktori, bulutli arxitektura va sun’iy intellekt bo‘yicha yetakchi me’mor."
+          },
+          "sahel": {
+                "name": "Sohil Salim",
+                "role": "Bosh ijrochi direktor (CEO) va Yevropa aloqalari",
+                "badge": "CEO va Yevropa aloqalari",
+                "bio": "Platforma bosh ijrochi direktori (CEO), Yevropa va global bozorlarda strategik hamkorlik va korporativ aloqalar rahbari."
+          },
+          "mujtaba": {
+                "name": "Mujtabo Rahmoniy",
+                "role": "Hammuassis (Co-Founder)",
+                "badge": "Hammuassis",
+                "bio": "ZEV hammuassisi, platforma infratuzilmasi, global operatsiyalar va ma’lumotlar xavfsizligi rahbari."
+          },
+          "shirin": {
+                "name": "Shirin Gul Ahmadiy",
+                "role": "Butun Ekotizim Bosh Menejeri",
+                "badge": "Ekotizim Menejeri",
+                "bio": "Safi ekotizimidagi barcha mahsulot va platformalarni yaxlit boshqarish, texnologiya va ZEV integratsiyasi yetakchisi."
+          },
+          "mobin": {
+                "name": "Mobin Hassaniy",
+                "role": "Dasturchilar Bo‘limi Yetakchisi (Lead Developer)",
+                "badge": "Bosh Dasturchi",
+                "bio": "Dasturiy ta’minot muhandisligi jamoasi rahbari, Flutter dasturchilarni yo‘naltirish va tizim tezligini optimallashtirish yetakchisi."
+          }
+    },
   },
   features: {
     tag: 'IMKONIYATLARNI KASHF ETING',

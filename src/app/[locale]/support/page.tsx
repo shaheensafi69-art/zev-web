@@ -81,7 +81,7 @@ export default function LocalizedSupportPage({
   ];
 
   return (
-    <div style={{ padding: '40px 0 100px', minHeight: '85vh', backgroundColor: '#FFFFFF' }}>
+    <div style={{ padding: '40px 0 100px', minHeight: '85vh', backgroundColor: '#07090E' }}>
       <div className="container">
         {/* Back Link */}
         <Link
@@ -92,7 +92,7 @@ export default function LocalizedSupportPage({
             gap: 8,
             fontSize: 14,
             fontWeight: 700,
-            color: '#475569',
+            color: '#94A3B8',
             marginBottom: 28,
             transition: 'color 0.2s',
           }}
@@ -109,8 +109,8 @@ export default function LocalizedSupportPage({
           style={{
             padding: '36px clamp(20px, 3vw, 48px)',
             borderRadius: 32,
-            background: '#FFF1F4',
-            border: '1.5px solid rgba(252, 70, 107, 0.4)',
+            background: 'rgba(13, 18, 30, 0.75)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
             boxShadow: '0 12px 35px rgba(252, 70, 107, 0.1)',
             marginBottom: 36,
           }}
@@ -123,8 +123,8 @@ export default function LocalizedSupportPage({
                 gap: 8,
                 padding: '6px 16px',
                 borderRadius: 999,
-                background: '#FFFFFF',
-                border: '1.5px solid rgba(252, 70, 107, 0.4)',
+                background: 'rgba(13, 18, 30, 0.75)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
                 fontSize: 13,
                 fontWeight: 800,
                 color: '#FC466B',
@@ -137,11 +137,11 @@ export default function LocalizedSupportPage({
               style={{
                 padding: '6px 14px',
                 borderRadius: 999,
-                background: '#FFFFFF',
+                background: 'rgba(13, 18, 30, 0.75)',
                 border: '1px solid rgba(252, 70, 107, 0.25)',
                 fontSize: 12,
                 fontWeight: 700,
-                color: '#475569',
+                color: '#94A3B8',
               }}
             >
               zevapp.com/support
@@ -153,7 +153,7 @@ export default function LocalizedSupportPage({
               fontSize: 'clamp(28px, 3.5vw, 44px)',
               fontWeight: 900,
               lineHeight: 1.2,
-              color: '#000000',
+              color: '#FFFFFF',
               marginBottom: 16,
               letterSpacing: '-0.5px',
             }}
@@ -164,7 +164,7 @@ export default function LocalizedSupportPage({
           <p
             style={{
               fontSize: 'clamp(15px, 1.2vw, 17px)',
-              color: '#334155',
+              color: '#94A3B8',
               maxWidth: 1200,
               lineHeight: 1.8,
               margin: 0,
@@ -185,7 +185,7 @@ export default function LocalizedSupportPage({
             marginBottom: 36,
           }}
         >
-          <div className="pink-box" style={{ padding: 24, borderRadius: 24, background: '#FFF7F9', border: '1.5px solid rgba(252, 70, 107, 0.35)' }}>
+          <div className="pink-box" style={{ padding: 24, borderRadius: 24, background: 'rgba(13, 18, 30, 0.75)', border: '1px solid rgba(255, 255, 255, 0.08)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 12 }}>
               <div
                 style={{
@@ -203,7 +203,7 @@ export default function LocalizedSupportPage({
                 <Mail size={22} />
               </div>
               <div>
-                <h3 style={{ fontSize: 17, fontWeight: 900, color: '#000000', margin: 0 }}>
+                <h3 style={{ fontSize: 17, fontWeight: 900, color: '#FFFFFF', margin: 0 }}>
                   {isFa ? 'پشتیبانی فنی عمومی' : 'General Tech Support'}
                 </h3>
                 <span style={{ fontSize: 12, color: '#64748B', fontWeight: 600 }}>{isFa ? 'پاسخ کمتر از ۲۴ ساعت' : 'Sub-24h turnaround'}</span>
@@ -214,7 +214,7 @@ export default function LocalizedSupportPage({
             </a>
           </div>
 
-          <div className="pink-box" style={{ padding: 24, borderRadius: 24, background: '#FFF7F9', border: '1.5px solid rgba(252, 70, 107, 0.35)' }}>
+          <div className="pink-box" style={{ padding: 24, borderRadius: 24, background: 'rgba(13, 18, 30, 0.75)', border: '1px solid rgba(255, 255, 255, 0.08)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 12 }}>
               <div
                 style={{
@@ -232,7 +232,7 @@ export default function LocalizedSupportPage({
                 <ShieldCheck size={22} />
               </div>
               <div>
-                <h3 style={{ fontSize: 17, fontWeight: 900, color: '#000000', margin: 0 }}>
+                <h3 style={{ fontSize: 17, fontWeight: 900, color: '#FFFFFF', margin: 0 }}>
                   {isFa ? 'حفاظت و امنیت اضطراری' : 'Emergency Safety Desk'}
                 </h3>
                 <span style={{ fontSize: 12, color: '#64748B', fontWeight: 600 }}>{isFa ? 'رسیدگی فوری کمتر از ۱ ساعت' : 'Urgent sub-60m triage'}</span>
@@ -243,7 +243,7 @@ export default function LocalizedSupportPage({
             </a>
           </div>
 
-          <div className="pink-box" style={{ padding: 24, borderRadius: 24, background: '#FFF7F9', border: '1.5px solid rgba(252, 70, 107, 0.35)' }}>
+          <div className="pink-box" style={{ padding: 24, borderRadius: 24, background: 'rgba(13, 18, 30, 0.75)', border: '1px solid rgba(255, 255, 255, 0.08)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 12 }}>
               <div
                 style={{
@@ -261,7 +261,7 @@ export default function LocalizedSupportPage({
                 <Database size={22} />
               </div>
               <div>
-                <h3 style={{ fontSize: 17, fontWeight: 900, color: '#000000', margin: 0 }}>
+                <h3 style={{ fontSize: 17, fontWeight: 900, color: '#FFFFFF', margin: 0 }}>
                   {isFa ? 'اکوسیستم صفی و اکادمی' : 'Safi Ecosystem Help'}
                 </h3>
                 <span style={{ fontSize: 12, color: '#64748B', fontWeight: 600 }}>{isFa ? 'هماهنگی اکانت و دوره‌ها' : 'Student & Instructor sync'}</span>
@@ -289,15 +289,15 @@ export default function LocalizedSupportPage({
             style={{
               padding: '36px clamp(20px, 3vw, 40px)',
               borderRadius: 28,
-              border: '1.5px solid rgba(252, 70, 107, 0.4)',
-              background: '#FFFFFF',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              background: 'rgba(13, 18, 30, 0.75)',
               boxShadow: '0 10px 30px rgba(252, 70, 107, 0.1)',
             }}
           >
-            <h2 style={{ fontSize: 22, fontWeight: 900, color: '#000000', marginBottom: 8 }}>
+            <h2 style={{ fontSize: 22, fontWeight: 900, color: '#FFFFFF', marginBottom: 8 }}>
               {isFa ? 'ثبت درخواست یا گزارش مشکل فنی' : 'Open an Engineering Support Ticket'}
             </h2>
-            <p style={{ fontSize: 14.5, color: '#475569', marginBottom: 24 }}>
+            <p style={{ fontSize: 14.5, color: '#94A3B8', marginBottom: 24 }}>
               {isFa
                 ? 'فرم زیر را تکمیل کنید تا کارشناسان ما مستقیماً به ایمیل شما پاسخ دهند.'
                 : 'Fill out the form below and our engineers will investigate your inquiry.'}
@@ -308,7 +308,7 @@ export default function LocalizedSupportPage({
                 style={{
                   padding: 32,
                   borderRadius: 20,
-                  background: '#FFF1F4',
+                  background: 'rgba(13, 18, 30, 0.75)',
                   border: '1.5px solid #FC466B',
                   textAlign: 'center',
                 }}
@@ -328,10 +328,10 @@ export default function LocalizedSupportPage({
                 >
                   <Check size={28} />
                 </div>
-                <h3 style={{ fontSize: 20, fontWeight: 900, color: '#000000', marginBottom: 8 }}>
+                <h3 style={{ fontSize: 20, fontWeight: 900, color: '#FFFFFF', marginBottom: 8 }}>
                   {isFa ? 'تیکت شما با موفقیت ثبت شد' : 'Ticket Submitted Successfully'}
                 </h3>
-                <p style={{ fontSize: 14.5, color: '#334155', lineHeight: 1.7, margin: 0 }}>
+                <p style={{ fontSize: 14.5, color: '#94A3B8', lineHeight: 1.7, margin: 0 }}>
                   {isFa
                     ? 'کد پیگیری برای ایمیل شما ارسال شد. همکاران فنی ما در اسرع وقت پاسخ کامل را ارسال خواهند نمود.'
                     : 'A confirmation reference has been dispatched to your email address. Our engineering team is currently triaging your ticket.'}
@@ -341,7 +341,7 @@ export default function LocalizedSupportPage({
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
                 {/* Category Picker */}
                 <div>
-                  <label style={{ display: 'block', fontSize: 13.5, fontWeight: 800, color: '#000000', marginBottom: 10 }}>
+                  <label style={{ display: 'block', fontSize: 13.5, fontWeight: 800, color: '#FFFFFF', marginBottom: 10 }}>
                     {isFa ? 'موضوع اصلی درخواست' : 'Inquiry Category'} *
                   </label>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
@@ -379,7 +379,7 @@ export default function LocalizedSupportPage({
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16 }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: 13, fontWeight: 800, color: '#000000', marginBottom: 6 }}>
+                    <label style={{ display: 'block', fontSize: 13, fontWeight: 800, color: '#FFFFFF', marginBottom: 6 }}>
                       {isFa ? 'نام و تخلص شما' : 'Your Name'} *
                     </label>
                     <input
@@ -393,7 +393,7 @@ export default function LocalizedSupportPage({
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: 13, fontWeight: 800, color: '#000000', marginBottom: 6 }}>
+                    <label style={{ display: 'block', fontSize: 13, fontWeight: 800, color: '#FFFFFF', marginBottom: 6 }}>
                       {isFa ? 'ایمیل شما (جهت دریافت پاسخ)' : 'Your Email Address'} *
                     </label>
                     <input
@@ -408,7 +408,7 @@ export default function LocalizedSupportPage({
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: 13, fontWeight: 800, color: '#000000', marginBottom: 6 }}>
+                  <label style={{ display: 'block', fontSize: 13, fontWeight: 800, color: '#FFFFFF', marginBottom: 6 }}>
                     {isFa ? 'عنوان تیکت' : 'Subject'} *
                   </label>
                   <input
@@ -422,7 +422,7 @@ export default function LocalizedSupportPage({
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: 13, fontWeight: 800, color: '#000000', marginBottom: 6 }}>
+                  <label style={{ display: 'block', fontSize: 13, fontWeight: 800, color: '#FFFFFF', marginBottom: 6 }}>
                     {isFa ? 'شرح کامل پیام یا باگ مشاهده شده' : 'Detailed Message'} *
                   </label>
                   <textarea
@@ -463,13 +463,13 @@ export default function LocalizedSupportPage({
               style={{
                 padding: '30px clamp(20px, 2.5vw, 36px)',
                 borderRadius: 28,
-                background: '#FFF7F9',
-                border: '1.5px solid rgba(252, 70, 107, 0.35)',
+                background: 'rgba(13, 18, 30, 0.75)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 18 }}>
                 <FileQuestion size={20} color="#FC466B" />
-                <h3 style={{ fontSize: 18, fontWeight: 900, color: '#000000', margin: 0 }}>
+                <h3 style={{ fontSize: 18, fontWeight: 900, color: '#FFFFFF', margin: 0 }}>
                   {isFa ? 'پرسش‌های متداول راهنمایی' : 'Frequently Asked Questions'}
                 </h3>
               </div>
@@ -482,8 +482,8 @@ export default function LocalizedSupportPage({
                       key={index}
                       style={{
                         borderRadius: 18,
-                        background: '#FFFFFF',
-                        border: '1.5px solid rgba(252, 70, 107, 0.25)',
+                        background: 'rgba(13, 18, 30, 0.75)',
+                        border: '1px solid rgba(255, 255, 255, 0.08)',
                         overflow: 'hidden',
                         transition: 'all 0.2s',
                       }}
@@ -500,7 +500,7 @@ export default function LocalizedSupportPage({
                           gap: 12,
                           background: 'none',
                           border: 'none',
-                          color: '#000000',
+                          color: '#FFFFFF',
                           fontSize: 14.5,
                           fontWeight: 800,
                           textAlign: isFa ? 'right' : 'left',
@@ -523,7 +523,7 @@ export default function LocalizedSupportPage({
                         <div
                           style={{
                             padding: '0 18px 16px',
-                            color: '#334155',
+                            color: '#94A3B8',
                             fontSize: 13.5,
                             lineHeight: 1.75,
                             borderTop: '1px solid rgba(252, 70, 107, 0.15)',
@@ -545,14 +545,14 @@ export default function LocalizedSupportPage({
               style={{
                 padding: 24,
                 borderRadius: 24,
-                background: '#FFF1F4',
-                border: '1.5px solid rgba(252, 70, 107, 0.4)',
+                background: 'rgba(13, 18, 30, 0.75)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
               }}
             >
-              <h4 style={{ fontSize: 15, fontWeight: 900, color: '#000000', marginBottom: 10 }}>
+              <h4 style={{ fontSize: 15, fontWeight: 900, color: '#FFFFFF', marginBottom: 10 }}>
                 {isFa ? 'شبکه ارتباطات اکوسیستم صفی' : 'Safi Ecosystem Channels'}
               </h4>
-              <p style={{ fontSize: 13.5, color: '#334155', lineHeight: 1.6, marginBottom: 14 }}>
+              <p style={{ fontSize: 13.5, color: '#94A3B8', lineHeight: 1.6, marginBottom: 14 }}>
                 {isFa
                   ? 'اخبار و گزارش وضعیت سرورها در کانال‌های رسمی گروه صفی در دسترس است.'
                   : 'Platform uptime reports and release announcements are mirrored across Safi properties.'}

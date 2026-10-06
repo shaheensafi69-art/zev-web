@@ -52,6 +52,45 @@ export const en: Dictionary = {
     tag: 'LEADERSHIP & VISION',
     title: 'Meet the Founders & Leadership',
     subtitle: 'The visionary minds building digital bridges and empowering the Afghan and international tech community.',
+    roles: {
+          "directorFounder": "Director & Founder",
+          "ceoEurope": "CEO & European Relations",
+          "coFounder": "Co-Founder",
+          "ecosystemManager": "General Ecosystem Manager",
+          "leadDeveloper": "Lead Developer"
+    },
+    members: {
+          "shaheen": {
+                "name": "Shaheen Safi",
+                "role": "Director & Founder",
+                "badge": "Director & Founder",
+                "bio": "Founder & Director of the Safi Ecosystem and ZEV platform, Lead Cloud & Software Architect pioneering universal Flutter systems and AI."
+          },
+          "sahel": {
+                "name": "Sahel Salem",
+                "role": "Chief Executive Officer (CEO) & European Relations",
+                "badge": "CEO & European Relations",
+                "bio": "Chief Executive Officer leading corporate governance, cross-border European relations, and global strategic alliances for ZEV."
+          },
+          "mujtaba": {
+                "name": "Mujtaba Rahmani",
+                "role": "Co-Founder",
+                "badge": "Co-Founder",
+                "bio": "Co-Founder of ZEV, directing platform infrastructure, global operational resilience, and cybersecurity integrity."
+          },
+          "shirin": {
+                "name": "Shirin Gol Ahmadi",
+                "role": "General Ecosystem Manager",
+                "badge": "Ecosystem Manager",
+                "bio": "Directing ecosystem-wide synergy across all Safi platforms, orchestrating tech, educational, and social integrations for ZEV."
+          },
+          "mobin": {
+                "name": "Mobin Hassani",
+                "role": "Lead Developer",
+                "badge": "Lead Developer",
+                "bio": "Head of Software Development, directing client-side and full-stack engineers, optimizing Flutter multiplatform performance and codebases."
+          }
+    },
   },
   features: {
     tag: 'EXPLORE CAPABILITIES',

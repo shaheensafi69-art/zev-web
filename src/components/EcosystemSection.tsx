@@ -83,8 +83,8 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
       logo: '/company/shaheenblog.png',
       badge: 'Founder Thoughts',
       desc: isFa
-        ? 'وبلاگ رسمی مهندس شاهین صفی پیرامون آینده فناوری، برنامه‌نویسی و آزادی دیجیتال.'
-        : 'Articles, vision, and technology deep-dives from Founder & CEO Shaheen Safi.',
+        ? 'وبلاگ رسمی مهندس شاهین صفی (دایرکتور و فاوندر) پیرامون آینده فناوری، برنامه‌نویسی و آزادی دیجیتال.'
+        : 'Articles, vision, and technology deep-dives from Director & Founder Shaheen Safi.',
     },
     {
       name: 'Safi AI Platform',
@@ -98,7 +98,7 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
   ];
 
   return (
-    <section id="ecosystem" style={{ position: 'relative', padding: '90px 0', overflow: 'hidden', backgroundColor: '#FFFFFF' }}>
+    <section id="ecosystem" style={{ position: 'relative', padding: '90px 0', overflow: 'hidden', backgroundColor: '#07090E' }}>
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         {/* Header */}
         <div style={{ textAlign: 'center', maxWidth: 840, margin: '0 auto 50px' }}>
@@ -112,12 +112,12 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
               fontWeight: 900,
               lineHeight: 1.2,
               marginBottom: 16,
-              color: '#000000',
+              color: '#FFFFFF',
             }}
           >
             {dict.ecosystem.title}
           </h2>
-          <p style={{ fontSize: 17, color: '#334155', lineHeight: 1.7 }}>
+          <p style={{ fontSize: 17, color: '#94A3B8', lineHeight: 1.7 }}>
             {dict.ecosystem.subtitle}
           </p>
         </div>
@@ -128,8 +128,8 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
           style={{
             padding: '28px 36px',
             borderRadius: 28,
-            background: '#FFF1F4',
-            border: '1.5px solid rgba(252, 70, 107, 0.4)',
+            background: 'rgba(13, 18, 30, 0.75)',
+            border: '1px solid rgba(255, 255, 255, 0.08)',
             boxShadow: '0 12px 35px rgba(252, 70, 107, 0.15)',
             marginBottom: 50,
             display: 'flex',
@@ -157,7 +157,7 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
           </div>
           <div style={{ flex: 1, minWidth: 280 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
-              <h3 style={{ fontSize: 20, fontWeight: 900, color: '#000000' }}>
+              <h3 style={{ fontSize: 20, fontWeight: 900, color: '#FFFFFF' }}>
                 {dict.ecosystem.databaseNoticeTitle}
               </h3>
               <span
@@ -173,7 +173,7 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
                 Supabase Unified Cloud
               </span>
             </div>
-            <p style={{ fontSize: 14.5, color: '#334155', lineHeight: 1.7, margin: 0 }}>
+            <p style={{ fontSize: 14.5, color: '#94A3B8', lineHeight: 1.7, margin: 0 }}>
               {dict.ecosystem.databaseNoticeDesc}
             </p>
           </div>
@@ -197,8 +197,8 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
                 style={{
                   padding: '36px 32px',
                   borderRadius: 30,
-                  border: '1.5px solid rgba(252, 70, 107, 0.35)',
-                  background: '#FFF7F9',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  background: 'rgba(13, 18, 30, 0.75)',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
@@ -221,8 +221,8 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
                         height: 54,
                         borderRadius: 16,
                         overflow: 'hidden',
-                        background: '#FFFFFF',
-                        border: '1.5px solid rgba(252, 70, 107, 0.3)',
+                        background: 'rgba(13, 18, 30, 0.75)',
+                        border: '1px solid rgba(255, 255, 255, 0.08)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -245,8 +245,8 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
                         color: '#FC466B',
                         padding: '5px 12px',
                         borderRadius: 999,
-                        background: '#FFF1F4',
-                        border: '1.5px solid rgba(252, 70, 107, 0.3)',
+                        background: 'rgba(13, 18, 30, 0.75)',
+                        border: '1px solid rgba(255, 255, 255, 0.08)',
                       }}
                     >
                       {item.badge}
@@ -257,7 +257,7 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
                     style={{
                       fontSize: 22,
                       fontWeight: 900,
-                      color: '#000000',
+                      color: '#FFFFFF',
                       marginBottom: 12,
                     }}
                   >
@@ -267,7 +267,7 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
                   <p
                     style={{
                       fontSize: 14.5,
-                      color: '#334155',
+                      color: '#94A3B8',
                       lineHeight: 1.7,
                       marginBottom: 22,
                     }}
@@ -295,7 +295,7 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
                         >
                           ✓
                         </span>
-                        <span style={{ fontSize: 13.5, color: '#0F172A', fontWeight: 600 }}>{feat}</span>
+                        <span style={{ fontSize: 13.5, color: '#94A3B8', fontWeight: 600 }}>{feat}</span>
                       </div>
                     ))}
                   </div>
@@ -330,7 +330,7 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
             style={{
               fontSize: 20,
               fontWeight: 900,
-              color: '#000000',
+              color: '#FFFFFF',
               marginBottom: 20,
               textAlign: isFa ? 'right' : 'left',
             }}
@@ -355,7 +355,7 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
                 style={{
                   padding: 24,
                   borderRadius: 22,
-                  background: '#FFFFFF',
+                  background: 'rgba(13, 18, 30, 0.75)',
                   border: '1.5px solid rgba(252, 70, 107, 0.25)',
                   display: 'flex',
                   flexDirection: 'column',
@@ -381,7 +381,7 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
                         height: 44,
                         borderRadius: 12,
                         overflow: 'hidden',
-                        background: '#FFF1F4',
+                        background: 'rgba(13, 18, 30, 0.75)',
                         border: '1px solid rgba(252, 70, 107, 0.3)',
                         display: 'flex',
                         alignItems: 'center',
@@ -404,17 +404,17 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
                         color: '#FC466B',
                         padding: '3px 10px',
                         borderRadius: 999,
-                        background: '#FFF1F4',
+                        background: 'rgba(13, 18, 30, 0.75)',
                       }}
                     >
                       {comp.badge}
                     </span>
                   </div>
 
-                  <h4 style={{ fontSize: 16, fontWeight: 800, color: '#000000', marginBottom: 8 }}>
+                  <h4 style={{ fontSize: 16, fontWeight: 800, color: '#FFFFFF', marginBottom: 8 }}>
                     {comp.name}
                   </h4>
-                  <p style={{ fontSize: 13.5, color: '#475569', lineHeight: 1.6, margin: 0 }}>
+                  <p style={{ fontSize: 13.5, color: '#94A3B8', lineHeight: 1.6, margin: 0 }}>
                     {comp.desc}
                   </p>
                 </div>

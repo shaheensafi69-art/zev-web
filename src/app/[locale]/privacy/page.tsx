@@ -80,7 +80,7 @@ export default function LocalizedPrivacyPage({
   ];
 
   return (
-    <div style={{ padding: '40px 0 100px', minHeight: '85vh', backgroundColor: '#FFFFFF' }}>
+    <div style={{ padding: '40px 0 100px', minHeight: '85vh', backgroundColor: '#07090E' }}>
       <div className="container">
         {/* Back Link */}
         <Link
@@ -91,7 +91,7 @@ export default function LocalizedPrivacyPage({
             gap: 8,
             fontSize: 14,
             fontWeight: 700,
-            color: '#475569',
+            color: '#94A3B8',
             marginBottom: 28,
             transition: 'color 0.2s',
           }}
@@ -108,8 +108,8 @@ export default function LocalizedPrivacyPage({
           style={{
             padding: '36px clamp(20px, 3vw, 48px)',
             borderRadius: 32,
-            background: '#FFF1F4',
-            border: '1.5px solid rgba(252, 70, 107, 0.4)',
+            background: 'rgba(13, 18, 30, 0.75)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
             boxShadow: '0 12px 35px rgba(252, 70, 107, 0.1)',
             marginBottom: 36,
           }}
@@ -122,8 +122,8 @@ export default function LocalizedPrivacyPage({
                 gap: 8,
                 padding: '6px 16px',
                 borderRadius: 999,
-                background: '#FFFFFF',
-                border: '1.5px solid rgba(252, 70, 107, 0.4)',
+                background: 'rgba(13, 18, 30, 0.75)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
                 fontSize: 13,
                 fontWeight: 800,
                 color: '#FC466B',
@@ -136,11 +136,11 @@ export default function LocalizedPrivacyPage({
               style={{
                 padding: '6px 14px',
                 borderRadius: 999,
-                background: '#FFFFFF',
+                background: 'rgba(13, 18, 30, 0.75)',
                 border: '1px solid rgba(252, 70, 107, 0.25)',
                 fontSize: 12,
                 fontWeight: 700,
-                color: '#475569',
+                color: '#94A3B8',
               }}
             >
               zevapp.com/privacy
@@ -152,7 +152,7 @@ export default function LocalizedPrivacyPage({
               fontSize: 'clamp(28px, 3.5vw, 44px)',
               fontWeight: 900,
               lineHeight: 1.2,
-              color: '#000000',
+              color: '#FFFFFF',
               marginBottom: 16,
               letterSpacing: '-0.5px',
             }}
@@ -163,7 +163,7 @@ export default function LocalizedPrivacyPage({
           <p
             style={{
               fontSize: 'clamp(15px, 1.2vw, 17px)',
-              color: '#334155',
+              color: '#94A3B8',
               maxWidth: 1200,
               lineHeight: 1.8,
               margin: 0,
@@ -197,8 +197,8 @@ export default function LocalizedPrivacyPage({
                   style={{
                     padding: '30px clamp(20px, 2.5vw, 36px)',
                     borderRadius: 24,
-                    background: '#FFF7F9',
-                    border: '1.5px solid rgba(252, 70, 107, 0.3)',
+                    background: 'rgba(13, 18, 30, 0.75)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
                     boxShadow: '0 6px 20px rgba(252, 70, 107, 0.06)',
                   }}
                 >
@@ -219,12 +219,12 @@ export default function LocalizedPrivacyPage({
                     >
                       <Icon size={22} />
                     </div>
-                    <h2 style={{ fontSize: 19, fontWeight: 900, color: '#000000', margin: 0 }}>
+                    <h2 style={{ fontSize: 19, fontWeight: 900, color: '#FFFFFF', margin: 0 }}>
                       {sec.title}
                     </h2>
                   </div>
 
-                  <p style={{ fontSize: 15, color: '#334155', lineHeight: 1.8, margin: 0 }}>
+                  <p style={{ fontSize: 15, color: '#94A3B8', lineHeight: 1.8, margin: 0 }}>
                     {sec.content}
                   </p>
                 </div>
@@ -240,12 +240,12 @@ export default function LocalizedPrivacyPage({
               style={{
                 padding: 26,
                 borderRadius: 24,
-                background: '#FFFFFF',
-                border: '1.5px solid rgba(252, 70, 107, 0.35)',
+                background: 'rgba(13, 18, 30, 0.75)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
                 boxShadow: '0 8px 25px rgba(252, 70, 107, 0.08)',
               }}
             >
-              <h3 style={{ fontSize: 16, fontWeight: 900, color: '#000000', marginBottom: 16 }}>
+              <h3 style={{ fontSize: 16, fontWeight: 900, color: '#FFFFFF', marginBottom: 16 }}>
                 {isFa ? 'فهرست سرفصل‌های این سند' : 'Document Outline'}
               </h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -259,11 +259,11 @@ export default function LocalizedPrivacyPage({
                       gap: 10,
                       fontSize: 13.5,
                       fontWeight: 700,
-                      color: '#334155',
+                      color: '#94A3B8',
                       textDecoration: 'none',
                       padding: '8px 12px',
                       borderRadius: 12,
-                      background: '#FFF7F9',
+                      background: 'rgba(13, 18, 30, 0.75)',
                       border: '1px solid rgba(252, 70, 107, 0.2)',
                       transition: 'all 0.2s',
                     }}
@@ -291,15 +291,15 @@ export default function LocalizedPrivacyPage({
               style={{
                 padding: 26,
                 borderRadius: 24,
-                background: '#FFF1F4',
-                border: '1.5px solid rgba(252, 70, 107, 0.4)',
+                background: 'rgba(13, 18, 30, 0.75)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
                 boxShadow: '0 8px 25px rgba(252, 70, 107, 0.1)',
               }}
             >
-              <h4 style={{ fontSize: 16, fontWeight: 900, color: '#000000', marginBottom: 10 }}>
+              <h4 style={{ fontSize: 16, fontWeight: 900, color: '#FFFFFF', marginBottom: 10 }}>
                 {isFa ? 'مسئول حفاظت از داده‌ها (DPO)' : 'Data Protection Officer'}
               </h4>
-              <p style={{ fontSize: 13.5, color: '#334155', lineHeight: 1.6, marginBottom: 16 }}>
+              <p style={{ fontSize: 13.5, color: '#94A3B8', lineHeight: 1.6, marginBottom: 16 }}>
                 {isFa
                   ? 'جهت درخواست استخراج اطلاعات، حذف دائمی حساب، یا هرگونه سوال حقوقی پیرامون حریم خصوصی با ایمیل مستقیم مسئول حفاظت از داده‌ها تماس حاصل فرمایید:'
                   : 'For subject access requests, complete deletion certifications, or compliance questions, reach our global Data Protection unit:'}

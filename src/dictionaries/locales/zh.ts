@@ -52,6 +52,45 @@ export const zh: Dictionary = {
     tag: '愿景与领导团队',
     title: '认识 ZEV 创始人与管理团队',
     subtitle: '用技术和毅力搭建数字桥梁，赋能阿富汗及国际科技前沿的杰出团队。',
+    roles: {
+          "directorFounder": "总监兼创始人",
+          "ceoEurope": "CEO兼欧洲事务主管",
+          "coFounder": "联合创始人",
+          "ecosystemManager": "全生态系统总经理",
+          "leadDeveloper": "开发团队主管"
+    },
+    members: {
+          "shaheen": {
+                "name": "Shaheen Safi",
+                "role": "总监兼创始人 (Director & Founder)",
+                "badge": "总监与创始人",
+                "bio": "Safi生态系统与ZEV平台创始人兼总监，云架构、通用Flutter与人工智能首席软件架构师。"
+          },
+          "sahel": {
+                "name": "Sahel Salem",
+                "role": "首席执行官 (CEO) 兼欧洲事务主管",
+                "badge": "CEO兼欧洲事务",
+                "bio": "首席执行官 (CEO)，统筹企业治理、全欧洲商业拓展以及ZEV全球战略合作伙伴关系。"
+          },
+          "mujtaba": {
+                "name": "Mujtaba Rahmani",
+                "role": "联合创始人 (Co-Founder)",
+                "badge": "联合创始人",
+                "bio": "ZEV联合创始人，统筹平台基础架构韧性、全球运营管理与全方位网络安全防护。"
+          },
+          "shirin": {
+                "name": "Shirin Gol Ahmadi",
+                "role": "全生态系统总经理 (Ecosystem Manager)",
+                "badge": "生态系统总经理",
+                "bio": "全面统筹Safi生态系统旗下所有平台与产品，推动科技、教育、金融与ZEV之间的深度协同。"
+          },
+          "mobin": {
+                "name": "Mobin Hassani",
+                "role": "开发团队主管 (Lead Developer)",
+                "badge": "开发主管",
+                "bio": "软件研发团队负责人，统领Flutter跨平台与全栈工程师，针对极致运行速度和系统稳定性进行深度优化。"
+          }
+    },
   },
   features: {
     tag: '探索核心功能',

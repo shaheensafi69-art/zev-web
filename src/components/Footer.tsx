@@ -17,13 +17,13 @@ export const Footer: React.FC<FooterProps> = ({ locale, dict }) => {
   return (
     <footer
       style={{
-        backgroundColor: '#FFFFFF',
-        borderTop: '2px solid rgba(252, 70, 107, 0.25)',
+        backgroundColor: '#07090E',
+        borderTop: '1px solid rgba(255, 255, 255, 0.08)',
         paddingTop: 80,
         paddingBottom: 40,
         position: 'relative',
         overflow: 'hidden',
-        color: '#0F172A',
+        color: '#94A3B8',
       }}
     >
       {/* Background ambient lighting */}
@@ -46,8 +46,8 @@ export const Footer: React.FC<FooterProps> = ({ locale, dict }) => {
           style={{
             padding: '22px 30px',
             borderRadius: 24,
-            background: '#FFF1F4',
-            border: '1.5px solid rgba(252, 70, 107, 0.35)',
+            background: 'rgba(13, 18, 30, 0.75)',
+            border: '1px solid rgba(255, 255, 255, 0.08)',
             marginBottom: 60,
             display: 'flex',
             alignItems: 'center',
@@ -72,10 +72,10 @@ export const Footer: React.FC<FooterProps> = ({ locale, dict }) => {
               <Database size={20} />
             </div>
             <div>
-              <div style={{ fontSize: 15, fontWeight: 800, color: '#000000' }}>
+              <div style={{ fontSize: 15, fontWeight: 800, color: '#FFFFFF' }}>
                 {isFa ? 'عضو یکپارچه اکوسیستم بین‌المللی صفی' : 'Unified Member of the Global Safi Ecosystem'}
               </div>
-              <div style={{ fontSize: 13, color: '#475569', fontWeight: 500 }}>
+              <div style={{ fontSize: 13, color: '#94A3B8', fontWeight: 500 }}>
                 {isFa
                   ? 'یکپارچه شده با دیتابیس مشترک اکادمی صفی و درگاه‌های پرداخت بین‌المللی صافی‌پی'
                   : 'Interconnected via shared database with Safi Academy & SafiPay'}
@@ -94,9 +94,9 @@ export const Footer: React.FC<FooterProps> = ({ locale, dict }) => {
                 gap: 8,
                 padding: '9px 18px',
                 borderRadius: 12,
-                background: '#FFFFFF',
-                border: '1.5px solid rgba(252, 70, 107, 0.35)',
-                color: '#0F172A',
+                background: 'rgba(255, 255, 255, 0.06)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                color: '#94A3B8',
                 fontSize: 13,
                 fontWeight: 700,
                 textDecoration: 'none',
@@ -152,7 +152,7 @@ export const Footer: React.FC<FooterProps> = ({ locale, dict }) => {
                   position: 'relative',
                   borderRadius: 6,
                   overflow: 'hidden',
-                  background: '#FFFFFF',
+                  background: 'rgba(255, 255, 255, 0.06)',
                   padding: 2,
                 }}
               >
@@ -198,8 +198,8 @@ export const Footer: React.FC<FooterProps> = ({ locale, dict }) => {
                   height: 44,
                   borderRadius: 14,
                   overflow: 'hidden',
-                  background: '#FFF1F4',
-                  border: '1.5px solid rgba(252, 70, 107, 0.4)',
+                  background: 'rgba(13, 18, 30, 0.75)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -219,7 +219,7 @@ export const Footer: React.FC<FooterProps> = ({ locale, dict }) => {
                   style={{
                     fontSize: 22,
                     fontWeight: 900,
-                    color: '#000000',
+                    color: '#FFFFFF',
                     letterSpacing: '-0.5px',
                   }}
                 >
@@ -239,7 +239,7 @@ export const Footer: React.FC<FooterProps> = ({ locale, dict }) => {
               </div>
             </Link>
 
-            <p style={{ color: '#475569', fontSize: 14, lineHeight: 1.7, marginBottom: 20 }}>
+            <p style={{ color: '#94A3B8', fontSize: 14, lineHeight: 1.7, marginBottom: 20 }}>
               {isFa
                 ? 'شبکه اجتماعی پیشرفته نسل جدید با هویت اصیل افغانی و پیوند بین‌المللی. آزادی خلاقیت، ریلزهای پرسرعت و نهایت امنیت.'
                 : 'The next generation social network built with pride by Afghan visionaries for global unity. Fast 60fps reels, real people, and authentic connections.'}
@@ -252,8 +252,8 @@ export const Footer: React.FC<FooterProps> = ({ locale, dict }) => {
                 gap: 8,
                 padding: '8px 14px',
                 borderRadius: 12,
-                background: '#FFF1F4',
-                border: '1.5px solid rgba(252, 70, 107, 0.3)',
+                background: 'rgba(13, 18, 30, 0.75)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
                 fontSize: 12,
                 color: '#FC466B',
                 fontWeight: 700,
@@ -270,7 +270,7 @@ export const Footer: React.FC<FooterProps> = ({ locale, dict }) => {
               style={{
                 fontSize: 14,
                 fontWeight: 900,
-                color: '#000000',
+                color: '#FFFFFF',
                 marginBottom: 20,
                 textTransform: 'uppercase',
                 letterSpacing: '0.8px',
@@ -280,12 +280,12 @@ export const Footer: React.FC<FooterProps> = ({ locale, dict }) => {
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 12 }}>
               <li>
-                <Link href={`/${locale}`} style={{ fontSize: 14, color: '#334155', fontWeight: 600 }}>
+                <Link href={`/${locale}`} style={{ fontSize: 14, color: '#94A3B8', fontWeight: 600 }}>
                   {dict.nav.home}
                 </Link>
               </li>
               <li>
-                <Link href={`/${locale}/features`} style={{ fontSize: 14, color: '#334155', fontWeight: 600 }}>
+                <Link href={`/${locale}/features`} style={{ fontSize: 14, color: '#94A3B8', fontWeight: 600 }}>
                   {dict.nav.features}
                 </Link>
               </li>
@@ -295,7 +295,7 @@ export const Footer: React.FC<FooterProps> = ({ locale, dict }) => {
                 </Link>
               </li>
               <li>
-                <Link href={`/${locale}/about`} style={{ fontSize: 14, color: '#334155', fontWeight: 600 }}>
+                <Link href={`/${locale}/about`} style={{ fontSize: 14, color: '#94A3B8', fontWeight: 600 }}>
                   {dict.nav.about}
                 </Link>
               </li>
@@ -305,7 +305,7 @@ export const Footer: React.FC<FooterProps> = ({ locale, dict }) => {
                 </Link>
               </li>
               <li>
-                <Link href={`/${locale}/support`} style={{ fontSize: 14, color: '#334155', fontWeight: 600 }}>
+                <Link href={`/${locale}/support`} style={{ fontSize: 14, color: '#94A3B8', fontWeight: 600 }}>
                   {dict.nav.support}
                 </Link>
               </li>
@@ -318,7 +318,7 @@ export const Footer: React.FC<FooterProps> = ({ locale, dict }) => {
               style={{
                 fontSize: 14,
                 fontWeight: 900,
-                color: '#000000',
+                color: '#FFFFFF',
                 marginBottom: 20,
                 textTransform: 'uppercase',
                 letterSpacing: '0.8px',
@@ -368,7 +368,7 @@ export const Footer: React.FC<FooterProps> = ({ locale, dict }) => {
                   href="https://safiinternationalcapitalltd.site"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ fontSize: 13.5, color: '#334155', fontWeight: 600 }}
+                  style={{ fontSize: 13.5, color: '#94A3B8', fontWeight: 600 }}
                 >
                   Safi International Capital
                 </a>
@@ -378,7 +378,7 @@ export const Footer: React.FC<FooterProps> = ({ locale, dict }) => {
                   href="https://safitopup.site"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ fontSize: 13.5, color: '#334155', fontWeight: 600 }}
+                  style={{ fontSize: 13.5, color: '#94A3B8', fontWeight: 600 }}
                 >
                   Safi TopUp
                 </a>
@@ -388,7 +388,7 @@ export const Footer: React.FC<FooterProps> = ({ locale, dict }) => {
                   href="https://safipro.site"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ fontSize: 13.5, color: '#334155', fontWeight: 600 }}
+                  style={{ fontSize: 13.5, color: '#94A3B8', fontWeight: 600 }}
                 >
                   SafiPro
                 </a>
@@ -398,7 +398,7 @@ export const Footer: React.FC<FooterProps> = ({ locale, dict }) => {
                   href="https://shaheensafi.blog"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ fontSize: 13.5, color: '#334155', fontWeight: 600 }}
+                  style={{ fontSize: 13.5, color: '#94A3B8', fontWeight: 600 }}
                 >
                   Shaheen Safi Blog
                 </a>
@@ -408,7 +408,7 @@ export const Footer: React.FC<FooterProps> = ({ locale, dict }) => {
                   href="https://www.safiai.site"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ fontSize: 13.5, color: '#334155', fontWeight: 600 }}
+                  style={{ fontSize: 13.5, color: '#94A3B8', fontWeight: 600 }}
                 >
                   Safi AI Platform
                 </a>
@@ -422,7 +422,7 @@ export const Footer: React.FC<FooterProps> = ({ locale, dict }) => {
               style={{
                 fontSize: 14,
                 fontWeight: 900,
-                color: '#000000',
+                color: '#FFFFFF',
                 marginBottom: 20,
                 textTransform: 'uppercase',
                 letterSpacing: '0.8px',
@@ -437,12 +437,12 @@ export const Footer: React.FC<FooterProps> = ({ locale, dict }) => {
                 </Link>
               </li>
               <li>
-                <Link href={`/${locale}/privacy`} style={{ fontSize: 14, color: '#334155', fontWeight: 600 }}>
+                <Link href={`/${locale}/privacy`} style={{ fontSize: 14, color: '#94A3B8', fontWeight: 600 }}>
                   {dict.footer.privacy}
                 </Link>
               </li>
               <li>
-                <Link href={`/${locale}/terms`} style={{ fontSize: 14, color: '#334155', fontWeight: 600 }}>
+                <Link href={`/${locale}/terms`} style={{ fontSize: 14, color: '#94A3B8', fontWeight: 600 }}>
                   {dict.footer.terms}
                 </Link>
               </li>
@@ -452,7 +452,7 @@ export const Footer: React.FC<FooterProps> = ({ locale, dict }) => {
                 </Link>
               </li>
               <li>
-                <Link href={`/${locale}/support`} style={{ fontSize: 14, color: '#334155', fontWeight: 600 }}>
+                <Link href={`/${locale}/support`} style={{ fontSize: 14, color: '#94A3B8', fontWeight: 600 }}>
                   {isFa ? 'مرکز گزارش تخلف و امنیت' : 'Security Escalation Desk'}
                 </Link>
               </li>
@@ -465,7 +465,7 @@ export const Footer: React.FC<FooterProps> = ({ locale, dict }) => {
               style={{
                 fontSize: 14,
                 fontWeight: 900,
-                color: '#000000',
+                color: '#FFFFFF',
                 marginBottom: 20,
                 textTransform: 'uppercase',
                 letterSpacing: '0.8px',
@@ -477,8 +477,8 @@ export const Footer: React.FC<FooterProps> = ({ locale, dict }) => {
               style={{
                 padding: '16px 18px',
                 borderRadius: 18,
-                background: '#FFF1F4',
-                border: '1.5px solid rgba(252, 70, 107, 0.35)',
+                background: 'rgba(13, 18, 30, 0.75)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
                 marginBottom: 16,
               }}
             >
@@ -492,18 +492,18 @@ export const Footer: React.FC<FooterProps> = ({ locale, dict }) => {
                     boxShadow: '0 0 8px #10B981',
                   }}
                 />
-                <span style={{ fontSize: 12, fontWeight: 800, color: '#000000' }}>
+                <span style={{ fontSize: 12, fontWeight: 800, color: '#FFFFFF' }}>
                   Supabase DB Sync 100%
                 </span>
               </div>
-              <p style={{ fontSize: 12.5, color: '#475569', lineHeight: 1.6, margin: 0 }}>
+              <p style={{ fontSize: 12.5, color: '#94A3B8', lineHeight: 1.6, margin: 0 }}>
                 {isFa
                   ? 'یک حساب کاربری برای کل اکوسیستم. ورود همزمان در زو و اکادمی صفی با یک ایمیل.'
                   : 'Single Sign-On across ZEV and Safi Academy powered by a synchronized database cluster.'}
               </p>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12.5, color: '#475569' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12.5, color: '#94A3B8' }}>
               <Lock size={14} color="#FC466B" />
               <span>{isFa ? 'رمزنگاری AES-256 در حال استراحت' : 'AES-256 Storage Encryption'}</span>
             </div>
@@ -527,7 +527,7 @@ export const Footer: React.FC<FooterProps> = ({ locale, dict }) => {
             <span style={{ color: '#FC466B', fontWeight: 800 }}>zevapp.com</span>). {dict.footer.copyright}
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: '#475569' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: '#94A3B8' }}>
             <span>{isFa ? 'طراحی شده با' : 'Crafted with'}</span>
             <Heart size={14} color="#FC466B" fill="#FC466B" />
             <span>{isFa ? 'توسط مهندسان صفی برای افغانستان و جهان' : 'by Safi Engineers for Afghanistan & the World'}</span>

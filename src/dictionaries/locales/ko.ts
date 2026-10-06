@@ -52,6 +52,45 @@ export const ko: Dictionary = {
     tag: '리더십과 비전',
     title: 'ZEV 창립자 및 경영진 소개',
     subtitle: '디지털 연결의 교량을 놓고 글로벌 기술 혁신을 이끄는 아프가니스탄의 리더들.',
+    roles: {
+          "directorFounder": "디렉터 겸 창립자",
+          "ceoEurope": "CEO & 유럽 대외협력",
+          "coFounder": "공동 창립자",
+          "ecosystemManager": "전체 에코시스템 총괄 매니저",
+          "leadDeveloper": "개발 총괄 리더"
+    },
+    members: {
+          "shaheen": {
+                "name": "샤힌 사피",
+                "role": "디렉터 겸 창립자 (Director & Founder)",
+                "badge": "디렉터 & 창립자",
+                "bio": "Safi 에코시스템 및 ZEV 플랫폼 창립자 겸 디렉터, 클라우드 아키텍처, 인공지능, Flutter 총괄 소프트웨어 아키텍트."
+          },
+          "sahel": {
+                "name": "사헬 살렘",
+                "role": "최고경영자 (CEO) 및 유럽 대외협력 총괄",
+                "badge": "CEO & 유럽 대외협력",
+                "bio": "ZEV의 최고경영자(CEO)로서 글로벌 기업 거버넌스, 유럽 전역의 전략적 파트너십 및 비즈니스 외교 총괄."
+          },
+          "mujtaba": {
+                "name": "무즈타바 라흐마니",
+                "role": "공동 창립자 (Co-Founder)",
+                "badge": "공동 창립자",
+                "bio": "ZEV 공동 창립자로서 인프라 안정성, 글로벌 운영 관리 및 최고 수준의 데이터 보안 총괄."
+          },
+          "shirin": {
+                "name": "시린 골 아흐마디",
+                "role": "전체 에코시스템 총괄 매니저",
+                "badge": "에코시스템 총괄",
+                "bio": "Safi 에코시스템 산하 모든 플랫폼과 서비스 통합 관리 및 기술·교육·ZEV 간 전략적 시너지 주도."
+          },
+          "mobin": {
+                "name": "모빈 하사니",
+                "role": "개발 총괄 리더 (Lead Developer)",
+                "badge": "개발 총괄 리더",
+                "bio": "소프트웨어 개발 총괄 책임자, Flutter 멀티플랫폼 엔지니어링 팀을 이끌며 초고속 구동 및 코드 최적화 지휘."
+          }
+    },
   },
   features: {
     tag: '핵심 기능 살펴보기',

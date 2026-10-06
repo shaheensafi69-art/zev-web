@@ -18,7 +18,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ background: '#FFFFFF', color: '#0F172A', border: '1.5px solid rgba(252, 70, 107, 0.35)' }}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ background: '#0C101A', color: '#CBD5E1', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -27,8 +27,8 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
             top: 20,
             right: isFa ? 'auto' : 20,
             left: isFa ? 20 : 'auto',
-            background: '#FFF1F4',
-            border: '1px solid rgba(252, 70, 107, 0.3)',
+            background: 'rgba(255, 255, 255, 0.05)',
+            border: '1px solid rgba(255, 255, 255, 0.08)',
             color: '#FC466B',
             width: 36,
             height: 36,
@@ -59,17 +59,17 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
               display: 'inline-flex',
               padding: '10px 14px',
               borderRadius: '16px',
-              background: '#FFF1F4',
+              background: 'rgba(255, 255, 255, 0.05)',
               marginBottom: 12,
-              border: '1.5px solid rgba(252, 70, 107, 0.35)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
             }}
           >
             <Download size={26} color="#FC466B" />
           </div>
-          <h3 style={{ fontSize: 22, fontWeight: 900, color: '#000000', marginBottom: 6 }}>
+          <h3 style={{ fontSize: 22, fontWeight: 900, color: '#FFFFFF', marginBottom: 6 }}>
             {isFa ? 'دریافت برنامه زو (ZEV)' : 'Get ZEV Everywhere'}
           </h3>
-          <p style={{ fontSize: 14, color: '#475569' }}>
+          <p style={{ fontSize: 14, color: '#94A3B8' }}>
             {isFa
               ? 'پلتفرم مورد نظر خود را انتخاب کنید یا مستقیماً از وب استفاده کنید'
               : 'Choose your platform or launch the instant web app'}
@@ -89,8 +89,8 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
               justifyContent: 'space-between',
               padding: '14px 18px',
               borderRadius: '16px',
-              background: '#FFF7F9',
-              border: '1.5px solid rgba(252, 70, 107, 0.35)',
+              background: 'rgba(13, 18, 30, 0.75)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
               textDecoration: 'none',
               transition: 'all 0.2s ease',
             }}
@@ -112,10 +112,10 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                 <Globe size={22} />
               </div>
               <div>
-                <div style={{ fontWeight: 800, fontSize: 15, color: '#000000' }}>
+                <div style={{ fontWeight: 800, fontSize: 15, color: '#FFFFFF' }}>
                   {isFa ? 'نسخه وب (Web App)' : 'Web Application'}
                 </div>
-                <div style={{ fontSize: 12.5, color: '#475569' }}>
+                <div style={{ fontSize: 12.5, color: '#94A3B8' }}>
                   {isFa ? 'اجرای فوری در مرورگر کامپیوتر' : 'Instant in browser • No installation'}
                 </div>
               </div>
@@ -144,8 +144,8 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
               justifyContent: 'space-between',
               padding: '14px 18px',
               borderRadius: '16px',
-              background: '#FFF7F9',
-              border: '1.5px solid rgba(252, 70, 107, 0.35)',
+              background: 'rgba(13, 18, 30, 0.75)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
               textDecoration: 'none',
               transition: 'all 0.2s ease',
             }}
@@ -167,10 +167,10 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                 <Smartphone size={22} />
               </div>
               <div>
-                <div style={{ fontWeight: 800, fontSize: 15, color: '#000000' }}>
+                <div style={{ fontWeight: 800, fontSize: 15, color: '#FFFFFF' }}>
                   {isFa ? 'دانلود نسخه اندروید (APK)' : 'Android Direct APK'}
                 </div>
-                <div style={{ fontSize: 12.5, color: '#475569' }}>
+                <div style={{ fontSize: 12.5, color: '#94A3B8' }}>
                   {isFa ? 'فایل مستقیم با سرعت بالا • نسخه ۲.۴' : 'Fast direct download • Version 2.4'}
                 </div>
               </div>
@@ -197,8 +197,8 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
               justifyContent: 'space-between',
               padding: '14px 18px',
               borderRadius: '16px',
-              background: '#FFFFFF',
-              border: '1.5px solid rgba(252, 70, 107, 0.2)',
+              background: '#0C101A',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
@@ -207,8 +207,8 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                   width: 44,
                   height: 44,
                   borderRadius: 12,
-                  background: '#FFF1F4',
-                  border: '1px solid rgba(252, 70, 107, 0.3)',
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -218,7 +218,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                 <Apple size={22} />
               </div>
               <div>
-                <div style={{ fontWeight: 800, fontSize: 15, color: '#000000' }}>
+                <div style={{ fontWeight: 800, fontSize: 15, color: '#FFFFFF' }}>
                   {isFa ? 'نسخه آی‌او‌اس (Apple iOS)' : 'iOS TestFlight / App Store'}
                 </div>
                 <div style={{ fontSize: 12.5, color: '#64748B' }}>
@@ -231,7 +231,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                 fontSize: 11,
                 fontWeight: 700,
                 color: '#FC466B',
-                background: '#FFF1F4',
+                background: 'rgba(255, 255, 255, 0.05)',
                 padding: '4px 10px',
                 borderRadius: 12,
               }}
@@ -248,8 +248,8 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
               justifyContent: 'space-between',
               padding: '14px 18px',
               borderRadius: '16px',
-              background: '#FFFFFF',
-              border: '1.5px solid rgba(252, 70, 107, 0.2)',
+              background: '#0C101A',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
@@ -258,8 +258,8 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                   width: 44,
                   height: 44,
                   borderRadius: 12,
-                  background: '#FFF1F4',
-                  border: '1px solid rgba(252, 70, 107, 0.3)',
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -269,7 +269,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                 <Monitor size={22} />
               </div>
               <div>
-                <div style={{ fontWeight: 800, fontSize: 15, color: '#000000' }}>
+                <div style={{ fontWeight: 800, fontSize: 15, color: '#FFFFFF' }}>
                   {isFa ? 'نسخه دسکتاپ (ویندوز / مک)' : 'Desktop Client (Windows / Mac)'}
                 </div>
                 <div style={{ fontSize: 12.5, color: '#64748B' }}>
@@ -282,7 +282,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                 fontSize: 11,
                 fontWeight: 700,
                 color: '#FC466B',
-                background: '#FFF1F4',
+                background: 'rgba(255, 255, 255, 0.05)',
                 padding: '4px 10px',
                 borderRadius: 12,
               }}
@@ -298,7 +298,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
             marginTop: 20,
             padding: '12px 14px',
             borderRadius: 14,
-            background: '#FFF1F4',
+            background: 'rgba(255, 255, 255, 0.05)',
             display: 'flex',
             alignItems: 'center',
             gap: 10,

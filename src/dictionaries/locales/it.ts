@@ -52,6 +52,45 @@ export const it: Dictionary = {
     tag: 'LEADERSHIP & VISIONE',
     title: 'Fondatori e Team di Guida di ZEV',
     subtitle: 'Le menti illuminate che costruiscono ponti digitali per la comunità afghana e internazionale.',
+    roles: {
+          "directorFounder": "Direttore e Fondatore",
+          "ceoEurope": "CEO e Relazioni Europee",
+          "coFounder": "Co-Fondatore",
+          "ecosystemManager": "General Ecosystem Manager",
+          "leadDeveloper": "Lead Developer"
+    },
+    members: {
+          "shaheen": {
+                "name": "Shaheen Safi",
+                "role": "Direttore e Fondatore (Director & Founder)",
+                "badge": "Direttore e Fondatore",
+                "bio": "Fondatore e Direttore dell’ecosistema Safi e di ZEV, lead software architect per sistemi cloud scalabili, IA e Flutter."
+          },
+          "sahel": {
+                "name": "Sahel Salem",
+                "role": "Chief Executive Officer (CEO) e Relazioni Europee",
+                "badge": "CEO e Relazioni Europee",
+                "bio": "Amministratore Delegato (CEO) a capo delle alleanze strategiche internazionali e delle relazioni europee per ZEV."
+          },
+          "mujtaba": {
+                "name": "Mujtaba Rahmani",
+                "role": "Co-Fondatore (Co-Founder)",
+                "badge": "Co-Fondatore",
+                "bio": "Co-Fondatore di ZEV, responsabile dell’infrastruttura di piattaforma, operazioni e sicurezza dei dati."
+          },
+          "shirin": {
+                "name": "Shirin Gol Ahmadi",
+                "role": "General Ecosystem Manager",
+                "badge": "Manager Ecosistema",
+                "bio": "Gestione complessiva di tutti i prodotti dell’ecosistema Safi, orchestrando l’integrazione tra tecnologia, finanza e ZEV."
+          },
+          "mobin": {
+                "name": "Mobin Hassani",
+                "role": "Lead Developer & Responsabile Sviluppo",
+                "badge": "Lead Developer",
+                "bio": "Responsabile dello sviluppo software, alla guida dei programmatori Flutter e dell’ottimizzazione delle prestazioni."
+          }
+    },
   },
   features: {
     tag: 'SCOPRI LE FUNZIONALITÀ',

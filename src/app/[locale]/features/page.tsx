@@ -96,7 +96,7 @@ export default function FeaturesPage({
   ];
 
   return (
-    <div style={{ padding: '40px 0 100px', minHeight: '85vh', backgroundColor: '#FFFFFF' }}>
+    <div style={{ padding: '40px 0 100px', minHeight: '85vh', backgroundColor: '#07090E' }}>
       <div className="container">
         {/* Back Link */}
         <Link
@@ -107,7 +107,7 @@ export default function FeaturesPage({
             gap: 8,
             fontSize: 14,
             fontWeight: 700,
-            color: '#475569',
+            color: '#94A3B8',
             marginBottom: 28,
             transition: 'color 0.2s',
           }}
@@ -131,13 +131,13 @@ export default function FeaturesPage({
               fontWeight: 900,
               lineHeight: 1.15,
               marginBottom: 18,
-              color: '#000000',
+              color: '#FFFFFF',
             }}
           >
             {isFa ? 'طراحی شده برای نهایت کیفیت، امنیت و سرعت' : 'Engineered for Performance, Privacy & Reach'}
           </h1>
 
-          <p style={{ fontSize: 18, color: '#334155', lineHeight: 1.7 }}>
+          <p style={{ fontSize: 18, color: '#94A3B8', lineHeight: 1.7 }}>
             {isFa
               ? 'در زو، هر پیکسل و هر خط کد با وسواس بالا پیاده‌سازی شده تا نسل جدید شبکه‌های اجتماعی را به دستان شما برساند.'
               : 'Discover how ZEV combines modern Flutter rendering, cloud video transcoding, and bank-grade privacy into an unmatched social experience.'}
@@ -156,8 +156,8 @@ export default function FeaturesPage({
                 style={{
                   padding: '44px 36px',
                   borderRadius: 32,
-                  border: '1.5px solid rgba(252, 70, 107, 0.35)',
-                  background: '#FFF7F9',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  background: 'rgba(13, 18, 30, 0.75)',
                   display: 'grid',
                   gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
                   gap: 40,
@@ -172,7 +172,7 @@ export default function FeaturesPage({
                       fontSize: 12,
                       fontWeight: 800,
                       color: '#FC466B',
-                      background: '#FFFFFF',
+                      background: 'rgba(13, 18, 30, 0.75)',
                       border: '1px solid rgba(252, 70, 107, 0.35)',
                       padding: '5px 14px',
                       borderRadius: 999,
@@ -186,11 +186,11 @@ export default function FeaturesPage({
                     <span>{feat.badge}</span>
                   </span>
 
-                  <h2 style={{ fontSize: 'clamp(24px, 3vw, 32px)', fontWeight: 900, color: '#000000', marginBottom: 14 }}>
+                  <h2 style={{ fontSize: 'clamp(24px, 3vw, 32px)', fontWeight: 900, color: '#FFFFFF', marginBottom: 14 }}>
                     {feat.title}
                   </h2>
 
-                  <p style={{ fontSize: 16, color: '#334155', lineHeight: 1.75, marginBottom: 24 }}>
+                  <p style={{ fontSize: 16, color: '#94A3B8', lineHeight: 1.75, marginBottom: 24 }}>
                     {feat.desc}
                   </p>
 
@@ -214,7 +214,7 @@ export default function FeaturesPage({
                         >
                           ✓
                         </div>
-                        <span style={{ fontSize: 15, color: '#1E293B', fontWeight: 600 }}>{b}</span>
+                        <span style={{ fontSize: 15, color: '#CBD5E1', fontWeight: 600 }}>{b}</span>
                       </div>
                     ))}
                   </div>
@@ -236,9 +236,9 @@ export default function FeaturesPage({
                       aspectRatio: '9 / 16',
                       borderRadius: 28,
                       overflow: 'hidden',
-                      border: '2px solid rgba(252, 70, 107, 0.4)',
+                      border: '1px solid rgba(255, 255, 255, 0.12)',
                       boxShadow: '0 15px 40px rgba(252, 70, 107, 0.2)',
-                      background: '#FFFFFF',
+                      background: 'rgba(13, 18, 30, 0.75)',
                     }}
                   >
                     <Image src={feat.image} alt={feat.title} fill style={{ objectFit: 'cover' }} />
@@ -256,16 +256,16 @@ export default function FeaturesPage({
             marginTop: 60,
             padding: '48px 36px',
             borderRadius: 30,
-            background: '#FFF1F4',
-            border: '1.5px solid rgba(252, 70, 107, 0.4)',
+            background: 'rgba(13, 18, 30, 0.75)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
             textAlign: 'center',
             boxShadow: '0 12px 35px rgba(252, 70, 107, 0.1)',
           }}
         >
-          <h3 style={{ fontSize: 28, fontWeight: 900, color: '#000000', marginBottom: 12 }}>
+          <h3 style={{ fontSize: 28, fontWeight: 900, color: '#FFFFFF', marginBottom: 12 }}>
             {isFa ? 'تجربه این امکانات در دستان شماست' : 'Ready to Experience Next-Gen Social Networking?'}
           </h3>
-          <p style={{ fontSize: 16, color: '#334155', maxWidth: 580, margin: '0 auto 28px' }}>
+          <p style={{ fontSize: 16, color: '#94A3B8', maxWidth: 580, margin: '0 auto 28px' }}>
             {isFa
               ? 'همین حالا از طریق نسخه وب یا دانلود برنامه وارد دنیای پرهیجان زو شوید.'
               : 'Launch ZEV directly in your desktop browser or download for Android & iOS.'}

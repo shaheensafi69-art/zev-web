@@ -61,7 +61,7 @@ export const AppMockup = () => {
   const currentTab = tabs.find((t) => t.id === activeTab) || tabs[0];
 
   return (
-    <section id="showcase" style={{ position: 'relative', padding: '90px 0', overflow: 'hidden', backgroundColor: '#FFFFFF' }}>
+    <section id="showcase" style={{ position: 'relative', padding: '90px 0', overflow: 'hidden', backgroundColor: '#07090E' }}>
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         {/* Section Header */}
         <div style={{ textAlign: 'center', maxWidth: 740, margin: '0 auto 50px' }}>
@@ -75,12 +75,12 @@ export const AppMockup = () => {
               fontWeight: 900,
               lineHeight: 1.2,
               marginBottom: 16,
-              color: '#000000',
+              color: '#FFFFFF',
             }}
           >
             {t.showcase.title}
           </h2>
-          <p style={{ fontSize: 17, color: '#334155', lineHeight: 1.6 }}>{t.showcase.desc}</p>
+          <p style={{ fontSize: 17, color: '#94A3B8', lineHeight: 1.6 }}>{t.showcase.desc}</p>
         </div>
 
         {/* Tab Switcher */}
@@ -129,8 +129,8 @@ export const AppMockup = () => {
           style={{
             borderRadius: 36,
             padding: '48px clamp(20px, 3.5vw, 60px)',
-            background: '#FFF7F9',
-            border: '1.5px solid rgba(252, 70, 107, 0.35)',
+            background: 'rgba(13, 18, 30, 0.75)',
+            border: '1px solid rgba(255, 255, 255, 0.08)',
             boxShadow: '0 20px 60px rgba(252, 70, 107, 0.12)',
           }}
         >
@@ -158,8 +158,8 @@ export const AppMockup = () => {
                   aspectRatio: '9 / 17',
                   borderRadius: 36,
                   overflow: 'hidden',
-                  background: '#FFFFFF',
-                  border: '4px solid #FC466B',
+                  background: '#0B0F19',
+                  border: '3px solid rgba(255, 255, 255, 0.15)',
                   boxShadow: '0 25px 60px rgba(252, 70, 107, 0.25)',
                 }}
               >
@@ -199,7 +199,7 @@ export const AppMockup = () => {
                   fontWeight: 900,
                   lineHeight: 1.25,
                   marginBottom: 18,
-                  color: '#000000',
+                  color: '#FFFFFF',
                 }}
               >
                 {currentTab.title}
@@ -208,7 +208,7 @@ export const AppMockup = () => {
               <p
                 style={{
                   fontSize: 16,
-                  color: '#334155',
+                  color: '#94A3B8',
                   lineHeight: 1.75,
                   marginBottom: 28,
                 }}

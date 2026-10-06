@@ -76,8 +76,8 @@ export default async function LocaleLayout({
         flexDirection: 'column',
         minHeight: '100vh',
         width: '100%',
-        backgroundColor: '#FFFFFF',
-        color: '#0F172A',
+        backgroundColor: '#07090E',
+        color: '#CBD5E1',
       }}
     >
       {/* Floating Header */}
@@ -89,6 +89,7 @@ export default async function LocaleLayout({
           flex: 1,
           width: '100%',
           paddingTop: 100, // Space for floating header
+          backgroundColor: '#07090E',
         }}
       >
         {children}

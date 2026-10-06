@@ -52,6 +52,45 @@ export const nl: Dictionary = {
     tag: 'LEIDERSCHAP & VISIE',
     title: 'Oprichters en Leiderschapsteam van ZEV',
     subtitle: 'De visionaire geesten die digitale bruggen bouwen voor de Afghaanse en internationale tech-gemeenschap.',
+    roles: {
+          "directorFounder": "Directeur & Oprichter",
+          "ceoEurope": "CEO & Europese Relaties",
+          "coFounder": "Medeoprichter",
+          "ecosystemManager": "General Ecosystem Manager",
+          "leadDeveloper": "Lead Developer"
+    },
+    members: {
+          "shaheen": {
+                "name": "Shaheen Safi",
+                "role": "Directeur & Oprichter (Director & Founder)",
+                "badge": "Directeur & Oprichter",
+                "bio": "Oprichter & Directeur van het Safi Ecosysteem en ZEV, hoofdsysteemarchitect voor schaalbare cloud, AI en Flutter."
+          },
+          "sahel": {
+                "name": "Sahel Salem",
+                "role": "Chief Executive Officer (CEO) & Europese Relaties",
+                "badge": "CEO & Europa Relaties",
+                "bio": "Chief Executive Officer die leiding geeft aan corporate governance, Europese partnerschappen en wereldwijde allianties."
+          },
+          "mujtaba": {
+                "name": "Mujtaba Rahmani",
+                "role": "Medeoprichter (Co-Founder)",
+                "badge": "Medeoprichter",
+                "bio": "Medeoprichter van ZEV, verantwoordelijk voor platforminfrastructuur, operationele continuïteit en databeveiliging."
+          },
+          "shirin": {
+                "name": "Shirin Gol Ahmadi",
+                "role": "General Ecosystem Manager",
+                "badge": "Ecosystem Manager",
+                "bio": "Integrale leiding over alle platformen binnen het Safi Ecosysteem en sturing van technologische en sociale synergie."
+          },
+          "mobin": {
+                "name": "Mobin Hassani",
+                "role": "Lead Developer & Hoofd Ontwikkeling",
+                "badge": "Lead Developer",
+                "bio": "Hoofd softwareontwikkeling, sturing van het Flutter-engineeringteam en optimalisatie voor maximale snelheid en stabiliteit."
+          }
+    },
   },
   features: {
     tag: 'ONTDEK MOGELIJKHEDEN',

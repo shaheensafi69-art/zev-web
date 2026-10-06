@@ -63,7 +63,7 @@ export default function AboutPage({
   ];
 
   return (
-    <div style={{ padding: '40px 0 100px', minHeight: '85vh', backgroundColor: '#FFFFFF' }}>
+    <div style={{ padding: '40px 0 100px', minHeight: '85vh', backgroundColor: '#07090E' }}>
       <div className="container">
         {/* Back Link */}
         <Link
@@ -74,7 +74,7 @@ export default function AboutPage({
             gap: 8,
             fontSize: 14,
             fontWeight: 700,
-            color: '#475569',
+            color: '#94A3B8',
             marginBottom: 28,
             transition: 'color 0.2s',
           }}
@@ -98,13 +98,13 @@ export default function AboutPage({
               fontWeight: 900,
               lineHeight: 1.15,
               marginBottom: 18,
-              color: '#000000',
+              color: '#FFFFFF',
             }}
           >
             {isFa ? 'درباره زو (ZEV): رسالت ما و رهبری' : 'About ZEV: Our Vision & Leadership'}
           </h1>
 
-          <p style={{ fontSize: 18, color: '#334155', lineHeight: 1.75 }}>
+          <p style={{ fontSize: 18, color: '#94A3B8', lineHeight: 1.75 }}>
             {isFa
               ? 'پلتفرمی مستقل، پرسرعت و مدرن که از دل افغانستان جوانه زد تا بستری آزاد، امن و سرافراز برای خلاقیت جوانان و اتصال پایدار با جامعه بین‌المللی باشد.'
               : 'An independent, high-velocity social network originating from Afghanistan to connect minds, inspire creators, and demonstrate world-class software engineering globally.'}
@@ -117,8 +117,8 @@ export default function AboutPage({
           style={{
             padding: '48px 40px',
             borderRadius: 36,
-            background: '#FFF1F4',
-            border: '1.5px solid rgba(252, 70, 107, 0.4)',
+            background: 'rgba(13, 18, 30, 0.75)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
             marginBottom: 60,
             boxShadow: '0 12px 35px rgba(252, 70, 107, 0.1)',
           }}
@@ -140,8 +140,8 @@ export default function AboutPage({
                   fontSize: 12,
                   fontWeight: 800,
                   color: '#FC466B',
-                  background: '#FFFFFF',
-                  border: '1px solid rgba(252, 70, 107, 0.3)',
+                  background: 'rgba(13, 18, 30, 0.75)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
                   padding: '6px 14px',
                   borderRadius: 999,
                   marginBottom: 16,
@@ -151,19 +151,19 @@ export default function AboutPage({
                 <span>{isFa ? 'نگاه بنیادین بنیان‌گذار' : 'Founder Perspective'}</span>
               </div>
 
-              <h2 style={{ fontSize: 'clamp(24px, 3.5vw, 36px)', fontWeight: 900, color: '#000000', marginBottom: 18 }}>
+              <h2 style={{ fontSize: 'clamp(24px, 3.5vw, 36px)', fontWeight: 900, color: '#FFFFFF', marginBottom: 18 }}>
                 {isFa
                   ? 'ساخته شده با افتخار توسط افغان‌ها؛ گشوده به روی تمام دنیا'
                   : 'Engineered with Pride by Afghans; Open to the World'}
               </h2>
 
-              <p style={{ fontSize: 16, color: '#1E293B', lineHeight: 1.8, marginBottom: 16 }}>
+              <p style={{ fontSize: 16, color: '#CBD5E1', lineHeight: 1.8, marginBottom: 16 }}>
                 {isFa
-                  ? 'مهندس شاهین صفی، بنیان‌گذار اکوسیستم بین‌المللی صفی (شامل اکادمی صفی و صافی‌پی)، با یک رسالت شفاف اپلیکیشن زو را خلق کرد: اثبات این حقیقت که جوانان و متخصصان افغان توانایی رقابت با غول‌های فناوری دنیا مانند اینستاگرام و تیک‌تاک را دارند و می‌توانند پلتفرمی با کیفیتی بی‌همتا ارائه کنند.'
-                  : 'Shaheen Safi, Founder of the Safi Ecosystem (including Safi Academy and SafiPay), engineered ZEV with an uncompromising conviction: proving that Afghan software architects possess the technological mastery to build social networks rivaling Silicon Valley giants.'}
+                  ? 'مهندس شاهین صفی، دایرکتور و بنیان‌گذار اکوسیستم بین‌المللی صفی (شامل اکادمی صفی و صافی‌پی)، با یک رسالت شفاف اپلیکیشن زو را خلق کرد: اثبات این حقیقت که جوانان و متخصصان افغان توانایی رقابت با غول‌های فناوری دنیا مانند اینستاگرام و تیک‌تاک را دارند و می‌توانند پلتفرمی با کیفیتی بی‌همتا ارائه کنند.'
+                  : 'Shaheen Safi, Director & Founder of the Safi Ecosystem (including Safi Academy and SafiPay), engineered ZEV with an uncompromising conviction: proving that Afghan software architects possess the technological mastery to build social networks rivaling Silicon Valley giants.'}
               </p>
 
-              <p style={{ fontSize: 15, color: '#475569', lineHeight: 1.8, marginBottom: 24 }}>
+              <p style={{ fontSize: 15, color: '#94A3B8', lineHeight: 1.8, marginBottom: 24 }}>
                 {isFa
                   ? 'زو بر پایه دیتابیس مشترک با اکادمی صفی ساخته شده تا جامعه آموزشی و کارآفرینی افغانستان مستقیماً به بستری برای ارتباط تصویری، استوری و اشتراک‌گذاری ایده‌ها مجهز گردد.'
                   : 'Interconnected with Safi Academy’s cloud infrastructure, ZEV equips hundreds of thousands of learners and creators with a secure visual platform for authentic growth.'}
@@ -202,9 +202,9 @@ export default function AboutPage({
                   aspectRatio: '16 / 10',
                   borderRadius: 24,
                   overflow: 'hidden',
-                  border: '2px solid rgba(252, 70, 107, 0.4)',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
                   boxShadow: '0 15px 40px rgba(252, 70, 107, 0.2)',
-                  background: '#FFFFFF',
+                  background: 'rgba(13, 18, 30, 0.75)',
                 }}
               >
                 <Image
@@ -221,10 +221,10 @@ export default function AboutPage({
         {/* 4 Core Pillars (White Cards with Pink Borders) */}
         <div style={{ marginBottom: 60 }}>
           <div style={{ textAlign: 'center', maxWidth: 700, margin: '0 auto 40px' }}>
-            <h2 style={{ fontSize: 28, fontWeight: 900, color: '#000000', marginBottom: 10 }}>
+            <h2 style={{ fontSize: 28, fontWeight: 900, color: '#FFFFFF', marginBottom: 10 }}>
               {isFa ? 'ارزش‌ها و استانداردهای بنیادین ما' : 'Our Core Architectural Values'}
             </h2>
-            <p style={{ fontSize: 16, color: '#475569' }}>
+            <p style={{ fontSize: 16, color: '#94A3B8' }}>
               {isFa
                 ? 'پایبندی به بالاترین اصول امنیت، حریم خصوصی و تجربه کاربری در تمام نسخه‌های زو'
                 : 'Upholding strict benchmarks of privacy, responsiveness, and user empowerment.'}
@@ -247,8 +247,8 @@ export default function AboutPage({
                   style={{
                     padding: '28px 24px',
                     borderRadius: 24,
-                    background: '#FFF7F9',
-                    border: '1.5px solid rgba(252, 70, 107, 0.3)',
+                    background: 'rgba(13, 18, 30, 0.75)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
                     boxShadow: '0 6px 20px rgba(252, 70, 107, 0.08)',
                   }}
                 >
@@ -268,10 +268,10 @@ export default function AboutPage({
                   >
                     <Icon size={22} />
                   </div>
-                  <h3 style={{ fontSize: 18, fontWeight: 800, color: '#000000', marginBottom: 8 }}>
+                  <h3 style={{ fontSize: 18, fontWeight: 800, color: '#FFFFFF', marginBottom: 8 }}>
                     {val.title}
                   </h3>
-                  <p style={{ fontSize: 14, color: '#334155', lineHeight: 1.7, margin: 0 }}>
+                  <p style={{ fontSize: 14, color: '#94A3B8', lineHeight: 1.7, margin: 0 }}>
                     {val.desc}
                   </p>
                 </div>

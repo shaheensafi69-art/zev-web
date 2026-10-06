@@ -52,6 +52,45 @@ export const es: Dictionary = {
     tag: 'LIDERAZGO Y VISIÓN',
     title: 'Fundadores y Equipo de Liderazgo de ZEV',
     subtitle: 'Las mentes visionarias que construyen puentes digitales para empoderar a la comunidad afgana e internacional.',
+    roles: {
+          "directorFounder": "Director y Fundador",
+          "ceoEurope": "CEO y Relaciones con Europa",
+          "coFounder": "Cofundador",
+          "ecosystemManager": "Directora General del Ecosistema",
+          "leadDeveloper": "Líder del Equipo de Desarrollo"
+    },
+    members: {
+          "shaheen": {
+                "name": "Shaheen Safi",
+                "role": "Director y Fundador (Director & Founder)",
+                "badge": "Director y Fundador",
+                "bio": "Fundador y Director del Ecosistema Safi y la plataforma ZEV, arquitecto líder de software en la nube, IA y Flutter."
+          },
+          "sahel": {
+                "name": "Sahel Salem",
+                "role": "Director Ejecutivo (CEO) y Relaciones con Europa",
+                "badge": "CEO y Relaciones Europa",
+                "bio": "Director Ejecutivo (CEO) liderando la gestión corporativa, alianzas estratégicas internacionales y relaciones en toda Europa."
+          },
+          "mujtaba": {
+                "name": "Mujtaba Rahmani",
+                "role": "Cofundador (Co-Founder)",
+                "badge": "Cofundador",
+                "bio": "Cofundador de ZEV, dirigiendo la infraestructura, la resiliencia operativa y la ciberseguridad integral."
+          },
+          "shirin": {
+                "name": "Shirin Gol Ahmadi",
+                "role": "Directora General del Ecosistema",
+                "badge": "Gerente del Ecosistema",
+                "bio": "Dirección integral de todos los productos y plataformas del Ecosistema Safi, coordinando tecnología y ZEV."
+          },
+          "mobin": {
+                "name": "Mobin Hassani",
+                "role": "Líder del Equipo de Desarrollo (Lead Developer)",
+                "badge": "Líder de Desarrollo",
+                "bio": "Jefe de ingeniería de software, liderando al equipo de desarrolladores Flutter y la optimización de código multiplataforma."
+          }
+    },
   },
   features: {
     tag: 'EXPLORA LAS CAPACIDADES',

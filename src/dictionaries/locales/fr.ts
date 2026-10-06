@@ -52,6 +52,45 @@ export const fr: Dictionary = {
     tag: 'LEADERSHIP & VISION',
     title: 'Fondateurs et Équipe Dirigeante de ZEV',
     subtitle: 'Les esprits pionniers qui bâtissent des passerelles numériques pour la communauté afghane et internationale.',
+    roles: {
+          "directorFounder": "Directeur & Fondateur",
+          "ceoEurope": "CEO & Relations Européennes",
+          "coFounder": "Co-Fondateur",
+          "ecosystemManager": "Directrice Générale de l’Écosystème",
+          "leadDeveloper": "Lead Developer"
+    },
+    members: {
+          "shaheen": {
+                "name": "Shaheen Safi",
+                "role": "Directeur & Fondateur (Director & Founder)",
+                "badge": "Directeur & Fondateur",
+                "bio": "Fondateur & Directeur de l’écosystème Safi et de ZEV, architecte logiciel en chef des systèmes cloud, de l’IA et de Flutter."
+          },
+          "sahel": {
+                "name": "Sahel Salem",
+                "role": "Directeur Général (CEO) & Relations Européennes",
+                "badge": "CEO & Relations Europe",
+                "bio": "Directeur Général (CEO) dirigeant la gouvernance d’entreprise, les relations européennes et les partenariats stratégiques mondiaux."
+          },
+          "mujtaba": {
+                "name": "Mujtaba Rahmani",
+                "role": "Co-Fondateur (Co-Founder)",
+                "badge": "Co-Fondateur",
+                "bio": "Co-Fondateur de ZEV, supervisant les opérations, la résilience des infrastructures et la sécurité des données."
+          },
+          "shirin": {
+                "name": "Shirin Gol Ahmadi",
+                "role": "Directrice Générale de l’Écosystème",
+                "badge": "Manager Écosystème",
+                "bio": "Direction de la synergie globale de l’écosystème Safi, orchestrant les intégrations technologiques, éducatives et sociales de ZEV."
+          },
+          "mobin": {
+                "name": "Mobin Hassani",
+                "role": "Lead Developer & Responsable Ingénierie",
+                "badge": "Lead Developer",
+                "bio": "Responsable du développement logiciel, pilotant les ingénieurs Flutter et l’optimisation des performances multiplateformes."
+          }
+    },
   },
   features: {
     tag: 'EXPLORER LES POSSIBILITÉS',

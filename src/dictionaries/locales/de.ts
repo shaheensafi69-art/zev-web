@@ -52,6 +52,45 @@ export const de: Dictionary = {
     tag: 'FÜHRUNG & VISION',
     title: 'Gründer und Führungsteam von ZEV',
     subtitle: 'Die visionären Köpfe, die digitale Brücken bauen und die afghanische sowie internationale Tech-Community stärken.',
+    roles: {
+          "directorFounder": "Direktor & Gründer",
+          "ceoEurope": "CEO & Europäische Beziehungen",
+          "coFounder": "Mitgründer",
+          "ecosystemManager": "General Ecosystem Managerin",
+          "leadDeveloper": "Lead Developer"
+    },
+    members: {
+          "shaheen": {
+                "name": "Shaheen Safi",
+                "role": "Direktor & Gründer (Director & Founder)",
+                "badge": "Direktor & Gründer",
+                "bio": "Gründer & Direktor des Safi-Ökosystems und der ZEV-Plattform, Chefarchitekt für Cloud-Systeme, KI und Flutter."
+          },
+          "sahel": {
+                "name": "Sahel Salem",
+                "role": "CEO & Europäische Beziehungen",
+                "badge": "CEO & Europa",
+                "bio": "Chief Executive Officer für Unternehmensführung, strategische Partnerschaften und europäische Außenbeziehungen von ZEV."
+          },
+          "mujtaba": {
+                "name": "Mujtaba Rahmani",
+                "role": "Mitgründer (Co-Founder)",
+                "badge": "Mitgründer",
+                "bio": "Mitgründer von ZEV, verantwortlich für Infrastruktur-Resilienz, operative Abläufe und Cybersicherheit."
+          },
+          "shirin": {
+                "name": "Shirin Gol Ahmadi",
+                "role": "General Ecosystem Managerin",
+                "badge": "Ökosystem-Managerin",
+                "bio": "Gesamtheitliche Steuerung aller Plattformen des Safi-Ökosystems und strategische Ausrichtung der Bildungs- und Tech-Schnittstellen."
+          },
+          "mobin": {
+                "name": "Mobin Hassani",
+                "role": "Lead Developer & Entwicklungsleiter",
+                "badge": "Lead Developer",
+                "bio": "Leiter der Softwareentwicklung, Führung des Flutter-Engineering-Teams und Systemoptimierung für maximale Geschwindigkeit."
+          }
+    },
   },
   features: {
     tag: 'FUNKTIONEN ENTDECKEN',

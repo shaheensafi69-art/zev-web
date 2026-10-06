@@ -25,6 +25,7 @@ import {
 import { getDictionary, isRtlLocale } from '@/dictionaries';
 import { AppMockup } from '@/components/AppMockup';
 import { EcosystemSection } from '@/components/EcosystemSection';
+import { TeamSection } from '@/components/TeamSection';
 import { DownloadModal } from '@/components/DownloadModal';
 
 const getShowcaseData = (locale: string) => {
@@ -402,7 +403,7 @@ export default function LocalizedHomePage({
   ];
 
   return (
-    <div style={{ backgroundColor: '#FFFFFF', color: '#0F172A' }}>
+    <div style={{ backgroundColor: '#07090E', color: '#94A3B8' }}>
       {/* HERO SECTION */}
       <section
         style={{
@@ -410,7 +411,7 @@ export default function LocalizedHomePage({
           paddingTop: 40,
           paddingBottom: 80,
           overflow: 'hidden',
-          backgroundColor: '#FFFFFF',
+          backgroundColor: '#07090E',
         }}
       >
         {/* Ambient Glows */}
@@ -448,14 +449,14 @@ export default function LocalizedHomePage({
               >
                 <span className="text-gradient-pink">{dict.hero.titleHighlight}</span>
                 <br />
-                <span style={{ color: '#000000' }}>{dict.hero.titleRest}</span>
+                <span style={{ color: '#FFFFFF' }}>{dict.hero.titleRest}</span>
               </h1>
 
               {/* Subtitle */}
               <p
                 style={{
                   fontSize: 'clamp(16px, 2vw, 19px)',
-                  color: '#334155',
+                  color: '#94A3B8',
                   lineHeight: 1.65,
                   marginBottom: 36,
                   maxWidth: 620,
@@ -541,9 +542,9 @@ export default function LocalizedHomePage({
                   maxWidth: 440,
                   borderRadius: 36,
                   padding: 8,
-                  background: '#FFF1F4',
-                  border: '2px solid rgba(252, 70, 107, 0.4)',
-                  boxShadow: '0 25px 60px rgba(252, 70, 107, 0.25)',
+                  background: 'rgba(13, 18, 30, 0.75)',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  boxShadow: '0 25px 70px rgba(0, 0, 0, 0.8), 0 0 30px rgba(252, 70, 107, 0.12)',
                 }}
               >
                 <div
@@ -573,14 +574,14 @@ export default function LocalizedHomePage({
                   bottom: '10%',
                   left: isFa ? 'auto' : '-3%',
                   right: isFa ? '-3%' : 'auto',
-                  background: '#FFFFFF',
-                  border: '1.5px solid rgba(252, 70, 107, 0.4)',
+                  background: 'rgba(13, 18, 30, 0.75)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
                   padding: '12px 20px',
                   borderRadius: 22,
                   display: 'flex',
                   alignItems: 'center',
                   gap: 12,
-                  boxShadow: '0 12px 30px rgba(252, 70, 107, 0.2)',
+                  boxShadow: '0 12px 30px rgba(0, 0, 0, 0.7)',
                 }}
               >
                 <div
@@ -598,7 +599,7 @@ export default function LocalizedHomePage({
                   <Video size={18} />
                 </div>
                 <div>
-                  <div style={{ fontSize: 13, fontWeight: 800, color: '#000000' }}>
+                  <div style={{ fontSize: 13, fontWeight: 800, color: '#FFFFFF' }}>
                     {isFa ? 'ریلز و استوری ترند' : 'Trending Reels Studio'}
                   </div>
                   <div style={{ fontSize: 11, color: '#FC466B', fontWeight: 700 }}>
@@ -618,9 +619,9 @@ export default function LocalizedHomePage({
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
               gap: 24,
-              background: '#FFF1F4',
-              border: '1.5px solid rgba(252, 70, 107, 0.35)',
-              boxShadow: '0 10px 30px rgba(252, 70, 107, 0.1)',
+              background: 'rgba(13, 18, 30, 0.75)',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
+              boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)',
             }}
           >
             {stats.map((stat, idx) => {
@@ -654,13 +655,13 @@ export default function LocalizedHomePage({
                       style={{
                         fontSize: 22,
                         fontWeight: 900,
-                        color: '#000000',
+                        color: '#FFFFFF',
                         letterSpacing: '-0.5px',
                       }}
                     >
                       {stat.value}
                     </div>
-                    <div style={{ fontSize: 13, color: '#475569', fontWeight: 600 }}>{stat.label}</div>
+                    <div style={{ fontSize: 13, color: '#94A3B8', fontWeight: 600 }}>{stat.label}</div>
                   </div>
                 </div>
               );
@@ -675,7 +676,7 @@ export default function LocalizedHomePage({
         style={{
           position: 'relative',
           padding: '90px 0',
-          backgroundColor: '#FFFFFF',
+          backgroundColor: '#07090E',
         }}
       >
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
@@ -690,12 +691,12 @@ export default function LocalizedHomePage({
                 fontWeight: 900,
                 lineHeight: 1.2,
                 marginBottom: 16,
-                color: '#000000',
+                color: '#FFFFFF',
               }}
             >
               {dict.features.title}
             </h2>
-            <p style={{ fontSize: 17, color: '#334155', lineHeight: 1.6 }}>{dict.features.subtitle}</p>
+            <p style={{ fontSize: 17, color: '#94A3B8', lineHeight: 1.6 }}>{dict.features.subtitle}</p>
           </div>
 
           <div
@@ -714,12 +715,12 @@ export default function LocalizedHomePage({
                   style={{
                     padding: 36,
                     borderRadius: 28,
-                    background: '#FFF7F9',
-                    border: '1.5px solid rgba(252, 70, 107, 0.3)',
+                    background: 'rgba(13, 18, 30, 0.75)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
-                    boxShadow: '0 8px 24px rgba(252, 70, 107, 0.08)',
+                    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.5)',
                   }}
                 >
                   <div>
@@ -744,14 +745,14 @@ export default function LocalizedHomePage({
                       style={{
                         fontSize: 20,
                         fontWeight: 900,
-                        color: '#000000',
+                        color: '#FFFFFF',
                         marginBottom: 12,
                       }}
                     >
                       {feat.title}
                     </h3>
 
-                    <p style={{ color: '#334155', fontSize: 15, lineHeight: 1.7, margin: 0 }}>
+                    <p style={{ color: '#94A3B8', fontSize: 15, lineHeight: 1.7, margin: 0 }}>
                       {feat.desc}
                     </p>
                   </div>
@@ -765,6 +766,9 @@ export default function LocalizedHomePage({
       {/* APP MOCKUP SHOWCASE */}
       <AppMockup />
 
+      {/* EXECUTIVE LEADERSHIP BOARD */}
+      <TeamSection locale={locale} dict={dict} />
+
       {/* SAFI ECOSYSTEM & PARTNER SHOWCASE */}
       <EcosystemSection locale={locale} dict={dict} />
 
@@ -773,7 +777,7 @@ export default function LocalizedHomePage({
         style={{
           position: 'relative',
           padding: '90px 0',
-          backgroundColor: '#FFFFFF',
+          backgroundColor: '#07090E',
         }}
       >
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
@@ -782,10 +786,10 @@ export default function LocalizedHomePage({
               <Smartphone size={14} />
               <span>{showcaseData.tag}</span>
             </div>
-            <h2 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 900, marginBottom: 14, color: '#000000' }}>
+            <h2 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 900, marginBottom: 14, color: '#FFFFFF' }}>
               {showcaseData.heading}
             </h2>
-            <p style={{ fontSize: 17, color: '#334155' }}>
+            <p style={{ fontSize: 17, color: '#94A3B8' }}>
               {showcaseData.subheading}
             </p>
           </div>
@@ -805,10 +809,10 @@ export default function LocalizedHomePage({
                   padding: 14,
                   borderRadius: 26,
                   textAlign: 'center',
-                  background: '#FFF7F9',
-                  border: '1.5px solid rgba(252, 70, 107, 0.3)',
+                  background: 'rgba(13, 18, 30, 0.75)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
                   transition: 'all 0.3s ease',
-                  boxShadow: '0 8px 25px rgba(252, 70, 107, 0.08)',
+                  boxShadow: '0 8px 25px rgba(0, 0, 0, 0.5)',
                 }}
               >
                 <div
@@ -825,7 +829,7 @@ export default function LocalizedHomePage({
                 >
                   <Image src={shot.img} alt={shot.title} fill style={{ objectFit: 'cover' }} />
                 </div>
-                <div style={{ fontSize: 15, fontWeight: 900, color: '#000000', marginBottom: 4 }}>
+                <div style={{ fontSize: 15, fontWeight: 900, color: '#FFFFFF', marginBottom: 4 }}>
                   {shot.title}
                 </div>
                 <div style={{ fontSize: 12, color: '#64748B', fontWeight: 600 }}>
@@ -838,10 +842,10 @@ export default function LocalizedHomePage({
       </section>
 
       {/* FAQ ACCORDION */}
-      <section style={{ padding: '90px 0', backgroundColor: '#FFFFFF' }}>
+      <section style={{ padding: '90px 0', backgroundColor: '#07090E' }}>
         <div className="container-narrow">
           <div style={{ textAlign: 'center', marginBottom: 50 }}>
-            <h2 style={{ fontSize: 34, fontWeight: 900, marginBottom: 14, color: '#000000' }}>
+            <h2 style={{ fontSize: 34, fontWeight: 900, marginBottom: 14, color: '#FFFFFF' }}>
               {locale === 'fa'
                 ? 'پرسش‌های متداول'
                 : locale === 'ps'
@@ -862,7 +866,7 @@ export default function LocalizedHomePage({
                 ? 'Часто задаваемые вопросы'
                 : 'Frequently Asked Questions'}
             </h2>
-            <p style={{ fontSize: 16, color: '#334155' }}>
+            <p style={{ fontSize: 16, color: '#94A3B8' }}>
               {locale === 'fa'
                 ? 'پاسخ به سوالات مهم درباره نحوه کار، اکوسیستم صفی و امنیت زو'
                 : locale === 'ps'
@@ -887,7 +891,7 @@ export default function LocalizedHomePage({
                     border: isOpen
                       ? '1.5px solid #FC466B'
                       : '1.5px solid rgba(252, 70, 107, 0.25)',
-                    background: isOpen ? '#FFF1F4' : '#FFFFFF',
+                    background: isOpen ? 'rgba(252, 70, 107, 0.08)' : 'rgba(13, 18, 30, 0.75)',
                     overflow: 'hidden',
                   }}
                 >
@@ -901,7 +905,7 @@ export default function LocalizedHomePage({
                       justifyContent: 'space-between',
                       background: 'none',
                       border: 'none',
-                      color: '#000000',
+                      color: '#FFFFFF',
                       fontSize: 16,
                       fontWeight: 800,
                       textAlign: isFa ? 'right' : 'left',
@@ -925,10 +929,10 @@ export default function LocalizedHomePage({
                     <div
                       style={{
                         padding: '0 24px 22px',
-                        color: '#334155',
+                        color: '#94A3B8',
                         fontSize: 15,
                         lineHeight: 1.75,
-                        borderTop: '1px solid rgba(252, 70, 107, 0.2)',
+                        borderTop: '1px solid rgba(255, 255, 255, 0.08)',
                         paddingTop: 16,
                       }}
                     >
@@ -949,7 +953,7 @@ export default function LocalizedHomePage({
           position: 'relative',
           padding: '60px 0 100px',
           overflow: 'hidden',
-          backgroundColor: '#FFFFFF',
+          backgroundColor: '#07090E',
         }}
       >
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
@@ -999,20 +1003,46 @@ export default function LocalizedHomePage({
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-white"
-                style={{ padding: '16px 36px', fontSize: 16 }}
+                style={{
+                  padding: '16px 36px',
+                  fontSize: 16,
+                  color: '#07090E',
+                  backgroundColor: '#FFFFFF',
+                  fontWeight: 800,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 10,
+                  borderRadius: 9999,
+                  textDecoration: 'none',
+                  boxShadow: '0 8px 30px rgba(0, 0, 0, 0.25)',
+                }}
               >
-                <Globe size={18} />
-                <span>{dict.downloadSection.btnWeb}</span>
-                <ArrowRight size={18} />
+                <Globe size={18} color="#07090E" />
+                <span style={{ color: '#07090E', fontWeight: 800 }}>{dict.downloadSection.btnWeb}</span>
+                <ArrowRight size={18} color="#07090E" />
               </a>
 
               <button
+                type="button"
                 onClick={() => setDownloadModalOpen(true)}
                 className="btn-white"
-                style={{ padding: '16px 36px', fontSize: 16 }}
+                style={{
+                  padding: '16px 36px',
+                  fontSize: 16,
+                  color: '#07090E',
+                  backgroundColor: '#FFFFFF',
+                  fontWeight: 800,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 10,
+                  borderRadius: 9999,
+                  border: 'none',
+                  cursor: 'pointer',
+                  boxShadow: '0 8px 30px rgba(0, 0, 0, 0.25)',
+                }}
               >
-                <Download size={18} />
-                <span>{dict.hero.ctaDownload}</span>
+                <Download size={18} color="#07090E" />
+                <span style={{ color: '#07090E', fontWeight: 800 }}>{dict.hero.ctaDownload}</span>
               </button>
             </div>
 

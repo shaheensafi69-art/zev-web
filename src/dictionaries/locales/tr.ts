@@ -52,6 +52,45 @@ export const tr: Dictionary = {
     tag: 'LİDERLİK VE VİZYON',
     title: 'Kurucular ve Liderlik Ekibi',
     subtitle: 'Afgan ve uluslararası teknoloji topluluğunu güçlendiren ve dijital köprüler kuran vizyoner zihinler.',
+    roles: {
+          "directorFounder": "Direktör & Kurucu",
+          "ceoEurope": "CEO & Avrupa İlişkileri",
+          "coFounder": "Kurucu Ortak",
+          "ecosystemManager": "Genel Ekosistem Müdürü",
+          "leadDeveloper": "Lead Developer"
+    },
+    members: {
+          "shaheen": {
+                "name": "Shaheen Safi",
+                "role": "Direktör & Kurucu (Director & Founder)",
+                "badge": "Direktör & Kurucu",
+                "bio": "Safi Ekosistemi ve ZEV platformunun Kurucusu ve Direktörü; ölçeklenebilir bulut mimarileri, Flutter ve yapay zeka lideri."
+          },
+          "sahel": {
+                "name": "Sahel Salem",
+                "role": "CEO & Avrupa İlişkileri (CEO & European Relations)",
+                "badge": "CEO & Avrupa İlişkileri",
+                "bio": "ZEV İcra Kurulu Başkanı (CEO); Avrupa genelinde kurumsal ilişkiler, uluslararası ittifaklar ve stratejik büyüme lideri."
+          },
+          "mujtaba": {
+                "name": "Mujtaba Rahmani",
+                "role": "Kurucu Ortak (Co-Founder)",
+                "badge": "Kurucu Ortak",
+                "bio": "ZEV Kurucu Ortağı; platform altyapısı, operasyonel dayanıklılık ve kurumsal veri güvenliği yöneticisi."
+          },
+          "shirin": {
+                "name": "Shirin Gol Ahmadi",
+                "role": "Genel Ekosistem Müdürü (Ecosystem Manager)",
+                "badge": "Ekosistem Müdürü",
+                "bio": "Tüm Safi Ekosistemi ürün ve platformlarının genel yöneticisi; teknoloji, eğitim ve ZEV arasındaki stratejik entegrasyon lideri."
+          },
+          "mobin": {
+                "name": "Mobin Hassani",
+                "role": "Geliştirici Ekip Lideri (Lead Developer)",
+                "badge": "Lead Developer",
+                "bio": "Yazılım Geliştirme Lideri; Flutter çok platformlu mühendislik ekibini yöneten ve sistem optimizasyonunu sağlayan baş mühendis."
+          }
+    },
   },
   features: {
     tag: 'YETENEKLERİ KEŞFEDİN',
