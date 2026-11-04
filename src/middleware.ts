@@ -16,7 +16,8 @@ export function middleware(request: NextRequest) {
     pathname.includes('.') ||
     pathname === '/favicon.ico' ||
     pathname === '/robots.txt' ||
-    pathname === '/sitemap.xml'
+    pathname === '/sitemap.xml' ||
+    pathname === '/app-ads.txt'
   ) {
     return NextResponse.next();
   }
