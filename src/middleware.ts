@@ -14,7 +14,10 @@ export function middleware(request: NextRequest) {
     pathname.startsWith('/team') ||
     pathname.startsWith('/company') ||
     pathname.includes('.') ||
-    pathname === '/favicon.ico' ||
+    pathname.startsWith('/auth') ||
+    pathname.startsWith('/reset-password') ||
+    pathname.startsWith('/login') ||
+    pathname.startsWith('/favicon.ico') ||
     pathname === '/robots.txt' ||
     pathname === '/sitemap.xml' ||
     pathname === '/app-ads.txt'
