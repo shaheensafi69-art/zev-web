@@ -4,6 +4,21 @@ import { locales, defaultLocale } from './dictionaries';
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // Special Guard for /join: Middleware strictly enforces a referral code
+  if (pathname === '/join' || pathname.startsWith('/join/')) {
+    const ref = request.nextUrl.searchParams.get('ref')?.trim();
+    if (!ref) {
+      // Disallow direct access without referral code -> redirect to localized home
+      const cookieLocale = request.cookies.get('zev_locale')?.value;
+      const targetLocale = (cookieLocale && locales.includes(cookieLocale as any)) ? cookieLocale : defaultLocale;
+      const homeUrl = request.nextUrl.clone();
+      homeUrl.pathname = `/${targetLocale}`;
+      homeUrl.search = '';
+      return NextResponse.redirect(homeUrl);
+    }
+    return NextResponse.next();
+  }
+
   // Ignore static assets, APIs, and Next.js internals
   if (
     pathname.startsWith('/_next') ||
