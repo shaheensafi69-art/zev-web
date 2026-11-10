@@ -4,6 +4,13 @@ import { locales, defaultLocale } from './dictionaries';
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // ─── ALWAYS PASS THROUGH: Android / iOS Deep Link verification files ───────
+  // Google Play Console needs /.well-known/assetlinks.json to be publicly
+  // accessible with no redirects. Apple requires /.well-known/apple-app-site-association.
+  if (pathname.startsWith('/.well-known/')) {
+    return NextResponse.next();
+  }
+
   // Special Guard for /join: Middleware strictly enforces a referral code
   if (pathname === '/join' || pathname.startsWith('/join/')) {
     const ref = request.nextUrl.searchParams.get('ref')?.trim();
@@ -64,5 +71,6 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+  // Explicitly exclude .well-known paths from middleware processing
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|\\.well-known).*)'],
 };
