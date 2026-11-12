@@ -184,14 +184,14 @@ export default function LocalizedDeleteAccountPage({
         }}
         dir={isFa ? 'rtl' : 'ltr'}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: '#64748B', marginBottom: 20 }}>
-          <Link href={`/${locale}`} style={{ color: '#CBD5E1', fontWeight: 600 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: '#94A3B8', marginBottom: 20 }}>
+          <Link href={`/${locale}`} style={{ color: '#E2E8F0', fontWeight: 600 }}>
             {dict.nav.home}
           </Link>
           <span>/</span>
-          <span style={{ color: '#64748B' }}>{dict.nav.trustSafety}</span>
+          <span style={{ color: '#94A3B8' }}>{dict.nav.trustSafety}</span>
           <span>/</span>
-          <span style={{ color: '#FC466B', fontWeight: 700 }}>
+          <span style={{ color: '#FF6B8B', fontWeight: 700 }}>
             {dict.nav.deleteAccount || (isFa ? 'حذف حساب کاربری' : 'Delete Account')}
           </span>
         </div>
@@ -201,11 +201,11 @@ export default function LocalizedDeleteAccountPage({
           style={{
             position: 'relative',
             borderRadius: 36,
-            background: 'linear-gradient(135deg, #FFF1F4 0%, #FFFFFF 100%)',
-            border: '2px solid rgba(252, 70, 107, 0.35)',
+            background: 'linear-gradient(135deg, #0D121E 0%, #171021 60%, rgba(252, 70, 107, 0.18) 100%)',
+            border: '1.5px solid rgba(252, 70, 107, 0.35)',
             padding: '48px 36px',
             overflow: 'hidden',
-            boxShadow: '0 20px 50px rgba(252, 70, 107, 0.1)',
+            boxShadow: '0 20px 50px rgba(0, 0, 0, 0.45)',
             marginBottom: 48,
           }}
         >
@@ -218,7 +218,7 @@ export default function LocalizedDeleteAccountPage({
               width: 260,
               height: 260,
               borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(252, 70, 107, 0.18) 0%, rgba(255,255,255,0) 70%)',
+              background: 'radial-gradient(circle, rgba(252, 70, 107, 0.22) 0%, rgba(13, 18, 30, 0) 70%)',
               pointerEvents: 'none',
             }}
           />
@@ -259,11 +259,11 @@ export default function LocalizedDeleteAccountPage({
             >
               {isFa ? (
                 <>
-                  درخواست حذف دائمی <span style={{ color: '#FC466B' }}>حساب کاربری و اطلاعات</span> در زِو
+                  درخواست حذف دائمی <span style={{ color: '#FF5E82' }}>حساب کاربری و اطلاعات</span> در زِو
                 </>
               ) : (
                 <>
-                  Delete Your <span style={{ color: '#FC466B' }}>ZEV Account</span> & Personal Data
+                  Delete Your <span style={{ color: '#FF5E82' }}>ZEV Account</span> & Personal Data
                 </>
               )}
             </h1>
@@ -271,7 +271,7 @@ export default function LocalizedDeleteAccountPage({
             <p
               style={{
                 fontSize: 'clamp(15px, 1.8vw, 18px)',
-                color: '#94A3B8',
+                color: '#CBD5E1',
                 lineHeight: 1.8,
                 marginBottom: 28,
               }}
@@ -320,7 +320,7 @@ export default function LocalizedDeleteAccountPage({
             <h2 style={{ fontSize: 'clamp(22px, 2.8vw, 34px)', fontWeight: 900, color: '#FFFFFF', marginBottom: 12 }}>
               {isFa ? 'چه اطلاعاتی در فرایند حذف پاک می‌شوند؟' : 'What Data is Permanently Purged?'}
             </h2>
-            <p style={{ fontSize: 15, color: '#64748B', lineHeight: 1.7 }}>
+            <p style={{ fontSize: 15, color: '#CBD5E1', lineHeight: 1.7 }}>
               {isFa
                 ? 'پس از تایید درخواست، تمامی سوابق هویتی، فایل‌های چندرسانه‌ای و پیام‌های شما طبق برنامه زیر به صورت کامل و غیرقابل بازگشت پاک خواهند شد.'
                 : 'Upon deletion verification, all your identity records, multimedia files, and messaging history will be permanently eliminated.'}
@@ -340,22 +340,22 @@ export default function LocalizedDeleteAccountPage({
                 <div
                   key={idx}
                   style={{
-                    backgroundColor: '#07090E',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    backgroundColor: '#0C101A',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
                     borderRadius: 24,
                     padding: '28px 24px',
-                    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.04)',
+                    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.35)',
                     transition: 'all 0.3s ease',
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.borderColor = '#FC466B';
                     e.currentTarget.style.transform = 'translateY(-4px)';
-                    e.currentTarget.style.boxShadow = '0 15px 40px rgba(252, 70, 107, 0.15)';
+                    e.currentTarget.style.boxShadow = '0 15px 40px rgba(252, 70, 107, 0.18)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(252, 70, 107, 0.25)';
+                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
                     e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.04)';
+                    e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.35)';
                   }}
                 >
                   <div
@@ -363,12 +363,12 @@ export default function LocalizedDeleteAccountPage({
                       width: 48,
                       height: 48,
                       borderRadius: 16,
-                      backgroundColor: '#FFF1F4',
-                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                      backgroundColor: 'rgba(252, 70, 107, 0.14)',
+                      border: '1px solid rgba(252, 70, 107, 0.32)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      color: '#FC466B',
+                      color: '#FF6B8B',
                       marginBottom: 18,
                     }}
                   >
@@ -377,7 +377,7 @@ export default function LocalizedDeleteAccountPage({
                   <h3 style={{ fontSize: 18, fontWeight: 800, color: '#FFFFFF', marginBottom: 10 }}>
                     {item.title}
                   </h3>
-                  <p style={{ fontSize: 14, color: '#94A3B8', lineHeight: 1.75 }}>
+                  <p style={{ fontSize: 14, color: '#CBD5E1', lineHeight: 1.75 }}>
                     {item.desc}
                   </p>
                 </div>
@@ -389,12 +389,12 @@ export default function LocalizedDeleteAccountPage({
         {/* Compliance Box: 30-Day Grace Period & Legal Retention Policy */}
         <div
           style={{
-            backgroundColor: '#07090E',
+            backgroundColor: '#0C101A',
             border: '1px solid rgba(255, 255, 255, 0.12)',
             borderRadius: 28,
             padding: '36px 32px',
             marginBottom: 56,
-            boxShadow: '0 15px 40px rgba(252, 70, 107, 0.08)',
+            boxShadow: '0 15px 40px rgba(0, 0, 0, 0.35)',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
@@ -417,10 +417,10 @@ export default function LocalizedDeleteAccountPage({
             </h3>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 24, fontSize: 14.5, color: '#94A3B8', lineHeight: 1.8 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 24, fontSize: 14.5, color: '#CBD5E1', lineHeight: 1.8 }}>
             <div>
               <h4 style={{ fontSize: 16, fontWeight: 800, color: '#FFFFFF', marginBottom: 8, display: 'flex', alignItems: 'center', gap: 6 }}>
-                <CheckCircle2 size={16} color="#FC466B" />
+                <CheckCircle2 size={16} color="#FF6B8B" />
                 <span>{isFa ? 'مهلت ۳۰ روزه برای لغو انصراف' : '30-Day Cancellation Window'}</span>
               </h4>
               <p>
@@ -432,7 +432,7 @@ export default function LocalizedDeleteAccountPage({
 
             <div>
               <h4 style={{ fontSize: 16, fontWeight: 800, color: '#FFFFFF', marginBottom: 8, display: 'flex', alignItems: 'center', gap: 6 }}>
-                <ShieldAlert size={16} color="#FC466B" />
+                <ShieldAlert size={16} color="#FF6B8B" />
                 <span>{isFa ? 'حذف قطعی و الزامات مالیاتی / قانونی' : 'Permanent Deletion & Legal Compliance'}</span>
               </h4>
               <p>
@@ -447,11 +447,12 @@ export default function LocalizedDeleteAccountPage({
         {/* Step-by-Step Mobile In-App Instructions */}
         <div
           style={{
-            backgroundColor: '#FFF7F9',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            backgroundColor: '#0C101A',
+            border: '1px solid rgba(252, 70, 107, 0.3)',
             borderRadius: 28,
             padding: '36px 32px',
             marginBottom: 56,
+            boxShadow: '0 15px 40px rgba(0, 0, 0, 0.35)',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
@@ -473,7 +474,7 @@ export default function LocalizedDeleteAccountPage({
               <h3 style={{ fontSize: 20, fontWeight: 900, color: '#FFFFFF' }}>
                 {isFa ? 'روش اول: حذف مستقیم از طریق اپلیکیشن موبایل زِو' : 'Method 1: Direct In-App Account Deletion'}
               </h3>
-              <p style={{ fontSize: 13.5, color: '#64748B' }}>
+              <p style={{ fontSize: 13.5, color: '#CBD5E1' }}>
                 {isFa ? 'اگر به تلفن همراه خود دسترسی دارید، این سریع‌ترین روش است:' : 'If you currently have the ZEV app installed on your smartphone:'}
               </p>
             </div>
@@ -511,10 +512,10 @@ export default function LocalizedDeleteAccountPage({
               <div
                 key={idx}
                 style={{
-                  backgroundColor: '#07090E',
+                  backgroundColor: '#121826',
                   borderRadius: 20,
                   padding: '20px 18px',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
                 }}
               >
                 <div
@@ -537,7 +538,7 @@ export default function LocalizedDeleteAccountPage({
                 <div style={{ fontWeight: 800, fontSize: 15, color: '#FFFFFF', marginBottom: 6 }}>
                   {s.title}
                 </div>
-                <div style={{ fontSize: 13, color: '#94A3B8', lineHeight: 1.6 }}>
+                <div style={{ fontSize: 13, color: '#CBD5E1', lineHeight: 1.6 }}>
                   {s.desc}
                 </div>
               </div>
@@ -549,11 +550,11 @@ export default function LocalizedDeleteAccountPage({
         <div
           id="request-form"
           style={{
-            backgroundColor: '#07090E',
-            border: '2.5px solid #FC466B',
+            backgroundColor: '#0C101A',
+            border: '2px solid rgba(252, 70, 107, 0.75)',
             borderRadius: 36,
             padding: '48px 36px',
-            boxShadow: '0 25px 60px rgba(252, 70, 107, 0.12)',
+            boxShadow: '0 25px 60px rgba(0, 0, 0, 0.45)',
             marginBottom: 56,
           }}
         >
@@ -566,9 +567,9 @@ export default function LocalizedDeleteAccountPage({
                   gap: 8,
                   padding: '6px 16px',
                   borderRadius: 999,
-                  backgroundColor: '#FFF1F4',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                  color: '#FC466B',
+                  backgroundColor: 'rgba(252, 70, 107, 0.14)',
+                  border: '1px solid rgba(252, 70, 107, 0.35)',
+                  color: '#FF7592',
                   fontSize: 12.5,
                   fontWeight: 800,
                   marginBottom: 12,
@@ -580,7 +581,7 @@ export default function LocalizedDeleteAccountPage({
               <h2 style={{ fontSize: 'clamp(24px, 3vw, 36px)', fontWeight: 900, color: '#FFFFFF', marginBottom: 10 }}>
                 {isFa ? 'فرم رسمی درخواست حذف حساب کاربری' : 'Submit Account Deletion Request'}
               </h2>
-              <p style={{ fontSize: 14.5, color: '#64748B' }}>
+              <p style={{ fontSize: 14.5, color: '#CBD5E1' }}>
                 {isFa
                   ? 'اگر اپلیکیشن را حذف کرده‌اید یا به آن دسترسی ندارید، مشخصات حساب خود را در فرم زیر وارد کنید تا درخواست شما فوراً پردازش شود.'
                   : 'If you have uninstalled the app or lost access to your device, verify your details below to schedule deletion.'}
@@ -591,7 +592,7 @@ export default function LocalizedDeleteAccountPage({
               /* Success Card */
               <div
                 style={{
-                  backgroundColor: '#FFF1F4',
+                  backgroundColor: '#121826',
                   border: '2px solid #FC466B',
                   borderRadius: 28,
                   padding: '36px 30px',
@@ -620,7 +621,7 @@ export default function LocalizedDeleteAccountPage({
                   {isFa ? 'درخواست حذف با موفقیت ثبت شد' : 'Deletion Request Successfully Filed'}
                 </h3>
 
-                <p style={{ fontSize: 15, color: '#94A3B8', lineHeight: 1.8, marginBottom: 24 }}>
+                <p style={{ fontSize: 15, color: '#CBD5E1', lineHeight: 1.8, marginBottom: 24 }}>
                   {submittedData.message}
                 </p>
 
@@ -637,10 +638,10 @@ export default function LocalizedDeleteAccountPage({
                     marginBottom: 24,
                   }}
                 >
-                  <span style={{ fontSize: 13, color: '#64748B', fontWeight: 600 }}>
+                  <span style={{ fontSize: 13, color: '#CBD5E1', fontWeight: 600 }}>
                     {isFa ? 'کد پیگیری رسمی:' : 'Tracking Ticket:'}
                   </span>
-                  <span style={{ fontSize: 20, fontWeight: 900, color: '#FC466B', letterSpacing: '1px' }}>
+                  <span style={{ fontSize: 20, fontWeight: 900, color: '#FF5E82', letterSpacing: '1px' }}>
                     {submittedData.ticketId}
                   </span>
                   <button
@@ -650,7 +651,7 @@ export default function LocalizedDeleteAccountPage({
                       background: 'none',
                       border: 'none',
                       cursor: 'pointer',
-                      color: copied ? '#059669' : '#FC466B',
+                      color: copied ? '#34D399' : '#FF7592',
                       display: 'flex',
                       alignItems: 'center',
                       gap: 4,
@@ -669,7 +670,7 @@ export default function LocalizedDeleteAccountPage({
                     borderRadius: 16,
                     backgroundColor: '#07090E',
                     fontSize: 13.5,
-                    color: '#94A3B8',
+                    color: '#CBD5E1',
                     lineHeight: 1.7,
                     textAlign: isFa ? 'right' : 'left',
                     marginBottom: 24,
@@ -717,9 +718,9 @@ export default function LocalizedDeleteAccountPage({
                     style={{
                       padding: '14px 18px',
                       borderRadius: 16,
-                      backgroundColor: '#FEF2F2',
-                      border: '1.5px solid #EF4444',
-                      color: '#B91C1C',
+                      backgroundColor: 'rgba(239, 68, 68, 0.14)',
+                      border: '1.5px solid rgba(239, 68, 68, 0.65)',
+                      color: '#FCA5A5',
                       fontSize: 14,
                       display: 'flex',
                       alignItems: 'center',
@@ -857,8 +858,8 @@ export default function LocalizedDeleteAccountPage({
                 {/* Confirmation Checkbox */}
                 <div
                   style={{
-                    backgroundColor: '#FFF1F4',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    backgroundColor: 'rgba(252, 70, 107, 0.1)',
+                    border: '1px solid rgba(252, 70, 107, 0.35)',
                     borderRadius: 18,
                     padding: '16px 20px',
                     display: 'flex',
@@ -886,7 +887,7 @@ export default function LocalizedDeleteAccountPage({
                     style={{
                       fontSize: 13.5,
                       fontWeight: 700,
-                      color: '#FFFFFF',
+                      color: '#F8FAFC',
                       lineHeight: 1.6,
                       cursor: 'pointer',
                     }}
@@ -933,18 +934,18 @@ export default function LocalizedDeleteAccountPage({
         {/* Support & Legal Desk Contacts */}
         <div
           style={{
-            backgroundColor: '#07090E',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            backgroundColor: '#0C101A',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
             borderRadius: 28,
             padding: '36px 32px',
             textAlign: 'center',
-            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.04)',
+            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.35)',
           }}
         >
           <h3 style={{ fontSize: 20, fontWeight: 900, color: '#FFFFFF', marginBottom: 10 }}>
             {isFa ? 'به کمک نیاز دارید یا سوالی در خصوص داده‌ها دارید؟' : 'Need Assistance or Have Data Inquiries?'}
           </h3>
-          <p style={{ fontSize: 14.5, color: '#64748B', maxWidth: 700, margin: '0 auto 20px', lineHeight: 1.7 }}>
+          <p style={{ fontSize: 14.5, color: '#CBD5E1', maxWidth: 700, margin: '0 auto 20px', lineHeight: 1.7 }}>
             {isFa
               ? 'تیم حریم خصوصی و پشتیبانی زِو در ۲۴ ساعت شبانه‌روز آماده پاسخگویی به درخواست‌ها و سوالات کاربران گرامی است.'
               : 'Our data protection officer and customer support desk are available 24/7 to address any compliance questions.'}
@@ -959,9 +960,9 @@ export default function LocalizedDeleteAccountPage({
                 gap: 8,
                 padding: '12px 24px',
                 borderRadius: 16,
-                backgroundColor: '#FFF1F4',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                color: '#FC466B',
+                backgroundColor: 'rgba(252, 70, 107, 0.12)',
+                border: '1px solid rgba(252, 70, 107, 0.35)',
+                color: '#FF7592',
                 fontWeight: 800,
                 fontSize: 14,
                 textDecoration: 'none',
@@ -979,9 +980,9 @@ export default function LocalizedDeleteAccountPage({
                 gap: 8,
                 padding: '12px 24px',
                 borderRadius: 16,
-                backgroundColor: '#FFF1F4',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                color: '#FC466B',
+                backgroundColor: 'rgba(252, 70, 107, 0.12)',
+                border: '1px solid rgba(252, 70, 107, 0.35)',
+                color: '#FF7592',
                 fontWeight: 800,
                 fontSize: 14,
                 textDecoration: 'none',

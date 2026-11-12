@@ -44,7 +44,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
             e.currentTarget.style.color = '#FFFFFF';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = '#FFF1F4';
+            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
             e.currentTarget.style.color = '#FC466B';
           }}
           aria-label="Close modal"

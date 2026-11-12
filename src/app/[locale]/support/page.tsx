@@ -363,8 +363,8 @@ export default function LocalizedSupportPage({
                             fontWeight: 700,
                             cursor: 'pointer',
                             transition: 'all 0.2s',
-                            background: isSelected ? '#FC466B' : '#FFF7F9',
-                            color: isSelected ? '#FFFFFF' : '#000000',
+                            background: isSelected ? '#FC466B' : 'rgba(255, 255, 255, 0.04)',
+                            color: isSelected ? '#FFFFFF' : '#E2E8F0',
                             border: isSelected ? '1.5px solid #FC466B' : '1.5px solid rgba(252, 70, 107, 0.3)',
                             boxShadow: isSelected ? '0 4px 15px rgba(252, 70, 107, 0.3)' : 'none',
                           }}

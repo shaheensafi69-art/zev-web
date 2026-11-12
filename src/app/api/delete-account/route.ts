@@ -1,116 +1,132 @@
 import { NextRequest, NextResponse } from 'next/server';
+import crypto from 'node:crypto';
+import {
+  checkRateLimit,
+  getClientIp,
+  getSupabaseAdmin,
+} from '@/lib/server/supabaseAdmin';
+import { dispatchTelegramHtml, escapeTelegramHtml } from '@/lib/server/telegram';
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
-    const { identifier, reason, feedback, confirmDataLoss, locale = 'fa' } = body;
-
-    if (!identifier || typeof identifier !== 'string' || identifier.trim().length < 3) {
+    const ip = getClientIp(req);
+    const rl = checkRateLimit(`delete-account:${ip}`, 5, 60 * 60_000);
+    if (!rl.allowed) {
       return NextResponse.json(
-        { success: false, error: 'لطفاً نام کاربری، ایمیل یا شماره موبایل معتبر وارد کنید.' },
+        {
+          success: false,
+          error: 'Too many requests from this network. Please try again later.',
+        },
+        { status: 429, headers: { 'Retry-After': String(rl.retryAfterSeconds) } }
+      );
+    }
+
+    const body = (await req.json()) as Record<string, unknown>;
+    const identifier = String(body.identifier || '').trim();
+    const reason = String(body.reason || 'Not Specified').trim().slice(0, 120);
+    const feedback = String(body.feedback || '').trim().slice(0, 2000);
+    const confirmDataLoss = body.confirmDataLoss === true;
+    const locale = String(body.locale || 'fa').trim().slice(0, 10);
+
+    if (identifier.length < 3 || identifier.length > 160) {
+      return NextResponse.json(
+        {
+          success: false,
+          error:
+            locale === 'en'
+              ? 'Please enter a valid ZEV username, email, or phone number.'
+              : 'لطفاً نام کاربری، ایمیل یا شماره موبایل معتبر وارد کنید.',
+        },
         { status: 400 }
       );
     }
 
     if (!confirmDataLoss) {
       return NextResponse.json(
-        { success: false, error: 'برای ادامه، تایید آگاهی از حذف دائمی اطلاعات الزامی است.' },
+        {
+          success: false,
+          error:
+            locale === 'en'
+              ? 'You must acknowledge permanent data deletion to continue.'
+              : 'برای ادامه، تایید آگاهی از حذف دائمی اطلاعات الزامی است.',
+        },
         { status: 400 }
       );
     }
 
-    const ticketId = 'ZEV-DEL-' + Math.floor(100000 + Math.random() * 900000);
+    const ticketId =
+      'ZEV-DEL-' + crypto.randomBytes(4).toString('hex').toUpperCase();
     const nowIso = new Date().toISOString();
-    const nowKabul = new Date().toLocaleString('fa-IR', { timeZone: 'Asia/Kabul' });
+    const nowKabul = new Date().toLocaleString('fa-IR', {
+      timeZone: 'Asia/Kabul',
+    });
 
-    // 1. Attempt logging to Supabase (if table exists)
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    const admin = getSupabaseAdmin();
 
-    if (supabaseUrl && supabaseKey) {
+    // Try matching existing profile defensively (so admin can locate user cleanly)
+    const cleanedIdent = identifier.replace(/^@+/, '').replace(/[%_,()]/g, '');
+    let matchedUserId: string | null = null;
+    try {
+      const { data: matched } = await admin
+        .from('profiles')
+        .select('id')
+        .or(`username.ilike.${cleanedIdent},email.ilike.${cleanedIdent}`)
+        .limit(1)
+        .maybeSingle();
+      if (matched && typeof (matched as Record<string, unknown>).id === 'string') {
+        matchedUserId = String((matched as Record<string, unknown>).id);
+      }
+    } catch {
+      // Ignore lookup errors
+    }
+
+    // 1. Persist to account_deletions if user matched, and ALWAYS create a support ticket
+    if (matchedUserId) {
       try {
-        await fetch(`${supabaseUrl}/rest/v1/account_deletion_requests`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            apikey: supabaseKey,
-            Authorization: `Bearer ${supabaseKey}`,
-            Prefer: 'return=minimal',
-          },
-          body: JSON.stringify({
-            ticket_id: ticketId,
-            identifier: identifier.trim(),
-            reason: reason || 'Not Specified',
-            feedback: feedback || '',
-            locale,
-            status: 'pending',
-            created_at: nowIso,
-          }),
+        await admin.from('account_deletions').insert({
+          user_id: matchedUserId,
+          reason: `[${ticketId}] ${reason}${feedback ? ` — ${feedback}` : ''}`,
+          action_type: 'delete',
+          status: 'requested',
+          requested_at: nowIso,
         });
-      } catch (dbErr) {
-        console.warn('Supabase log warning (proceeding):', dbErr);
+      } catch {
+        // Ignore constraint errors
       }
     }
 
-    // 2. Dispatch real-time Telegram notification
-    const botToken1 = process.env.NEXT_PUBLIC_TELEGRAM_BOT_TOKEN;
-    const chatId1 = process.env.NEXT_PUBLIC_TELEGRAM_CHAT_ID;
-    const botToken2 = process.env.NEXT_PUBLIC_TELEGRAM_BOT_TOKEN2;
-    const chatId2 = process.env.NEXT_PUBLIC_TELEGRAM_CHAT_ID2;
+    await admin.from('user_support_tickets').insert({
+      user_id: matchedUserId,
+      username: cleanedIdent.slice(0, 64),
+      email: identifier.includes('@') ? identifier : null,
+      category: 'account_deletion',
+      subject: `Account Deletion Request [${ticketId}]`,
+      description: `Identifier: ${identifier}\nReason: ${reason}\nLocale: ${locale}\nFeedback: ${feedback || 'None'}`,
+      status: 'open',
+      priority: 'high',
+    });
 
-    const telegramMessage = `
-🚨 <b>درخواست جدید حذف حساب کاربری زِو (ZEV)</b>
-━━━━━━━━━━━━━━━━━━━━
-🎫 <b>کد رهگیری:</b> <code>${ticketId}</code>
-👤 <b>شناسه / ایمیل / یوزرنیم:</b> <code>${identifier.trim()}</code>
-📋 <b>دلیل حذف:</b> ${reason || 'ذکر نشده'}
-💬 <b>توضیحات و بازخورد:</b> ${feedback ? feedback.trim() : 'بدون توضیحات اضافی'}
-🌐 <b>زبان وب‌سایت:</b> ${locale.toUpperCase()}
-⏰ <b>زمان ثبت (کابل):</b> ${nowKabul}
-🔒 <b>پذیرش حذف داده‌ها:</b> بله (درخواست دائمی)
-━━━━━━━━━━━━━━━━━━━━
-🌐 <i>سامانه تایید و حذف حساب zevapp.com (web.zevapp.com)</i>
-    `.trim();
+    // 2. Dispatch real-time Telegram notification via server module
+    const telegramMessage = [
+      `🚨 <b>درخواست جدید حذف حساب کاربری زِو (ZEV)</b>`,
+      `━━━━━━━━━━━━━━━━━━━━`,
+      `🎫 <b>کد رهگیری:</b> <code>${escapeTelegramHtml(ticketId)}</code>`,
+      `👤 <b>شناسه / ایمیل / یوزرنیم:</b> <code>${escapeTelegramHtml(identifier)}</code>`,
+      matchedUserId
+        ? `🆔 <b>User UUID:</b> <code>${escapeTelegramHtml(matchedUserId)}</code>`
+        : '',
+      `📋 <b>دلیل حذف:</b> ${escapeTelegramHtml(reason)}`,
+      `💬 <b>توضیحات و بازخورد:</b> ${escapeTelegramHtml(feedback || 'بدون توضیحات اضافی')}`,
+      `🌐 <b>زبان وب‌سایت:</b> ${escapeTelegramHtml(locale.toUpperCase())}`,
+      `⏰ <b>زمان ثبت (کابل):</b> ${escapeTelegramHtml(nowKabul)}`,
+      `🔒 <b>پذیرش حذف داده‌ها:</b> بله (درخواست دائمی)`,
+      `━━━━━━━━━━━━━━━━━━━━`,
+      `🌐 <i>سامانه تایید و حذف حساب zevapp.com (web.zevapp.com)</i>`,
+    ]
+      .filter(Boolean)
+      .join('\n');
 
-    let telegramSent = false;
-
-    // Send via Primary Telegram Bot
-    if (botToken1 && chatId1) {
-      try {
-        const tgRes = await fetch(`https://api.telegram.org/bot${botToken1}/sendMessage`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: chatId1,
-            text: telegramMessage,
-            parse_mode: 'HTML',
-          }),
-        });
-        const tgData = await tgRes.json();
-        if (tgData.ok) {
-          telegramSent = true;
-        }
-      } catch (err) {
-        console.error('Telegram bot 1 error:', err);
-      }
-    }
-
-    // Fallback or secondary notification
-    if (!telegramSent && botToken2 && chatId2) {
-      try {
-        await fetch(`https://api.telegram.org/bot${botToken2}/sendMessage`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: chatId2,
-            text: telegramMessage,
-            parse_mode: 'HTML',
-          }),
-        });
-      } catch (err) {
-        console.error('Telegram bot 2 error:', err);
-      }
-    }
+    await dispatchTelegramHtml(telegramMessage);
 
     return NextResponse.json({
       success: true,
@@ -122,11 +138,9 @@ export async function POST(req: NextRequest) {
           ? 'د اکاونټ د ړنګولو غوښتنه مو په بریا ثبت او د تعقیب شمېره صادره شوه.'
           : 'Your account deletion request has been submitted successfully.',
     });
-  } catch (error: any) {
-    console.error('Delete account API error:', error);
-    return NextResponse.json(
-      { success: false, error: error.message || 'خطای غیرمنتظره در سرور' },
-      { status: 500 }
-    );
+  } catch (error: unknown) {
+    const msg =
+      error instanceof Error ? error.message : 'Unexpected server error';
+    return NextResponse.json({ success: false, error: msg }, { status: 500 });
   }
 }

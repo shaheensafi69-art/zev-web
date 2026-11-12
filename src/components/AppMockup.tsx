@@ -110,8 +110,8 @@ export const AppMockup = () => {
                   fontWeight: 700,
                   cursor: 'pointer',
                   border: isActive ? '1.5px solid #FC466B' : '1.5px solid rgba(252, 70, 107, 0.3)',
-                  background: isActive ? '#FC466B' : '#FFF1F4',
-                  color: isActive ? '#FFFFFF' : '#0F172A',
+                  background: isActive ? '#FC466B' : 'rgba(255, 255, 255, 0.05)',
+                  color: isActive ? '#FFFFFF' : '#E2E8F0',
                   boxShadow: isActive ? '0 8px 24px rgba(252, 70, 107, 0.35)' : 'none',
                   transition: 'all 0.25s ease',
                 }}

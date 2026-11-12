@@ -273,8 +273,8 @@ export default function LocalizedTermsPage({
                       e.currentTarget.style.borderColor = '#FC466B';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.color = '#334155';
-                      e.currentTarget.style.background = '#FFF7F9';
+                      e.currentTarget.style.color = '#CBD5E1';
+                      e.currentTarget.style.background = 'rgba(13, 18, 30, 0.75)';
                       e.currentTarget.style.borderColor = 'rgba(252, 70, 107, 0.2)';
                     }}
                   >
