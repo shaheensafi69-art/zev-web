@@ -129,14 +129,10 @@ export async function sendFcmMulticast(
             android: {
               priority: 'HIGH',
               notification: {
-                channel_id: payload.androidChannelId || 'zev_notifications_v3',
+                channel_id: payload.androidChannelId || 'zev_notifications_channel',
                 icon: 'ic_notification',
                 color: '#00D4FF',
                 sound: 'default',
-                default_sound: true,
-                default_vibrate_timings: true,
-                notification_priority: 'PRIORITY_MAX',
-                visibility: 'PUBLIC',
                 ...(payload.collapseTag ? { tag: payload.collapseTag } : {}),
               },
             },

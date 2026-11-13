@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
   const messageBody = String(body.body || '').trim().slice(0, 500);
   const notificationType = String(body.notificationType || 'general').trim().slice(0, 64);
   const deepLink = String(body.deepLink || '').trim().slice(0, 300);
-  const androidChannelId = String(body.androidChannelId || 'zev_notifications_v3').trim();
+  const androidChannelId = String(body.androidChannelId || 'zev_notifications_channel').trim();
   const testSelf = body.testSelf === true;
 
   if (!recipientUserId || !title || !messageBody) {
