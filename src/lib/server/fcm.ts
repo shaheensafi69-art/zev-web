@@ -80,6 +80,7 @@ export interface FcmSendPayload {
   androidChannelId?: string;
   badgeCount?: number;
   collapseTag?: string;
+  imageUrl?: string;
 }
 
 export async function sendFcmMulticast(
@@ -124,6 +125,7 @@ export async function sendFcmMulticast(
             notification: {
               title: payload.title,
               body: payload.body,
+              ...(payload.imageUrl ? { image: payload.imageUrl } : {}),
             },
             data: payload.data || {},
             android: {
@@ -131,9 +133,10 @@ export async function sendFcmMulticast(
               notification: {
                 channel_id: payload.androidChannelId || 'zev_notifications_channel',
                 icon: 'ic_notification',
-                color: '#00D4FF',
+                color: '#2563EB',
                 sound: 'default',
                 ...(payload.collapseTag ? { tag: payload.collapseTag } : {}),
+                ...(payload.imageUrl ? { image: payload.imageUrl } : {}),
               },
             },
             apns: {
