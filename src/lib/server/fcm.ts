@@ -111,6 +111,9 @@ export async function sendFcmMulticast(
   let failedCount = 0;
   const invalidTokens: string[] = [];
 
+  const defaultZevLogo = 'https://www.zevapp.com/assets/icon/icon-512x512.png';
+  const resolvedImageUrl = (payload.imageUrl || '').trim() || defaultZevLogo;
+
   for (const token of payload.tokens) {
     try {
       const res = await fetch(endpoint, {
@@ -125,9 +128,12 @@ export async function sendFcmMulticast(
             notification: {
               title: payload.title,
               body: payload.body,
-              ...(payload.imageUrl ? { image: payload.imageUrl } : {}),
+              ...(resolvedImageUrl ? { image: resolvedImageUrl } : {}),
             },
-            data: payload.data || {},
+            data: {
+              ...(payload.data || {}),
+              ...(resolvedImageUrl ? { image_url: resolvedImageUrl } : {}),
+            },
             android: {
               priority: 'HIGH',
               notification: {
@@ -136,7 +142,7 @@ export async function sendFcmMulticast(
                 color: '#2563EB',
                 sound: 'default',
                 ...(payload.collapseTag ? { tag: payload.collapseTag } : {}),
-                ...(payload.imageUrl ? { image: payload.imageUrl } : {}),
+                ...(resolvedImageUrl ? { image: resolvedImageUrl } : {}),
               },
             },
             apns: {
