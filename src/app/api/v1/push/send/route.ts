@@ -17,6 +17,47 @@ function hasValidCronSecret(req: NextRequest): boolean {
   return crypto.timingSafeEqual(a, b);
 }
 
+function resolveAndroidChannelId(rawType: string): string {
+  const t = rawType.toLowerCase().trim();
+  if (t === 'voice_call') return 'zev_channel_voice_calls';
+  if (t === 'video_call') return 'zev_channel_video_calls';
+  if (
+    t === 'message' ||
+    t === 'chat' ||
+    t === 'direct_message' ||
+    t === 'dm' ||
+    t.includes('chat')
+  ) {
+    return 'zev_channel_messages';
+  }
+  if (
+    t === 'group_message' ||
+    t === 'group_chat' ||
+    t === 'group_invitation' ||
+    t.includes('group')
+  ) {
+    return 'zev_channel_groups';
+  }
+  if (t.includes('like')) return 'zev_channel_likes';
+  if (t.includes('comment') || t.includes('reply')) return 'zev_channel_comments';
+  if (t === 'friend_request' || t === 'follow_request') return 'zev_channel_friend_requests';
+  if (t.includes('follow')) return 'zev_channel_followers';
+  if (t.includes('story') || t.includes('mention') || t.includes('tag')) {
+    return 'zev_channel_stories';
+  }
+  if (t.includes('share') || t.includes('repost')) return 'zev_channel_shares';
+  if (
+    t.includes('security') ||
+    t.includes('login') ||
+    t.includes('password') ||
+    t.includes('verify') ||
+    t.includes('auth')
+  ) {
+    return 'zev_channel_security';
+  }
+  return 'zev_notifications_channel';
+}
+
 export async function POST(req: NextRequest) {
   const isCron = hasValidCronSecret(req);
   let callerUserId: string | null = null;
@@ -48,9 +89,9 @@ export async function POST(req: NextRequest) {
   const notificationType = String(body.notificationType || 'general').trim().slice(0, 64);
   const deepLink = String(body.deepLink || '').trim().slice(0, 300);
   const normType = notificationType.toLowerCase();
-  const androidChannelId = normType.includes('call')
-    ? 'zev_calls_channel'
-    : String(body.androidChannelId || 'zev_notifications_channel').trim();
+  const androidChannelId = body.androidChannelId
+    ? String(body.androidChannelId).trim()
+    : resolveAndroidChannelId(notificationType);
   const testSelf = body.testSelf === true;
 
   if (!recipientUserId || !title || !messageBody) {
@@ -309,6 +350,8 @@ export async function POST(req: NextRequest) {
     // Ignore badge lookup failure
   }
 
+  const mediaImage = String(body.imageUrl || body.mediaUrl || body.thumbnailUrl || '').trim();
+
   const result = await sendFcmMulticast(admin, {
     tokens,
     title,
@@ -317,6 +360,7 @@ export async function POST(req: NextRequest) {
     androidChannelId,
     badgeCount,
     collapseTag: deepLink ? `${normType}:${deepLink}` : normType,
+    imageUrl: mediaImage || undefined,
   });
 
   // Log notification delivery defensively
