@@ -216,39 +216,52 @@ export async function POST(req: NextRequest) {
 
   // Collect deduplicated active FCM tokens
   const tokenSet = new Set<string>();
+  const inactiveTokenSet = new Set<string>();
 
   try {
     const { data: deviceRows } = await admin
       .from('user_devices')
-      .select('fcm_token')
-      .eq('user_id', recipientUserId)
-      .eq('is_active', true);
+      .select('fcm_token, is_active')
+      .eq('user_id', recipientUserId);
 
     if (Array.isArray(deviceRows)) {
       for (const row of deviceRows) {
         const tok = String((row as Record<string, unknown>).fcm_token || '').trim();
-        if (tok.length > 20) tokenSet.add(tok);
+        const isActive = (row as Record<string, unknown>).is_active === true;
+        if (tok.length > 20) {
+          if (isActive) {
+            tokenSet.add(tok);
+          } else {
+            inactiveTokenSet.add(tok);
+          }
+        }
       }
     }
   } catch {
-    // user_devices added in Phase 2
+    // user_devices fallback
   }
 
   try {
     const { data: pushRows } = await admin
       .from('push_subscriptions')
-      .select('fcm_token')
-      .eq('user_id', recipientUserId)
-      .eq('is_active', true);
+      .select('fcm_token, is_active')
+      .eq('user_id', recipientUserId);
 
     if (Array.isArray(pushRows)) {
       for (const row of pushRows) {
         const tok = String((row as Record<string, unknown>).fcm_token || '').trim();
-        if (tok.length > 20) tokenSet.add(tok);
+        const isActive = (row as Record<string, unknown>).is_active === true;
+        if (tok.length > 20) {
+          if (isActive && !inactiveTokenSet.has(tok)) {
+            tokenSet.add(tok);
+          } else if (!isActive) {
+            inactiveTokenSet.add(tok);
+          }
+        }
       }
     }
   } catch {
-    // Ignore
+    // push_subscriptions fallback
   }
 
   try {
@@ -261,10 +274,24 @@ export async function POST(req: NextRequest) {
     if (prof) {
       const p = prof as Record<string, unknown>;
       const tok = typeof p.fcm_token === 'string' ? p.fcm_token.trim() : '';
-      if (tok.length > 20) tokenSet.add(tok);
+      if (tok.length > 20) {
+        if (inactiveTokenSet.has(tok)) {
+          void admin
+            .from('profiles')
+            .update({ fcm_token: null, updated_at: new Date().toISOString() })
+            .eq('id', recipientUserId);
+        } else if (tokenSet.size === 0) {
+          tokenSet.add(tok);
+        }
+      }
     }
   } catch {
-    // Ignore
+    // profiles fallback
+  }
+
+  // Ensure inactive tokens are never targeted
+  for (const inact of inactiveTokenSet) {
+    tokenSet.delete(inact);
   }
 
   const tokens = Array.from(tokenSet);

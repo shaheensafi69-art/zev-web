@@ -109,6 +109,7 @@ export async function sendFcmMulticast(
 
   let sentCount = 0;
   let failedCount = 0;
+  let lastError: string | null = null;
   const invalidTokens: string[] = [];
 
   // Only include big picture image when explicitly provided (never default to large logo which blocks fast OS tray display)
@@ -166,25 +167,32 @@ export async function sendFcmMulticast(
       } else {
         failedCount += 1;
         const bodyText = await res.text();
+        lastError = bodyText.slice(0, 300);
         if (
           bodyText.includes('UNREGISTERED') ||
           bodyText.includes('INVALID_ARGUMENT') ||
-          res.status === 404
+          bodyText.includes('SENDER_ID_MISMATCH') ||
+          bodyText.includes('SenderId mismatch') ||
+          res.status === 404 ||
+          res.status === 400 ||
+          res.status === 403
         ) {
           invalidTokens.push(token);
         }
       }
-    } catch {
+    } catch (err: unknown) {
       failedCount += 1;
+      lastError = err instanceof Error ? err.message : String(err);
     }
   }
 
-  // Deactivate stale tokens across push_subscriptions & user_devices (if table exists)
+  // Deactivate stale tokens across push_subscriptions, user_devices & profiles
   if (invalidTokens.length > 0) {
+    const nowIso = new Date().toISOString();
     try {
       await admin
         .from('push_subscriptions')
-        .update({ is_active: false, updated_at: new Date().toISOString() })
+        .update({ is_active: false, updated_at: nowIso })
         .in('fcm_token', invalidTokens);
     } catch {
       // Ignore table state mismatch
@@ -192,10 +200,18 @@ export async function sendFcmMulticast(
     try {
       await admin
         .from('user_devices')
-        .update({ is_active: false, updated_at: new Date().toISOString() })
+        .update({ is_active: false, updated_at: nowIso })
         .in('fcm_token', invalidTokens);
     } catch {
       // Table added in Phase 2
+    }
+    try {
+      await admin
+        .from('profiles')
+        .update({ fcm_token: null, updated_at: nowIso })
+        .in('fcm_token', invalidTokens);
+    } catch {
+      // Fallback
     }
   }
 
@@ -204,6 +220,7 @@ export async function sendFcmMulticast(
     sentCount,
     failedCount,
     invalidTokens,
+    error: sentCount === 0 && failedCount > 0 ? lastError || 'FCM send failed' : undefined,
   };
 }
 
