@@ -117,10 +117,19 @@ export async function POST(req: NextRequest) {
     const callerId = String(callRow.caller_id || '');
     const calleeId = String(callRow.callee_id || '');
     if (user.id !== callerId && user.id !== calleeId) {
-      return NextResponse.json(
-        { ok: false, error: 'You are not a participant of this call session.' },
-        { status: 403, headers: cors }
-      );
+      const { data: partRow } = await admin
+        .from('call_participants')
+        .select('id, status')
+        .eq('call_session_id', callSessionId)
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      if (!partRow || (partRow.status !== 'joined' && partRow.status !== 'ringing' && partRow.status !== 'invited')) {
+        return NextResponse.json(
+          { ok: false, error: 'You are not a participant of this call session.' },
+          { status: 403, headers: cors }
+        );
+      }
     }
 
     const status = String(callRow.status || '');
