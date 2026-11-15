@@ -111,8 +111,8 @@ export async function sendFcmMulticast(
   let failedCount = 0;
   const invalidTokens: string[] = [];
 
-  const defaultZevLogo = 'https://www.zevapp.com/assets/icon/icon-512x512.png';
-  const resolvedImageUrl = (payload.imageUrl || '').trim() || defaultZevLogo;
+  // Only include big picture image when explicitly provided (never default to large logo which blocks fast OS tray display)
+  const resolvedImageUrl = (payload.imageUrl || '').trim();
 
   for (const token of payload.tokens) {
     try {
