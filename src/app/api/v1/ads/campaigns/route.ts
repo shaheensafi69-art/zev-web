@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import {
   checkRateLimit,
+  getSupabaseAdmin,
   getSupabaseUserClient,
   requireAuthUser,
 } from '@/lib/server/supabaseAdmin';
@@ -19,6 +20,19 @@ export async function GET(req: NextRequest) {
   }
 
   try {
+    const admin = getSupabaseAdmin();
+    // Proactively expire elapsed campaigns and exhausted budgets
+    try {
+      await admin.rpc('auto_complete_expired_ad_campaigns');
+    } catch {
+      // Fallback direct update if RPC is pending migration
+      await admin
+        .from('ad_campaigns')
+        .update({ status: 'completed', updated_at: new Date().toISOString() })
+        .in('status', ['active', 'pending_review', 'paused', 'draft'])
+        .or(`ends_at.lte.${new Date().toISOString()}`);
+    }
+
     const client = getSupabaseUserClient(token);
     const { data, error } = await client.rpc('get_my_advertiser_dashboard');
     if (error) {

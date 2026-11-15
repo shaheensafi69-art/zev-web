@@ -54,6 +54,12 @@ async function handleServe(
 
   try {
     const admin = getSupabaseAdmin();
+    try {
+      await admin.rpc('auto_complete_expired_ad_campaigns');
+    } catch {
+      // safe fallback
+    }
+
     const { data, error } = await admin.rpc('serve_eligible_ad', {
       p_placement: placement,
       p_user_id: viewerId,
