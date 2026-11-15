@@ -47,7 +47,10 @@ export async function POST(req: NextRequest) {
   const messageBody = String(body.body || '').trim().slice(0, 500);
   const notificationType = String(body.notificationType || 'general').trim().slice(0, 64);
   const deepLink = String(body.deepLink || '').trim().slice(0, 300);
-  const androidChannelId = String(body.androidChannelId || 'zev_notifications_channel').trim();
+  const normType = notificationType.toLowerCase();
+  const androidChannelId = normType.includes('call')
+    ? 'zev_calls_channel'
+    : String(body.androidChannelId || 'zev_notifications_channel').trim();
   const testSelf = body.testSelf === true;
 
   if (!recipientUserId || !title || !messageBody) {
@@ -87,7 +90,6 @@ export async function POST(req: NextRequest) {
   }
 
   // Respect notification_preferences & quiet hours (Phase 2 & Phase 5)
-  const normType = notificationType.toLowerCase();
   try {
     const { data: prefs } = await admin
       .from('notification_preferences')
@@ -249,7 +251,31 @@ export async function POST(req: NextRequest) {
     notification_type: notificationType,
     recipient_user_id: recipientUserId,
   };
-  if (senderId) dataMap.sender_id = senderId;
+  if (senderId) {
+    dataMap.sender_id = senderId;
+    try {
+      const { data: senderProf } = await admin
+        .from('profiles')
+        .select('first_name,last_name,username,avatar_url')
+        .eq('id', senderId)
+        .maybeSingle();
+      if (senderProf) {
+        const p = senderProf as Record<string, unknown>;
+        const av = typeof p.avatar_url === 'string' ? p.avatar_url.trim() : '';
+        const name = [p.first_name, p.last_name].filter(Boolean).join(' ').trim() || String(p.username || '');
+        if (av) {
+          dataMap.avatar_url = av;
+          dataMap.sender_avatar = av;
+          dataMap.user_avatar = av;
+        }
+        if (name) {
+          dataMap.sender_name = name;
+        }
+      }
+    } catch {
+      // Ignore avatar query fallback
+    }
+  }
   if (deepLink) {
     dataMap.deep_link = deepLink;
     dataMap.link_url = deepLink;
