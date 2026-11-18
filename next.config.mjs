@@ -10,7 +10,6 @@ const nextConfig = {
         // Global CORS headers for all /api/:path* routes across zevapp.com, web.zevapp.com & localhost
         source: '/api/:path*',
         headers: [
-          { key: 'Access-Control-Allow-Credentials', value: 'true' },
           { key: 'Access-Control-Allow-Origin', value: '*' },
           { key: 'Access-Control-Allow-Methods', value: 'GET,OPTIONS,PATCH,DELETE,POST,PUT' },
           {
