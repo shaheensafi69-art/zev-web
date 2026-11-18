@@ -132,8 +132,11 @@ export async function sendFcmMulticast(
               ...(resolvedImageUrl ? { image: resolvedImageUrl } : {}),
             },
             data: {
+              title: payload.title,
+              body: payload.body,
+              message: payload.body,
               ...(payload.data || {}),
-              ...(resolvedImageUrl ? { image_url: resolvedImageUrl } : {}),
+              ...(resolvedImageUrl ? { image_url: resolvedImageUrl, avatar_url: resolvedImageUrl } : {}),
             },
             android: {
               priority: 'HIGH',

@@ -218,7 +218,7 @@ export const AppMockup = () => {
 
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
                 <a
-                  href="https://web.zevapp.com"
+                  href="https://zevapp.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-primary"

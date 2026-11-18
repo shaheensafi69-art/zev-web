@@ -80,7 +80,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           {/* Web Version */}
           <a
-            href="https://web.zevapp.com"
+            href="https://zevapp.com"
             target="_blank"
             rel="noopener noreferrer"
             style={{

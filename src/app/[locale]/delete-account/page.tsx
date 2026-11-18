@@ -296,7 +296,7 @@ export default function LocalizedDeleteAccountPage({
               </a>
 
               <a
-                href="https://web.zevapp.com"
+                href="https://zevapp.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary"

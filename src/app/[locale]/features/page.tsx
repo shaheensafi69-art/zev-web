@@ -271,7 +271,7 @@ export default function FeaturesPage({
               : 'Launch ZEV directly in your desktop browser or download for Android & iOS.'}
           </p>
           <a
-            href="https://web.zevapp.com"
+            href="https://zevapp.com"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary"

@@ -476,7 +476,7 @@ export default function LocalizedHomePage({
                 }}
               >
                 <a
-                  href="https://web.zevapp.com"
+                  href="https://zevapp.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-primary"
@@ -999,7 +999,7 @@ export default function LocalizedHomePage({
               }}
             >
               <a
-                href="https://web.zevapp.com"
+                href="https://zevapp.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-white"

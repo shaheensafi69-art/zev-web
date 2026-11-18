@@ -370,7 +370,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                     </Link>
 
                     <a
-                      href="https://web.zevapp.com"
+                      href="https://zevapp.com"
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => setActiveDropdown(null)}
@@ -909,7 +909,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
 
             {/* Launch Web App Button */}
             <a
-              href="https://web.zevapp.com"
+              href="https://zevapp.com"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-secondary desktop-only"
@@ -1265,7 +1265,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
             {/* Mobile Actions */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10, paddingTop: 10, borderTop: '1px solid rgba(252, 70, 107, 0.2)' }}>
               <a
-                href="https://web.zevapp.com"
+                href="https://zevapp.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary"

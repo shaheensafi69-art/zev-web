@@ -38,6 +38,9 @@ export function middleware(request: NextRequest) {
     pathname.includes('.') ||
     pathname.startsWith('/auth') ||
     pathname.startsWith('/reset-password') ||
+    pathname.startsWith('/update-password') ||
+    pathname.startsWith('/forgot-password') ||
+    pathname.startsWith('/verify-email') ||
     pathname.startsWith('/login') ||
     pathname.startsWith('/favicon.ico') ||
     pathname === '/robots.txt' ||
