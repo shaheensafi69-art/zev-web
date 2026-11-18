@@ -377,7 +377,20 @@ export async function POST(req: NextRequest) {
     // Ignore badge lookup failure
   }
 
+  const senderAvatar = (dataMap.avatar_url || dataMap.sender_avatar || '').trim();
+  const defaultAppLogo = 'https://www.zevapp.com/assets/icon/icon-512x512.png';
+  const isSystemOrSecurity =
+    normType === 'system' ||
+    normType === 'security_alert' ||
+    normType === 'moderation';
+
   const mediaImage = String(body.imageUrl || body.mediaUrl || body.thumbnailUrl || '').trim();
+  // For personal events (messages, likes, comments, calls, follows), prioritize sender's circular avatar
+  // so Android renders the sender avatar in the large icon slot with the ZEV logo badge (like Facebook/Instagram).
+  const resolvedImageUrl =
+    mediaImage ||
+    senderAvatar ||
+    (isSystemOrSecurity ? defaultAppLogo : undefined);
 
   const result = await sendFcmMulticast(admin, {
     tokens,
@@ -387,7 +400,7 @@ export async function POST(req: NextRequest) {
     androidChannelId,
     badgeCount,
     collapseTag: deepLink ? `${normType}:${deepLink}` : normType,
-    imageUrl: mediaImage || undefined,
+    imageUrl: resolvedImageUrl,
   });
 
   // Log notification delivery defensively
