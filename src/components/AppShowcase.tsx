@@ -275,8 +275,8 @@ export const AppShowcase: React.FC<AppShowcaseProps> = ({ locale }) => {
               <div
                 style={{
                   position: 'relative',
-                  width: 300,
-                  height: 610,
+                  width: 285,
+                  height: 615,
                   borderRadius: 44,
                   background: '#020408',
                   border: '8px solid #1A2234',

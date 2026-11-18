@@ -283,7 +283,7 @@ export default async function HomePage({
         ? 'ورود فوری با اطلاعات اکادمی صفی برای صدها هزار دانشجو، تایید مدارک علمی و تسویه مالی آنی با کارت‌های صافی‌پی.'
         : 'Unified Single Sign-On and database sharing with Safi Academy (100k+ students) and SafiPay fintech infrastructure.',
       accent: '#536DFE',
-      image: '/app-shots/8.jpeg',
+      image: '/app-shots/2.jpeg',
     },
   ];
 
@@ -573,11 +573,11 @@ export default async function HomePage({
               <div
                 style={{
                   position: 'relative',
-                  width: 310,
-                  height: 630,
+                  width: 295,
+                  height: 635,
                   borderRadius: 48,
                   background: '#000000',
-                  border: '10px solid #141C2B',
+                  border: '8px solid #141C2B',
                   boxShadow: '0 30px 90px rgba(0, 0, 0, 0.95), 0 0 50px rgba(0, 212, 255, 0.25)',
                   overflow: 'hidden',
                 }}
@@ -857,30 +857,92 @@ export default async function HomePage({
                     </p>
                   </div>
 
-                  {/* Thumbnail snippet */}
+                  {/* Complete Portrait Phone Showcase (100% Full Screen) */}
                   <div
                     style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      paddingTop: 16,
                       position: 'relative',
-                      height: 140,
-                      borderRadius: 16,
-                      overflow: 'hidden',
-                      border: '1px solid rgba(255, 255, 255, 0.06)',
                     }}
                   >
-                    <Image
-                      src={feat.image}
-                      alt={feat.title}
-                      fill
-                      sizes="340px"
-                      style={{ objectFit: 'cover' }}
-                    />
+                    {/* Background Radial Glow */}
                     <div
                       style={{
                         position: 'absolute',
-                        inset: 0,
-                        background: 'linear-gradient(180deg, transparent 40%, rgba(7, 9, 14, 0.95) 100%)',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        width: '260px',
+                        height: '260px',
+                        background: `radial-gradient(circle, ${feat.accent}20 0%, transparent 70%)`,
+                        filter: 'blur(30px)',
+                        pointerEvents: 'none',
                       }}
                     />
+
+                    {/* Smartphone Bezel */}
+                    <div
+                      style={{
+                        position: 'relative',
+                        width: 230,
+                        height: 480,
+                        borderRadius: 36,
+                        background: '#020408',
+                        border: '6px solid #141C2B',
+                        boxShadow: '0 25px 60px rgba(0, 0, 0, 0.9), 0 0 25px rgba(0, 212, 255, 0.12)',
+                        overflow: 'hidden',
+                        zIndex: 2,
+                      }}
+                    >
+                      {/* Speaker Notch */}
+                      <div
+                        style={{
+                          position: 'absolute',
+                          top: 8,
+                          left: '50%',
+                          transform: 'translateX(-50%)',
+                          width: 64,
+                          height: 14,
+                          background: '#0B0F19',
+                          borderRadius: 8,
+                          zIndex: 5,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: 6,
+                            height: 6,
+                            borderRadius: '50%',
+                            background: '#1E293B',
+                            marginRight: 6,
+                          }}
+                        />
+                        <div
+                          style={{
+                            width: 24,
+                            height: 3,
+                            borderRadius: 2,
+                            background: '#1E293B',
+                          }}
+                        />
+                      </div>
+
+                      {/* Full Vertical Portrait Screenshot */}
+                      <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                        <Image
+                          src={feat.image}
+                          alt={feat.title}
+                          fill
+                          sizes="230px"
+                          style={{ objectFit: 'cover' }}
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               );

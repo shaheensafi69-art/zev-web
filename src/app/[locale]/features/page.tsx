@@ -426,21 +426,60 @@ export default async function FeaturesPage({
                   <div
                     style={{
                       position: 'relative',
-                      width: 280,
-                      height: 480,
-                      borderRadius: 32,
+                      width: 265,
+                      height: 565,
+                      borderRadius: 36,
                       overflow: 'hidden',
+                      background: '#020408',
                       border: '6px solid #141C2B',
-                      boxShadow: '0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 212, 255, 0.15)',
+                      boxShadow: '0 25px 60px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 212, 255, 0.15)',
                     }}
                   >
-                    <Image
-                      src={feat.image}
-                      alt={feat.title}
-                      fill
-                      sizes="280px"
-                      style={{ objectFit: 'cover' }}
-                    />
+                    {/* Top Speaker Pill */}
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: 8,
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        width: 70,
+                        height: 14,
+                        background: '#0B0F19',
+                        borderRadius: 8,
+                        zIndex: 5,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: 6,
+                          height: 6,
+                          borderRadius: '50%',
+                          background: '#1E293B',
+                          marginRight: 6,
+                        }}
+                      />
+                      <div
+                        style={{
+                          width: 26,
+                          height: 3,
+                          borderRadius: 2,
+                          background: '#1E293B',
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                      <Image
+                        src={feat.image}
+                        alt={feat.title}
+                        fill
+                        sizes="265px"
+                        style={{ objectFit: 'cover' }}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
