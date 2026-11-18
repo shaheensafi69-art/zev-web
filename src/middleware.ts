@@ -26,11 +26,21 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Special redirect for /api to /api-info status page
+  if (pathname === '/api' || pathname === '/api/') {
+    const cookieLocale = request.cookies.get('zev_locale')?.value;
+    const targetLocale = (cookieLocale && locales.includes(cookieLocale as any)) ? cookieLocale : defaultLocale;
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.pathname = `/${targetLocale}/api-info`;
+    return NextResponse.redirect(redirectUrl);
+  }
+
   // Ignore static assets, APIs, and Next.js internals
   if (
     pathname.startsWith('/_next') ||
-    pathname.startsWith('/api') ||
+    pathname.startsWith('/api/') ||
     pathname.startsWith('/assets') ||
+    pathname.startsWith('/app-shots') ||
     pathname.startsWith('/screenshots') ||
     pathname.startsWith('/flags') ||
     pathname.startsWith('/team') ||

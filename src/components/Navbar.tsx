@@ -98,7 +98,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
               left: '15%',
               right: '15%',
               height: 1.5,
-              background: 'linear-gradient(90deg, transparent, #FC466B, transparent)',
+              background: 'linear-gradient(90deg, transparent, #00D4FF, transparent)',
               opacity: 0.8,
             }}
           />
@@ -127,7 +127,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: '0 4px 12px rgba(252, 70, 107, 0.2)',
+                boxShadow: '0 4px 12px rgba(0, 212, 255, 0.2)',
                 flexShrink: 0,
               }}
             >
@@ -158,9 +158,9 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                     width: 7,
                     height: 7,
                     borderRadius: '50%',
-                    backgroundColor: '#FC466B',
+                    backgroundColor: '#00D4FF',
                     display: 'inline-block',
-                    boxShadow: '0 0 8px #FC466B',
+                    boxShadow: '0 0 8px #00D4FF',
                   }}
                 />
               </div>
@@ -170,7 +170,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                   fontSize: 10,
                   letterSpacing: '1px',
                   fontWeight: 800,
-                  color: '#FC466B',
+                  color: '#00D4FF',
                   textTransform: 'uppercase',
                   marginTop: -3,
                 }}
@@ -197,8 +197,8 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                 color: isHomeActive ? '#FFFFFF' : '#CBD5E1',
                 padding: '8px 16px',
                 borderRadius: 18,
-                background: isHomeActive ? '#FC466B' : 'transparent',
-                boxShadow: isHomeActive ? '0 4px 15px rgba(252, 70, 107, 0.3)' : 'none',
+                background: isHomeActive ? '#00D4FF' : 'transparent',
+                boxShadow: isHomeActive ? '0 4px 15px rgba(0, 212, 255, 0.3)' : 'none',
                 transition: 'all 0.2s ease',
               }}
               onMouseEnter={(e) => {
@@ -228,13 +228,13 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                   gap: 6,
                   fontSize: 14,
                   fontWeight: isPlatformActive ? 900 : 700,
-                  color: isPlatformActive ? '#FFFFFF' : activeDropdown === 'platform' ? '#FC466B' : '#CBD5E1',
+                  color: isPlatformActive ? '#FFFFFF' : activeDropdown === 'platform' ? '#00D4FF' : '#CBD5E1',
                   padding: '8px 16px',
                   borderRadius: 18,
-                  background: isPlatformActive ? '#FC466B' : activeDropdown === 'platform' ? 'rgba(252, 70, 107, 0.15)' : 'transparent',
+                  background: isPlatformActive ? '#00D4FF' : activeDropdown === 'platform' ? 'rgba(0, 212, 255, 0.15)' : 'transparent',
                   border: 'none',
                   cursor: 'pointer',
-                  boxShadow: isPlatformActive ? '0 4px 15px rgba(252, 70, 107, 0.3)' : 'none',
+                  boxShadow: isPlatformActive ? '0 4px 15px rgba(0, 212, 255, 0.3)' : 'none',
                   transition: 'all 0.2s ease',
                 }}
                 onMouseEnter={(e) => {
@@ -250,14 +250,14 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                   }
                 }}
               >
-                <Sparkles size={15} color={isPlatformActive ? '#FFFFFF' : '#FC466B'} />
+                <Sparkles size={15} color={isPlatformActive ? '#FFFFFF' : '#00D4FF'} />
                 <span>{dict.nav.platform}</span>
                 <ChevronDown
                   size={14}
                   style={{
                     transform: activeDropdown === 'platform' ? 'rotate(180deg)' : 'none',
                     transition: 'transform 0.2s',
-                    color: isPlatformActive ? '#FFFFFF' : '#FC466B',
+                    color: isPlatformActive ? '#FFFFFF' : '#00D4FF',
                   }}
                 />
               </button>
@@ -275,7 +275,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                     border: '1px solid rgba(255, 255, 255, 0.1)',
                     borderRadius: 24,
                     padding: '12px 10px',
-                    boxShadow: '0 20px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(252, 70, 107, 0.1)',
+                    boxShadow: '0 20px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 212, 255, 0.1)',
                     zIndex: 210,
                     animation: 'scaleUp 0.2s ease',
                   }}
@@ -290,7 +290,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                         gap: 12,
                         padding: '10px 14px',
                         borderRadius: 16,
-                        background: pathname.startsWith(`/${locale}/features`) ? 'rgba(252, 70, 107, 0.18)' : 'transparent',
+                        background: pathname.startsWith(`/${locale}/features`) ? 'rgba(0, 212, 255, 0.18)' : 'transparent',
                         transition: 'all 0.2s ease',
                       }}
                       onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)')}
@@ -305,7 +305,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                           width: 36,
                           height: 36,
                           borderRadius: 12,
-                          background: '#FC466B',
+                          background: '#00D4FF',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
@@ -334,7 +334,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                         gap: 12,
                         padding: '10px 14px',
                         borderRadius: 16,
-                        background: pathname.startsWith(`/${locale}/ecosystem`) ? 'rgba(252, 70, 107, 0.18)' : 'transparent',
+                        background: pathname.startsWith(`/${locale}/ecosystem`) ? 'rgba(0, 212, 255, 0.18)' : 'transparent',
                         transition: 'all 0.2s ease',
                       }}
                       onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)')}
@@ -349,7 +349,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                           width: 36,
                           height: 36,
                           borderRadius: 12,
-                          background: '#FC466B',
+                          background: '#00D4FF',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
@@ -396,7 +396,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          color: '#FC466B',
+                          color: '#00D4FF',
                           flexShrink: 0,
                         }}
                       >
@@ -405,7 +405,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                       <div>
                         <div style={{ fontSize: 14, fontWeight: 800, color: '#FFFFFF', display: 'flex', alignItems: 'center', gap: 6 }}>
                           <span>{dict.nav.webApp}</span>
-                          <ExternalLink size={12} color="#FC466B" />
+                          <ExternalLink size={12} color="#00D4FF" />
                         </div>
                         <div style={{ fontSize: 11.5, color: '#94A3B8', marginTop: 2 }}>
                           {dict.nav.webAppDesc}
@@ -429,8 +429,8 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                 color: isAboutActive ? '#FFFFFF' : '#CBD5E1',
                 padding: '8px 16px',
                 borderRadius: 18,
-                background: isAboutActive ? '#FC466B' : 'transparent',
-                boxShadow: isAboutActive ? '0 4px 15px rgba(252, 70, 107, 0.3)' : 'none',
+                background: isAboutActive ? '#00D4FF' : 'transparent',
+                boxShadow: isAboutActive ? '0 4px 15px rgba(0, 212, 255, 0.3)' : 'none',
                 transition: 'all 0.2s ease',
               }}
               onMouseEnter={(e) => {
@@ -446,7 +446,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                 }
               }}
             >
-              <Users size={15} color={isAboutActive ? '#FFFFFF' : '#FC466B'} />
+              <Users size={15} color={isAboutActive ? '#FFFFFF' : '#00D4FF'} />
               <span>{dict.nav.about}</span>
             </Link>
 
@@ -461,13 +461,13 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                   gap: 6,
                   fontSize: 14,
                   fontWeight: isLegalActive ? 900 : 700,
-                  color: isLegalActive ? '#FFFFFF' : activeDropdown === 'legal' ? '#FC466B' : '#CBD5E1',
+                  color: isLegalActive ? '#FFFFFF' : activeDropdown === 'legal' ? '#00D4FF' : '#CBD5E1',
                   padding: '8px 16px',
                   borderRadius: 18,
-                  background: isLegalActive ? '#FC466B' : activeDropdown === 'legal' ? 'rgba(252, 70, 107, 0.15)' : 'transparent',
+                  background: isLegalActive ? '#00D4FF' : activeDropdown === 'legal' ? 'rgba(0, 212, 255, 0.15)' : 'transparent',
                   border: 'none',
                   cursor: 'pointer',
-                  boxShadow: isLegalActive ? '0 4px 15px rgba(252, 70, 107, 0.3)' : 'none',
+                  boxShadow: isLegalActive ? '0 4px 15px rgba(0, 212, 255, 0.3)' : 'none',
                   transition: 'all 0.2s ease',
                 }}
                 onMouseEnter={(e) => {
@@ -483,14 +483,14 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                   }
                 }}
               >
-                <ShieldCheck size={15} color={isLegalActive ? '#FFFFFF' : '#FC466B'} />
+                <ShieldCheck size={15} color={isLegalActive ? '#FFFFFF' : '#00D4FF'} />
                 <span>{dict.nav.trustSafety}</span>
                 <ChevronDown
                   size={14}
                   style={{
                     transform: activeDropdown === 'legal' ? 'rotate(180deg)' : 'none',
                     transition: 'transform 0.2s',
-                    color: isLegalActive ? '#FFFFFF' : '#FC466B',
+                    color: isLegalActive ? '#FFFFFF' : '#00D4FF',
                   }}
                 />
               </button>
@@ -508,7 +508,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                     border: '1px solid rgba(255, 255, 255, 0.1)',
                     borderRadius: 24,
                     padding: '12px 10px',
-                    boxShadow: '0 20px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(252, 70, 107, 0.1)',
+                    boxShadow: '0 20px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 212, 255, 0.1)',
                     zIndex: 210,
                     animation: 'scaleUp 0.2s ease',
                   }}
@@ -523,7 +523,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                         gap: 12,
                         padding: '10px 14px',
                         borderRadius: 16,
-                        background: pathname.startsWith(`/${locale}/child-safety`) ? 'rgba(252, 70, 107, 0.18)' : 'transparent',
+                        background: pathname.startsWith(`/${locale}/child-safety`) ? 'rgba(0, 212, 255, 0.18)' : 'transparent',
                         transition: 'all 0.2s ease',
                       }}
                       onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)')}
@@ -538,7 +538,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                           width: 36,
                           height: 36,
                           borderRadius: 12,
-                          background: '#FC466B',
+                          background: '#00D4FF',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
@@ -551,7 +551,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                       <div>
                         <div style={{ fontSize: 14, fontWeight: 800, color: '#FFFFFF', display: 'flex', alignItems: 'center', gap: 6 }}>
                           <span>{dict.nav.childSafety}</span>
-                          <span style={{ fontSize: 10, padding: '2px 6px', background: '#FC466B', color: '#FFFFFF', borderRadius: 999, fontWeight: 800 }}>P1</span>
+                          <span style={{ fontSize: 10, padding: '2px 6px', background: '#00D4FF', color: '#FFFFFF', borderRadius: 999, fontWeight: 800 }}>P1</span>
                         </div>
                         <div style={{ fontSize: 11.5, color: '#94A3B8', marginTop: 2 }}>
                           {dict.nav.childSafetyDesc}
@@ -568,7 +568,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                         gap: 12,
                         padding: '10px 14px',
                         borderRadius: 16,
-                        background: pathname.startsWith(`/${locale}/privacy`) ? 'rgba(252, 70, 107, 0.18)' : 'transparent',
+                        background: pathname.startsWith(`/${locale}/privacy`) ? 'rgba(0, 212, 255, 0.18)' : 'transparent',
                         transition: 'all 0.2s ease',
                       }}
                       onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)')}
@@ -588,7 +588,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          color: '#FC466B',
+                          color: '#00D4FF',
                           flexShrink: 0,
                         }}
                       >
@@ -613,7 +613,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                         gap: 12,
                         padding: '10px 14px',
                         borderRadius: 16,
-                        background: pathname.startsWith(`/${locale}/terms`) ? 'rgba(252, 70, 107, 0.18)' : 'transparent',
+                        background: pathname.startsWith(`/${locale}/terms`) ? 'rgba(0, 212, 255, 0.18)' : 'transparent',
                         transition: 'all 0.2s ease',
                       }}
                       onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)')}
@@ -633,7 +633,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          color: '#FC466B',
+                          color: '#00D4FF',
                           flexShrink: 0,
                         }}
                       >
@@ -658,7 +658,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                         gap: 12,
                         padding: '10px 14px',
                         borderRadius: 16,
-                        background: pathname.startsWith(`/${locale}/delete-account`) ? 'rgba(252, 70, 107, 0.18)' : 'transparent',
+                        background: pathname.startsWith(`/${locale}/delete-account`) ? 'rgba(0, 212, 255, 0.18)' : 'transparent',
                         transition: 'all 0.2s ease',
                       }}
                       onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)')}
@@ -678,7 +678,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          color: '#FC466B',
+                          color: '#00D4FF',
                           flexShrink: 0,
                         }}
                       >
@@ -710,8 +710,8 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                 color: isSupportActive ? '#FFFFFF' : '#CBD5E1',
                 padding: '8px 16px',
                 borderRadius: 18,
-                background: isSupportActive ? '#FC466B' : 'transparent',
-                boxShadow: isSupportActive ? '0 4px 15px rgba(252, 70, 107, 0.3)' : 'none',
+                background: isSupportActive ? '#00D4FF' : 'transparent',
+                boxShadow: isSupportActive ? '0 4px 15px rgba(0, 212, 255, 0.3)' : 'none',
                 transition: 'all 0.2s ease',
               }}
               onMouseEnter={(e) => {
@@ -727,7 +727,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                 }
               }}
             >
-              <HelpCircle size={15} color={isSupportActive ? '#FFFFFF' : '#FC466B'} />
+              <HelpCircle size={15} color={isSupportActive ? '#FFFFFF' : '#00D4FF'} />
               <span>{dict.nav.support}</span>
             </Link>
           </nav>
@@ -756,13 +756,13 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                   flexShrink: 0,
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = '#FC466B';
-                  e.currentTarget.style.background = '#FC466B';
+                  e.currentTarget.style.borderColor = '#00D4FF';
+                  e.currentTarget.style.background = '#00D4FF';
                   e.currentTarget.style.color = '#FFFFFF';
                 }}
                 onMouseLeave={(e) => {
                   if (activeDropdown !== 'lang') {
-                    e.currentTarget.style.borderColor = 'rgba(252, 70, 107, 0.35)';
+                    e.currentTarget.style.borderColor = 'rgba(0, 212, 255, 0.35)';
                     e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)';
                     e.currentTarget.style.color = '#94A3B8';
                   }
@@ -814,7 +814,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                     border: '1px solid rgba(255, 255, 255, 0.1)',
                     borderRadius: 22,
                     padding: 8,
-                    boxShadow: '0 20px 50px rgba(0,0,0,0.12), 0 0 30px rgba(252, 70, 107, 0.15)',
+                    boxShadow: '0 20px 50px rgba(0,0,0,0.12), 0 0 30px rgba(0, 212, 255, 0.15)',
                     zIndex: 220,
                     animation: 'scaleUp 0.2s ease',
                   }}
@@ -824,10 +824,10 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                       padding: '8px 12px 6px',
                       fontSize: 11,
                       fontWeight: 800,
-                      color: '#FC466B',
+                      color: '#00D4FF',
                       textTransform: 'uppercase',
                       letterSpacing: '0.8px',
-                      borderBottom: '1px solid rgba(252, 70, 107, 0.15)',
+                      borderBottom: '1px solid rgba(0, 212, 255, 0.15)',
                       marginBottom: 6,
                       display: 'flex',
                       alignItems: 'center',
@@ -852,8 +852,8 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                             justifyContent: 'space-between',
                             padding: '8px 12px',
                             borderRadius: 12,
-                            background: isSelected ? '#FC466B' : 'transparent',
-                            border: isSelected ? '1px solid #FC466B' : '1px solid transparent',
+                            background: isSelected ? '#00D4FF' : 'transparent',
+                            border: isSelected ? '1px solid #00D4FF' : '1px solid transparent',
                             color: isSelected ? '#FFFFFF' : '#CBD5E1',
                             fontSize: 13,
                             fontWeight: isSelected ? 800 : 600,
@@ -949,9 +949,9 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                 width: 38,
                 height: 38,
                 background: 'rgba(255, 255, 255, 0.05)',
-                border: '1.5px solid rgba(252, 70, 107, 0.3)',
+                border: '1.5px solid rgba(0, 212, 255, 0.3)',
                 borderRadius: 12,
-                color: '#FC466B',
+                color: '#00D4FF',
                 cursor: 'pointer',
                 flexShrink: 0,
               }}
@@ -1006,7 +1006,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                     gap: 6,
                     fontSize: 12,
                     fontWeight: 900,
-                    color: '#FC466B',
+                    color: '#00D4FF',
                     textTransform: 'uppercase',
                   }}
                 >
@@ -1050,9 +1050,9 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                         gap: 6,
                         padding: '6px 8px',
                         borderRadius: 10,
-                        background: isSel ? '#FC466B' : 'rgba(255, 255, 255, 0.05)',
+                        background: isSel ? '#00D4FF' : 'rgba(255, 255, 255, 0.05)',
                         color: isSel ? '#FFFFFF' : '#CBD5E1',
-                        border: isSel ? '1px solid #FC466B' : '1px solid rgba(255, 255, 255, 0.08)',
+                        border: isSel ? '1px solid #00D4FF' : '1px solid rgba(255, 255, 255, 0.08)',
                         fontSize: 11,
                         fontWeight: isSel ? 800 : 600,
                         cursor: 'pointer',
@@ -1074,7 +1074,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
             </div>
             {/* Group 1: Platform & Main */}
             <div style={{ marginBottom: 18 }}>
-              <div style={{ fontSize: 11, fontWeight: 900, color: '#FC466B', textTransform: 'uppercase', marginBottom: 8, padding: '0 8px' }}>
+              <div style={{ fontSize: 11, fontWeight: 900, color: '#00D4FF', textTransform: 'uppercase', marginBottom: 8, padding: '0 8px' }}>
                 {dict.nav.platform}
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -1087,7 +1087,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                     color: isHomeActive ? '#FFFFFF' : '#CBD5E1',
                     padding: '9px 14px',
                     borderRadius: 12,
-                    background: isHomeActive ? '#FC466B' : 'rgba(255, 255, 255, 0.04)',
+                    background: isHomeActive ? '#00D4FF' : 'rgba(255, 255, 255, 0.04)',
                   }}
                 >
                   {dict.nav.home}
@@ -1101,13 +1101,13 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                     color: pathname.startsWith(`/${locale}/features`) ? '#FFFFFF' : '#CBD5E1',
                     padding: '9px 14px',
                     borderRadius: 12,
-                    background: pathname.startsWith(`/${locale}/features`) ? '#FC466B' : 'rgba(255, 255, 255, 0.04)',
+                    background: pathname.startsWith(`/${locale}/features`) ? '#00D4FF' : 'rgba(255, 255, 255, 0.04)',
                     display: 'flex',
                     alignItems: 'center',
                     gap: 8,
                   }}
                 >
-                  <Sparkles size={15} color={pathname.startsWith(`/${locale}/features`) ? '#FFFFFF' : '#FC466B'} />
+                  <Sparkles size={15} color={pathname.startsWith(`/${locale}/features`) ? '#FFFFFF' : '#00D4FF'} />
                   <span>{dict.nav.features}</span>
                 </Link>
                 <Link
@@ -1119,13 +1119,13 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                     color: pathname.startsWith(`/${locale}/ecosystem`) ? '#FFFFFF' : '#CBD5E1',
                     padding: '9px 14px',
                     borderRadius: 12,
-                    background: pathname.startsWith(`/${locale}/ecosystem`) ? '#FC466B' : 'rgba(255, 255, 255, 0.04)',
+                    background: pathname.startsWith(`/${locale}/ecosystem`) ? '#00D4FF' : 'rgba(255, 255, 255, 0.04)',
                     display: 'flex',
                     alignItems: 'center',
                     gap: 8,
                   }}
                 >
-                  <Layers size={15} color={pathname.startsWith(`/${locale}/ecosystem`) ? '#FFFFFF' : '#FC466B'} />
+                  <Layers size={15} color={pathname.startsWith(`/${locale}/ecosystem`) ? '#FFFFFF' : '#00D4FF'} />
                   <span>{dict.nav.ecosystem}</span>
                 </Link>
               </div>
@@ -1133,7 +1133,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
 
             {/* Group 2: Company & Team */}
             <div style={{ marginBottom: 18 }}>
-              <div style={{ fontSize: 11, fontWeight: 900, color: '#FC466B', textTransform: 'uppercase', marginBottom: 8, padding: '0 8px' }}>
+              <div style={{ fontSize: 11, fontWeight: 900, color: '#00D4FF', textTransform: 'uppercase', marginBottom: 8, padding: '0 8px' }}>
                 {dict.nav.about}
               </div>
               <Link
@@ -1145,20 +1145,20 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                   color: isAboutActive ? '#FFFFFF' : '#CBD5E1',
                   padding: '9px 14px',
                   borderRadius: 12,
-                  background: isAboutActive ? '#FC466B' : 'rgba(255, 255, 255, 0.04)',
+                  background: isAboutActive ? '#00D4FF' : 'rgba(255, 255, 255, 0.04)',
                   display: 'flex',
                   alignItems: 'center',
                   gap: 8,
                 }}
               >
-                <Users size={15} color={isAboutActive ? '#FFFFFF' : '#FC466B'} />
+                <Users size={15} color={isAboutActive ? '#FFFFFF' : '#00D4FF'} />
                 <span>{dict.nav.about}</span>
               </Link>
             </div>
 
             {/* Group 3: Trust, Safety & Legal */}
             <div style={{ marginBottom: 18 }}>
-              <div style={{ fontSize: 11, fontWeight: 900, color: '#FC466B', textTransform: 'uppercase', marginBottom: 8, padding: '0 8px' }}>
+              <div style={{ fontSize: 11, fontWeight: 900, color: '#00D4FF', textTransform: 'uppercase', marginBottom: 8, padding: '0 8px' }}>
                 {dict.nav.trustSafety}
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -1171,13 +1171,13 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                     color: pathname.startsWith(`/${locale}/child-safety`) ? '#FFFFFF' : '#CBD5E1',
                     padding: '9px 14px',
                     borderRadius: 12,
-                    background: pathname.startsWith(`/${locale}/child-safety`) ? '#FC466B' : 'rgba(255, 255, 255, 0.04)',
+                    background: pathname.startsWith(`/${locale}/child-safety`) ? '#00D4FF' : 'rgba(255, 255, 255, 0.04)',
                     display: 'flex',
                     alignItems: 'center',
                     gap: 8,
                   }}
                 >
-                  <ShieldAlert size={15} color={pathname.startsWith(`/${locale}/child-safety`) ? '#FFFFFF' : '#FC466B'} />
+                  <ShieldAlert size={15} color={pathname.startsWith(`/${locale}/child-safety`) ? '#FFFFFF' : '#00D4FF'} />
                   <span>{dict.nav.childSafety}</span>
                 </Link>
                 <Link
@@ -1189,13 +1189,13 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                     color: pathname.startsWith(`/${locale}/privacy`) ? '#FFFFFF' : '#CBD5E1',
                     padding: '9px 14px',
                     borderRadius: 12,
-                    background: pathname.startsWith(`/${locale}/privacy`) ? '#FC466B' : 'rgba(255, 255, 255, 0.04)',
+                    background: pathname.startsWith(`/${locale}/privacy`) ? '#00D4FF' : 'rgba(255, 255, 255, 0.04)',
                     display: 'flex',
                     alignItems: 'center',
                     gap: 8,
                   }}
                 >
-                  <Lock size={15} color={pathname.startsWith(`/${locale}/privacy`) ? '#FFFFFF' : '#FC466B'} />
+                  <Lock size={15} color={pathname.startsWith(`/${locale}/privacy`) ? '#FFFFFF' : '#00D4FF'} />
                   <span>{dict.nav.privacy}</span>
                 </Link>
                 <Link
@@ -1207,13 +1207,13 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                     color: pathname.startsWith(`/${locale}/terms`) ? '#FFFFFF' : '#CBD5E1',
                     padding: '9px 14px',
                     borderRadius: 12,
-                    background: pathname.startsWith(`/${locale}/terms`) ? '#FC466B' : 'rgba(255, 255, 255, 0.04)',
+                    background: pathname.startsWith(`/${locale}/terms`) ? '#00D4FF' : 'rgba(255, 255, 255, 0.04)',
                     display: 'flex',
                     alignItems: 'center',
                     gap: 8,
                   }}
                 >
-                  <FileText size={15} color={pathname.startsWith(`/${locale}/terms`) ? '#FFFFFF' : '#FC466B'} />
+                  <FileText size={15} color={pathname.startsWith(`/${locale}/terms`) ? '#FFFFFF' : '#00D4FF'} />
                   <span>{dict.nav.terms}</span>
                 </Link>
                 <Link
@@ -1225,13 +1225,13 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                     color: pathname.startsWith(`/${locale}/delete-account`) ? '#FFFFFF' : '#CBD5E1',
                     padding: '9px 14px',
                     borderRadius: 12,
-                    background: pathname.startsWith(`/${locale}/delete-account`) ? '#FC466B' : 'rgba(255, 255, 255, 0.04)',
+                    background: pathname.startsWith(`/${locale}/delete-account`) ? '#00D4FF' : 'rgba(255, 255, 255, 0.04)',
                     display: 'flex',
                     alignItems: 'center',
                     gap: 8,
                   }}
                 >
-                  <UserX size={15} color={pathname.startsWith(`/${locale}/delete-account`) ? '#FFFFFF' : '#FC466B'} />
+                  <UserX size={15} color={pathname.startsWith(`/${locale}/delete-account`) ? '#FFFFFF' : '#00D4FF'} />
                   <span>{dict.nav.deleteAccount || (locale === 'fa' ? 'حذف حساب کاربری' : 'Delete Account')}</span>
                 </Link>
               </div>
@@ -1239,7 +1239,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
 
             {/* Group 4: Support */}
             <div style={{ marginBottom: 20 }}>
-              <div style={{ fontSize: 11, fontWeight: 900, color: '#FC466B', textTransform: 'uppercase', marginBottom: 8, padding: '0 8px' }}>
+              <div style={{ fontSize: 11, fontWeight: 900, color: '#00D4FF', textTransform: 'uppercase', marginBottom: 8, padding: '0 8px' }}>
                 {dict.nav.support}
               </div>
               <Link
@@ -1251,19 +1251,19 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, dict }) => {
                   color: isSupportActive ? '#FFFFFF' : '#CBD5E1',
                   padding: '9px 14px',
                   borderRadius: 12,
-                  background: isSupportActive ? '#FC466B' : 'rgba(255, 255, 255, 0.04)',
+                  background: isSupportActive ? '#00D4FF' : 'rgba(255, 255, 255, 0.04)',
                   display: 'flex',
                   alignItems: 'center',
                   gap: 8,
                 }}
               >
-                <HelpCircle size={15} color={isSupportActive ? '#FFFFFF' : '#FC466B'} />
+                <HelpCircle size={15} color={isSupportActive ? '#FFFFFF' : '#00D4FF'} />
                 <span>{dict.nav.support}</span>
               </Link>
             </div>
 
             {/* Mobile Actions */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, paddingTop: 10, borderTop: '1px solid rgba(252, 70, 107, 0.2)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, paddingTop: 10, borderTop: '1px solid rgba(0, 212, 255, 0.2)' }}>
               <a
                 href="https://zevapp.com"
                 target="_blank"

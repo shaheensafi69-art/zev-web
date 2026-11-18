@@ -40,12 +40,12 @@ const getShowcaseData = (locale: string) => {
       heading: 'نگاهی به بخش‌های مختلف برنامه زِو',
       subheading: 'رابط کاربری مدرن با تم تاریک، فید استوری، ریلز ۶۰ فریم و دایرکت چت فوق‌سریع',
       shots: [
-        { img: '/screenshots/55.jpeg', title: 'فید هوشمند و استوری‌ها', subtitle: 'پست‌ها، لایک و اشتراک لحظات' },
-        { img: '/screenshots/57.jpeg', title: 'پخش ویدیو و ریلز ۶۰ فریم', subtitle: 'تماشای ویدیوهای ترند و فول اسکرین' },
-        { img: '/screenshots/56.jpeg', title: 'اکسپلور و کشف افراد', subtitle: 'جستجوی اعضای فعال و هشتگ‌ها' },
-        { img: '/screenshots/58.jpeg', title: 'پروفایل کاربری و بیو', subtitle: 'صفحه شخصی، آمار و مدیریت پست‌ها' },
-        { img: '/screenshots/62.jpeg', title: 'دایرکت و چت خصوصی', subtitle: 'پیام‌رسانی امن و گفتگوی مستقیم' },
-        { img: '/screenshots/59.jpeg', title: 'استودیو ایجاد محتوا', subtitle: 'انتشار سریع پست، ریلز و استوری' },
+        { img: '/app-shots/3.jpeg', title: 'فید هوشمند و استوری‌ها', subtitle: 'پست‌ها، لایک و اشتراک لحظات' },
+        { img: '/app-shots/1.jpeg', title: 'پخش ویدیو و ریلز ۶۰ فریم', subtitle: 'تماشای ویدیوهای ترند و فول اسکرین' },
+        { img: '/app-shots/2.jpeg', title: 'اکسپلور و کشف افراد', subtitle: 'جستجوی اعضای فعال و هشتگ‌ها' },
+        { img: '/app-shots/7.jpeg', title: 'پروفایل کاربری و بیو', subtitle: 'صفحه شخصی، آمار و مدیریت پست‌ها' },
+        { img: '/app-shots/5.jpeg', title: 'دایرکت و چت خصوصی', subtitle: 'پیام‌رسانی امن و گفتگوی مستقیم' },
+        { img: '/app-shots/4.jpeg', title: 'استودیو ایجاد محتوا', subtitle: 'انتشار سریع پست، ریلز و استوری' },
       ],
     },
     ps: {
@@ -53,12 +53,12 @@ const getShowcaseData = (locale: string) => {
       heading: 'د زِو اپلیکیشن بېلابېلو برخو ته کتنه',
       subheading: 'د عصري ډارک تم، سټوریز، ۶۰ فریم ریلز او چټک دایرکټ چټ سره ښکلې تجربه',
       shots: [
-        { img: '/screenshots/55.jpeg', title: 'سمارټ فیډ او سټوریز', subtitle: 'پوسټونه، لایک او د شیبو شریکول' },
-        { img: '/screenshots/57.jpeg', title: 'د ۶۰ فریم ریلز پلیر', subtitle: 'د ترند ویډیوګانو لوړ کیفیت کتنه' },
-        { img: '/screenshots/56.jpeg', title: 'ایکسپلور او د خلکو لټون', subtitle: 'د فعالو غړو او ملګرو موندل' },
-        { img: '/screenshots/58.jpeg', title: 'کارن پروفایل او بیو', subtitle: 'شخصي پاڼه او د پوسټونو مدیریت' },
-        { img: '/screenshots/62.jpeg', title: 'شخصي چټ او پیغامونه', subtitle: 'خوندي او چټک مخامخ پیغامونه' },
-        { img: '/screenshots/59.jpeg', title: 'د محتوا جوړولو سټوډیو', subtitle: 'د نوي پوسټ، ریل او سټوري خپرول' },
+        { img: '/app-shots/3.jpeg', title: 'سمارټ فیډ او سټوریز', subtitle: 'پوسټونه، لایک او د شیبو شریکول' },
+        { img: '/app-shots/1.jpeg', title: 'د ۶۰ فریم ریلز پلیر', subtitle: 'د ترند ویډیوګانو لوړ کیفیت کتنه' },
+        { img: '/app-shots/2.jpeg', title: 'ایکسپلور او د خلکو لټون', subtitle: 'د فعالو غړو او ملګرو موندل' },
+        { img: '/app-shots/7.jpeg', title: 'کارن پروفایل او بیو', subtitle: 'شخصي پاڼه او د پوسټونو مدیریت' },
+        { img: '/app-shots/5.jpeg', title: 'شخصي چټ او پیغامونه', subtitle: 'خوندي او چټک مخامخ پیغامونه' },
+        { img: '/app-shots/4.jpeg', title: 'د محتوا جوړولو سټوډیو', subtitle: 'د نوي پوسټ، ریل او سټوري خپرول' },
       ],
     },
     ar: {
@@ -66,12 +66,12 @@ const getShowcaseData = (locale: string) => {
       heading: 'استكشف وحدات تطبيق زِو (ZEV)',
       subheading: 'تصميم داكن عصري، قصص تفاعلية، مشغل ريلز 60 إطاراً ومحادثات مشفرة فورية',
       shots: [
-        { img: '/screenshots/55.jpeg', title: 'الخلاصة والقصص الذكية', subtitle: 'مشاركة المنشورات واللحظات' },
-        { img: '/screenshots/57.jpeg', title: 'مشغل الريلز 60 إطاراً', subtitle: 'فيديوهات عمودية فائقة السلاسة' },
-        { img: '/screenshots/56.jpeg', title: 'الاستكشاف والبحث عن الأعضاء', subtitle: 'العثور على المبدعين النشطين' },
-        { img: '/screenshots/58.jpeg', title: 'الملف الشخصي والنبذة', subtitle: 'صفحتك الشخصية وإحصائياتك' },
-        { img: '/screenshots/62.jpeg', title: 'الرسائل والمحادثات المباشرة', subtitle: 'دردشة خاصة آمنة وفورية' },
-        { img: '/screenshots/59.jpeg', title: 'استوديو إنشاء المحتوى', subtitle: 'نشر فوري للمنشور، الريلز والقصة' },
+        { img: '/app-shots/3.jpeg', title: 'الخلاصة والقصص الذكية', subtitle: 'مشاركة المنشورات واللحظات' },
+        { img: '/app-shots/1.jpeg', title: 'مشغل الريلز 60 إطاراً', subtitle: 'فيديوهات عمودية فائقة السلاسة' },
+        { img: '/app-shots/2.jpeg', title: 'الاستكشاف والبحث عن الأعضاء', subtitle: 'العثور على المبدعين النشطين' },
+        { img: '/app-shots/7.jpeg', title: 'الملف الشخصي والنبذة', subtitle: 'صفحتك الشخصية وإحصائياتك' },
+        { img: '/app-shots/5.jpeg', title: 'الرسائل والمحادثات المباشرة', subtitle: 'دردشة خاصة آمنة وفورية' },
+        { img: '/app-shots/4.jpeg', title: 'استوديو إنشاء المحتوى', subtitle: 'نشر فوري للمنشور، الريلز والقصة' },
       ],
     },
     ur: {
@@ -79,12 +79,12 @@ const getShowcaseData = (locale: string) => {
       heading: 'زِو (ZEV) کے تمام ماڈیولز کا جائزہ',
       subheading: 'جدید ڈارک موڈ، فل اسکرین اسٹوریز، 60 فریم ریلز اور تیز ترین ڈائریکٹ چیٹ',
       shots: [
-        { img: '/screenshots/55.jpeg', title: 'اسمارٹ فیڈ اور اسٹوریز', subtitle: 'پوسٹس، لائکس اور لمحات کا اشتراک' },
-        { img: '/screenshots/57.jpeg', title: '60 فریم ریلز ویڈیو پلیئر', subtitle: 'ٹرینڈنگ ویڈیوز کا شاندار تجربہ' },
-        { img: '/screenshots/56.jpeg', title: 'ایکسپلور اور ممبرز کی تلاش', subtitle: 'نئے دوستوں اور تخلیق کاروں کو تلاش کریں' },
-        { img: '/screenshots/58.jpeg', title: 'صارف پروفائل اور بائیو', subtitle: 'اپنی ذاتی پروفائل اور شماریات' },
-        { img: '/screenshots/62.jpeg', title: 'ڈائریکٹ میسجز اور چیٹ', subtitle: 'محفوظ اور تیز رفتار ذاتی پیغامات' },
-        { img: '/screenshots/59.jpeg', title: 'تخلیقی مواد اسٹوڈیو', subtitle: 'پوسٹ، ریلز اور اسٹوری باآسانی بنائیں' },
+        { img: '/app-shots/3.jpeg', title: 'اسمارٹ فیڈ اور اسٹوریز', subtitle: 'پوسٹس، لائکس اور لمحات کا اشتراک' },
+        { img: '/app-shots/1.jpeg', title: '60 فریم ریلز ویڈیو پلیئر', subtitle: 'ٹرینڈنگ ویڈیوز کا شاندار تجربہ' },
+        { img: '/app-shots/2.jpeg', title: 'ایکسپلور اور ممبرز کی تلاش', subtitle: 'نئے دوستوں اور تخلیق کاروں کو تلاش کریں' },
+        { img: '/app-shots/7.jpeg', title: 'صارف پروفائل اور بائیو', subtitle: 'اپنی ذاتی پروفائل اور شماریات' },
+        { img: '/app-shots/5.jpeg', title: 'ڈائریکٹ میسجز اور چیٹ', subtitle: 'محفوظ اور تیز رفتار ذاتی پیغامات' },
+        { img: '/app-shots/4.jpeg', title: 'تخلیقی مواد اسٹوڈیو', subtitle: 'پوسٹ، ریلز اور اسٹوری باآسانی بنائیں' },
       ],
     },
     tr: {
@@ -92,12 +92,12 @@ const getShowcaseData = (locale: string) => {
       heading: 'ZEV Uygulama Modüllerini Keşfedin',
       subheading: 'Akıcı karanlık tema, tam ekran hikayeler, 60fps reels ve ultra hızlı direkt mesajlaşma',
       shots: [
-        { img: '/screenshots/55.jpeg', title: 'Akıllı Akış ve Hikayeler', subtitle: 'Gönderiler, beğeniler ve anlar' },
-        { img: '/screenshots/57.jpeg', title: '60fps Reels ve Video Oynatıcı', subtitle: 'Akıcı dikey video deneyimi' },
-        { img: '/screenshots/56.jpeg', title: 'Keşfet ve Kişi Arama', subtitle: 'Aktif üyeleri ve trendleri bulun' },
-        { img: '/screenshots/58.jpeg', title: 'Kullanıcı Profili ve Biyo', subtitle: 'Kişisel profil ve istatistikler' },
-        { img: '/screenshots/62.jpeg', title: 'Direkt Mesajlar ve Sohbet', subtitle: 'Uçtan uca şifreli güvenli mesajlaşma' },
-        { img: '/screenshots/59.jpeg', title: 'İçerik Üretim Stüdyosu', subtitle: 'Gönderi, reels ve hikaye oluşturun' },
+        { img: '/app-shots/3.jpeg', title: 'Akıllı Akış ve Hikayeler', subtitle: 'Gönderiler, beğeniler ve anlar' },
+        { img: '/app-shots/1.jpeg', title: '60fps Reels ve Video Oynatıcı', subtitle: 'Akıcı dikey video deneyimi' },
+        { img: '/app-shots/2.jpeg', title: 'Keşfet ve Kişi Arama', subtitle: 'Aktif üyeleri ve trendleri bulun' },
+        { img: '/app-shots/7.jpeg', title: 'Kullanıcı Profili ve Biyo', subtitle: 'Kişisel profil ve istatistikler' },
+        { img: '/app-shots/5.jpeg', title: 'Direkt Mesajlar ve Sohbet', subtitle: 'Uçtan uca şifreli güvenli mesajlaşma' },
+        { img: '/app-shots/4.jpeg', title: 'İçerik Üretim Stüdyosu', subtitle: 'Gönderi, reels ve hikaye oluşturun' },
       ],
     },
     de: {
@@ -105,12 +105,12 @@ const getShowcaseData = (locale: string) => {
       heading: 'Erleben Sie alle Module von ZEV',
       subheading: 'Modernes Dark-UI-Design, Vollbild-Storys, flüssige 60fps Reels und Echtzeit-Chat',
       shots: [
-        { img: '/screenshots/55.jpeg', title: 'Smart Feed & Storys', subtitle: 'Beiträge, Likes und Momente teilen' },
-        { img: '/screenshots/57.jpeg', title: '60fps Reels Video-Player', subtitle: 'Flüssiges vertikales Videoerlebnis' },
-        { img: '/screenshots/56.jpeg', title: 'Entdecken & Personensuche', subtitle: 'Aktive Mitglieder und Trends finden' },
-        { img: '/screenshots/58.jpeg', title: 'Benutzerprofil & Biografie', subtitle: 'Profilseite, Follower und Beiträge' },
-        { img: '/screenshots/62.jpeg', title: 'Direktnachrichten & Privatchat', subtitle: 'Verschlüsselte Sofortnachrichten' },
-        { img: '/screenshots/59.jpeg', title: 'Creator-Studio', subtitle: 'Beiträge, Reels und Storys erstellen' },
+        { img: '/app-shots/3.jpeg', title: 'Smart Feed & Storys', subtitle: 'Beiträge, Likes und Momente teilen' },
+        { img: '/app-shots/1.jpeg', title: '60fps Reels Video-Player', subtitle: 'Flüssiges vertikales Videoerlebnis' },
+        { img: '/app-shots/2.jpeg', title: 'Entdecken & Personensuche', subtitle: 'Aktive Mitglieder und Trends finden' },
+        { img: '/app-shots/7.jpeg', title: 'Benutzerprofil & Biografie', subtitle: 'Profilseite, Follower und Beiträge' },
+        { img: '/app-shots/5.jpeg', title: 'Direktnachrichten & Privatchat', subtitle: 'Verschlüsselte Sofortnachrichten' },
+        { img: '/app-shots/4.jpeg', title: 'Creator-Studio', subtitle: 'Beiträge, Reels und Storys erstellen' },
       ],
     },
     fr: {
@@ -118,12 +118,12 @@ const getShowcaseData = (locale: string) => {
       heading: 'Découvrez tous les modules de ZEV',
       subheading: 'Interface sombre fluide, stories plein écran, reels à 60fps et messagerie instantanée',
       shots: [
-        { img: '/screenshots/55.jpeg', title: 'Fil d’actualités & Stories', subtitle: 'Partage de publications et de moments' },
-        { img: '/screenshots/57.jpeg', title: 'Lecteur Reels 60fps', subtitle: 'Vidéos verticales ultra-fluides' },
-        { img: '/screenshots/56.jpeg', title: 'Explorer & Recherche de membres', subtitle: 'Découvrez les créateurs actifs' },
-        { img: '/screenshots/58.jpeg', title: 'Profil utilisateur & Bio', subtitle: 'Votre espace et statistiques' },
-        { img: '/screenshots/62.jpeg', title: 'Messages directs & Chat', subtitle: 'Messagerie instantanée sécurisée' },
-        { img: '/screenshots/59.jpeg', title: 'Studio de Création', subtitle: 'Publiez posts, reels et stories' },
+        { img: '/app-shots/3.jpeg', title: 'Fil d’actualités & Stories', subtitle: 'Partage de publications et de moments' },
+        { img: '/app-shots/1.jpeg', title: 'Lecteur Reels 60fps', subtitle: 'Vidéos verticales ultra-fluides' },
+        { img: '/app-shots/2.jpeg', title: 'Explorer & Recherche de membres', subtitle: 'Découvrez les créateurs actifs' },
+        { img: '/app-shots/7.jpeg', title: 'Profil utilisateur & Bio', subtitle: 'Votre espace et statistiques' },
+        { img: '/app-shots/5.jpeg', title: 'Messages directs & Chat', subtitle: 'Messagerie instantanée sécurisée' },
+        { img: '/app-shots/4.jpeg', title: 'Studio de Création', subtitle: 'Publiez posts, reels et stories' },
       ],
     },
     es: {
@@ -131,12 +131,12 @@ const getShowcaseData = (locale: string) => {
       heading: 'Explora todos los módulos de ZEV',
       subheading: 'Interfaz oscura moderna, historias en pantalla completa, reels a 60fps y chat en tiempo real',
       shots: [
-        { img: '/screenshots/55.jpeg', title: 'Feed inteligente y Stories', subtitle: 'Publicaciones y momentos compartidos' },
-        { img: '/screenshots/57.jpeg', title: 'Reproductor Reels 60fps', subtitle: 'Vídeos verticales con máxima fluidez' },
-        { img: '/screenshots/56.jpeg', title: 'Explorar y Búsqueda de personas', subtitle: 'Encuentra miembros activos y creadores' },
-        { img: '/screenshots/58.jpeg', title: 'Perfil de usuario y Biografía', subtitle: 'Página personal y estadísticas' },
-        { img: '/screenshots/62.jpeg', title: 'Mensajes directos y Chat', subtitle: 'Comunicación privada y cifrada' },
-        { img: '/screenshots/59.jpeg', title: 'Estudio de Creación', subtitle: 'Crea posts, reels e historias fácilmente' },
+        { img: '/app-shots/3.jpeg', title: 'Feed inteligente y Stories', subtitle: 'Publicaciones y momentos compartidos' },
+        { img: '/app-shots/1.jpeg', title: 'Reproductor Reels 60fps', subtitle: 'Vídeos verticales con máxima fluidez' },
+        { img: '/app-shots/2.jpeg', title: 'Explorar y Búsqueda de personas', subtitle: 'Encuentra miembros activos y creadores' },
+        { img: '/app-shots/7.jpeg', title: 'Perfil de usuario y Biografía', subtitle: 'Página personal y estadísticas' },
+        { img: '/app-shots/5.jpeg', title: 'Mensajes directos y Chat', subtitle: 'Comunicación privada y cifrada' },
+        { img: '/app-shots/4.jpeg', title: 'Estudio de Creación', subtitle: 'Crea posts, reels e historias fácilmente' },
       ],
     },
     ru: {
@@ -144,12 +144,12 @@ const getShowcaseData = (locale: string) => {
       heading: 'Познакомьтесь со всеми модулями ZEV',
       subheading: 'Современный темный интерфейс, истории на весь экран, 60fps рилсы и быстрый чат',
       shots: [
-        { img: '/screenshots/55.jpeg', title: 'Умная лента и Истории', subtitle: 'Публикации, лайки и моменты' },
-        { img: '/screenshots/57.jpeg', title: '60fps Reels Видеоплеер', subtitle: 'Плавный просмотр вертикальных видео' },
-        { img: '/screenshots/56.jpeg', title: 'Поиск и Рекомендации', subtitle: 'Поиск активных авторов и друзей' },
-        { img: '/screenshots/58.jpeg', title: 'Профиль пользователя и Био', subtitle: 'Личная страница и статистика' },
-        { img: '/screenshots/62.jpeg', title: 'Личные сообщения и Чат', subtitle: 'Безопасное приватное общение' },
-        { img: '/screenshots/59.jpeg', title: 'Студия создания контента', subtitle: 'Публикация постов, рилс и историй' },
+        { img: '/app-shots/3.jpeg', title: 'Умная лента и Истории', subtitle: 'Публикации, лайки и моменты' },
+        { img: '/app-shots/1.jpeg', title: '60fps Reels Видеоплеер', subtitle: 'Плавный просмотр вертикальных видео' },
+        { img: '/app-shots/2.jpeg', title: 'Поиск и Рекомендации', subtitle: 'Поиск активных авторов и друзей' },
+        { img: '/app-shots/7.jpeg', title: 'Профиль пользователя и Био', subtitle: 'Личная страница и статистика' },
+        { img: '/app-shots/5.jpeg', title: 'Личные сообщения и Чат', subtitle: 'Безопасное приватное общение' },
+        { img: '/app-shots/4.jpeg', title: 'Студия создания контента', subtitle: 'Публикация постов, рилс и историй' },
       ],
     },
     zh: {
@@ -157,12 +157,12 @@ const getShowcaseData = (locale: string) => {
       heading: '全方位体验 ZEV 核心功能模块',
       subheading: '现代深色质感UI、全屏精彩动态、60帧高清短视频及极速私信聊天',
       shots: [
-        { img: '/screenshots/55.jpeg', title: '智能动态与故事', subtitle: '分享生活瞬间与互动点赞' },
-        { img: '/screenshots/57.jpeg', title: '60帧超清短视频播放', subtitle: '沉浸式全屏流畅视频流' },
-        { img: '/screenshots/56.jpeg', title: '探索与成员搜索', subtitle: '发现活跃创作者与热门话题' },
-        { img: '/screenshots/58.jpeg', title: '个人主页与简介', subtitle: '管理发布内容与个人影响力' },
-        { img: '/screenshots/62.jpeg', title: '私信与即时聊天', subtitle: '安全加密的私密好友对话' },
-        { img: '/screenshots/59.jpeg', title: '创作发布工作室', subtitle: '一键发布图文、短视频与故事' },
+        { img: '/app-shots/3.jpeg', title: '智能动态与故事', subtitle: '分享生活瞬间与互动点赞' },
+        { img: '/app-shots/1.jpeg', title: '60帧超清短视频播放', subtitle: '沉浸式全屏流畅视频流' },
+        { img: '/app-shots/2.jpeg', title: '探索与成员搜索', subtitle: '发现活跃创作者与热门话题' },
+        { img: '/app-shots/7.jpeg', title: '个人主页与简介', subtitle: '管理发布内容与个人影响力' },
+        { img: '/app-shots/5.jpeg', title: '私信与即时聊天', subtitle: '安全加密的私密好友对话' },
+        { img: '/app-shots/4.jpeg', title: '创作发布工作室', subtitle: '一键发布图文、短视频与故事' },
       ],
     },
     ja: {
@@ -170,12 +170,12 @@ const getShowcaseData = (locale: string) => {
       heading: 'ZEVの多彩なモジュールを体験',
       subheading: '流麗なダークUIデザイン、フルスクリーンストーリー、60fpsリール動画、超高速ダイレクトチャット',
       shots: [
-        { img: '/screenshots/55.jpeg', title: 'スマートフィード＆ストーリー', subtitle: '投稿、いいね、感動の瞬間をシェア' },
-        { img: '/screenshots/57.jpeg', title: '60fps高画質リール再生', subtitle: '極めて滑らかな縦型動画ストリーミング' },
-        { img: '/screenshots/56.jpeg', title: '見つける・メンバー検索', subtitle: 'アクティブなクリエイターを発見' },
-        { img: '/screenshots/58.jpeg', title: 'プロフィール＆自己紹介', subtitle: '個人ページ、投稿管理、フォロワー数' },
-        { img: '/screenshots/62.jpeg', title: 'ダイレクトメッセージ＆チャット', subtitle: '暗号化された安心の個人チャット' },
-        { img: '/screenshots/59.jpeg', title: 'クリエイティブスタジオ', subtitle: '投稿、リール、ストーリーを素早く作成' },
+        { img: '/app-shots/3.jpeg', title: 'スマートフィード＆ストーリー', subtitle: '投稿、いいね、感動の瞬間をシェア' },
+        { img: '/app-shots/1.jpeg', title: '60fps高画質リール再生', subtitle: '極めて滑らかな縦型動画ストリーミング' },
+        { img: '/app-shots/2.jpeg', title: '見つける・メンバー検索', subtitle: 'アクティブなクリエイターを発見' },
+        { img: '/app-shots/7.jpeg', title: 'プロフィール＆自己紹介', subtitle: '個人ページ、投稿管理、フォロワー数' },
+        { img: '/app-shots/5.jpeg', title: 'ダイレクトメッセージ＆チャット', subtitle: '暗号化された安心の個人チャット' },
+        { img: '/app-shots/4.jpeg', title: 'クリエイティブスタジオ', subtitle: '投稿、リール、ストーリーを素早く作成' },
       ],
     },
     ko: {
@@ -183,12 +183,12 @@ const getShowcaseData = (locale: string) => {
       heading: 'ZEV의 모든 주요 기능 둘러보기',
       subheading: '세련된 다크 테마 UI, 전체 화면 스토리, 60fps 고화질 릴스 및 실시간 다이렉트 채팅',
       shots: [
-        { img: '/screenshots/55.jpeg', title: '스마트 피드 및 스토리', subtitle: '게시물, 좋아요, 소중한 순간 공유' },
-        { img: '/screenshots/57.jpeg', title: '60fps 고화질 릴스 재생', subtitle: '매끄러운 세로형 비디오 스트리밍' },
-        { img: '/screenshots/56.jpeg', title: '탐색 및 사용자 검색', subtitle: '인기 크리에이터와 친구 찾기' },
-        { img: '/screenshots/58.jpeg', title: '프로필 및 바이오', subtitle: '내 프로필, 통계 및 게시물 관리' },
-        { img: '/screenshots/62.jpeg', title: '다이렉트 메시지 및 채팅', subtitle: '안전하고 빠른 1:1 비밀 대화' },
-        { img: '/screenshots/59.jpeg', title: '콘텐츠 제작 스튜디오', subtitle: '게시물, 릴스, 스토리 손쉬운 생성' },
+        { img: '/app-shots/3.jpeg', title: '스마트 피드 및 스토리', subtitle: '게시물, 좋아요, 소중한 순간 공유' },
+        { img: '/app-shots/1.jpeg', title: '60fps 고화질 릴스 재생', subtitle: '매끄러운 세로형 비디오 스트리밍' },
+        { img: '/app-shots/2.jpeg', title: '탐색 및 사용자 검색', subtitle: '인기 크리에이터와 친구 찾기' },
+        { img: '/app-shots/7.jpeg', title: '프로필 및 바이오', subtitle: '내 프로필, 통계 및 게시물 관리' },
+        { img: '/app-shots/5.jpeg', title: '다이렉트 메시지 및 채팅', subtitle: '안전하고 빠른 1:1 비밀 대화' },
+        { img: '/app-shots/4.jpeg', title: '콘텐츠 제작 스튜디오', subtitle: '게시물, 릴스, 스토리 손쉬운 생성' },
       ],
     },
     hi: {
@@ -196,12 +196,12 @@ const getShowcaseData = (locale: string) => {
       heading: 'ZEV के सभी मॉड्यूल्स का अनुभव करें',
       subheading: 'आधुनिक डार्क थीम, फ़ुल-स्क्रीन स्टोरीज़, 60fps रील्स और सुरक्षित डायरेक्ट चैट',
       shots: [
-        { img: '/screenshots/55.jpeg', title: 'स्मार्ट फ़ीड और स्टोरीज़', subtitle: 'पोस्ट्स, लाइक्स और पलों का साझाकरण' },
-        { img: '/screenshots/57.jpeg', title: '60fps रील्स वीडियो प्लेयर', subtitle: 'अल्ट्रा-स्मूथ वर्टिकल वीडियो अनुभव' },
-        { img: '/screenshots/56.jpeg', title: 'एक्सप्लोर और सदस्य खोज', subtitle: 'सक्रिय क्रिएटर्स और दोस्तों को खोजें' },
-        { img: '/screenshots/58.jpeg', title: 'यूज़र प्रोफ़ाइल और बायो', subtitle: 'व्यक्तिगत प्रोफ़ाइल और आंकड़े' },
-        { img: '/screenshots/62.jpeg', title: 'डायरेक्ट मैसेज और चैट', subtitle: 'सुरक्षित और तेज़ निजी बातचीत' },
-        { img: '/screenshots/59.jpeg', title: 'क्रिएशन स्टूडियो', subtitle: 'पोस्ट, रील और स्टोरी आसानी से बनाएं' },
+        { img: '/app-shots/3.jpeg', title: 'स्मार्ट फ़ीड और स्टोरीज़', subtitle: 'पोस्ट्स, लाइक्स और पलों का साझाकरण' },
+        { img: '/app-shots/1.jpeg', title: '60fps रील्स वीडियो प्लेयर', subtitle: 'अल्ट्रा-स्मूथ वर्टिकल वीडियो अनुभव' },
+        { img: '/app-shots/2.jpeg', title: 'एक्सप्लोर और सदस्य खोज', subtitle: 'सक्रिय क्रिएटर्स और दोस्तों को खोजें' },
+        { img: '/app-shots/7.jpeg', title: 'यूज़र प्रोफ़ाइल और बायो', subtitle: 'व्यक्तिगत प्रोफ़ाइल और आंकड़े' },
+        { img: '/app-shots/5.jpeg', title: 'डायरेक्ट मैसेज और चैट', subtitle: 'सुरक्षित और तेज़ निजी बातचीत' },
+        { img: '/app-shots/4.jpeg', title: 'क्रिएशन स्टूडियो', subtitle: 'पोस्ट, रील और स्टोरी आसानी से बनाएं' },
       ],
     },
     en: {
@@ -209,12 +209,12 @@ const getShowcaseData = (locale: string) => {
       heading: 'Experience ZEV Across All Modules',
       subheading: 'Fluid dark UI design, full-screen stories, 60fps responsive reels, and real-time private chatting',
       shots: [
-        { img: '/screenshots/55.jpeg', title: 'Smart Feed & Stories', subtitle: 'Posts, reactions, and authentic moments' },
-        { img: '/screenshots/57.jpeg', title: '60fps Reels & Videos', subtitle: 'Ultra-fluid vertical video player' },
-        { img: '/screenshots/56.jpeg', title: 'Explore & People Search', subtitle: 'Discover active creators and hashtags' },
-        { img: '/screenshots/58.jpeg', title: 'Profile & Creator Bio', subtitle: 'Your personal brand, stats, and posts' },
-        { img: '/screenshots/62.jpeg', title: 'Direct Messages & Chat', subtitle: 'Secure, end-to-end encrypted messaging' },
-        { img: '/screenshots/59.jpeg', title: 'Content Creation Studio', subtitle: 'Publish posts, reels, and stories instantly' },
+        { img: '/app-shots/3.jpeg', title: 'Smart Feed & Stories', subtitle: 'Posts, reactions, and authentic moments' },
+        { img: '/app-shots/1.jpeg', title: '60fps Reels & Videos', subtitle: 'Ultra-fluid vertical video player' },
+        { img: '/app-shots/2.jpeg', title: 'Explore & People Search', subtitle: 'Discover active creators and hashtags' },
+        { img: '/app-shots/7.jpeg', title: 'Profile & Creator Bio', subtitle: 'Your personal brand, stats, and posts' },
+        { img: '/app-shots/5.jpeg', title: 'Direct Messages & Chat', subtitle: 'Secure, end-to-end encrypted messaging' },
+        { img: '/app-shots/4.jpeg', title: 'Content Creation Studio', subtitle: 'Publish posts, reels, and stories instantly' },
       ],
     },
   };
@@ -368,37 +368,37 @@ export default function LocalizedHomePage({
       title: dict.features.f1Title,
       desc: dict.features.f1Desc,
       icon: Video,
-      color: '#FC466B',
+      color: '#00D4FF',
     },
     {
       title: dict.features.f2Title,
       desc: dict.features.f2Desc,
       icon: Flame,
-      color: '#FC466B',
+      color: '#00D4FF',
     },
     {
       title: dict.features.f3Title,
       desc: dict.features.f3Desc,
       icon: Lock,
-      color: '#FC466B',
+      color: '#00D4FF',
     },
     {
       title: dict.features.f4Title,
       desc: dict.features.f4Desc,
       icon: Monitor,
-      color: '#FC466B',
+      color: '#00D4FF',
     },
     {
       title: dict.features.f5Title,
       desc: dict.features.f5Desc,
       icon: Star,
-      color: '#FC466B',
+      color: '#00D4FF',
     },
     {
       title: dict.features.f6Title,
       desc: dict.features.f6Desc,
       icon: ShieldCheck,
-      color: '#FC466B',
+      color: '#00D4FF',
     },
   ];
 
@@ -492,7 +492,7 @@ export default function LocalizedHomePage({
                   className="btn-secondary"
                   style={{ padding: '15px 32px', fontSize: 16 }}
                 >
-                  <Download size={18} color="#FC466B" />
+                  <Download size={18} color="#00D4FF" />
                   <span>{dict.hero.ctaDownload}</span>
                 </button>
               </div>
@@ -506,7 +506,7 @@ export default function LocalizedHomePage({
                   color: '#64748B',
                 }}
               >
-                <CheckCircle2 size={16} color="#FC466B" />
+                <CheckCircle2 size={16} color="#00D4FF" />
                 <span>{dict.hero.ctaStoreSubtitle}</span>
               </div>
             </div>
@@ -527,7 +527,7 @@ export default function LocalizedHomePage({
                   width: '90%',
                   aspectRatio: '1',
                   borderRadius: '50%',
-                  border: '1.5px dashed rgba(252, 70, 107, 0.35)',
+                  border: '1.5px dashed rgba(0, 212, 255, 0.35)',
                   animation: 'pulseGlow 8s infinite',
                   pointerEvents: 'none',
                 }}
@@ -544,7 +544,7 @@ export default function LocalizedHomePage({
                   padding: 8,
                   background: 'rgba(13, 18, 30, 0.75)',
                   border: '1px solid rgba(255, 255, 255, 0.12)',
-                  boxShadow: '0 25px 70px rgba(0, 0, 0, 0.8), 0 0 30px rgba(252, 70, 107, 0.12)',
+                  boxShadow: '0 25px 70px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 212, 255, 0.12)',
                 }}
               >
                 <div
@@ -589,7 +589,7 @@ export default function LocalizedHomePage({
                     width: 38,
                     height: 38,
                     borderRadius: 12,
-                    background: '#FC466B',
+                    background: '#00D4FF',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -602,7 +602,7 @@ export default function LocalizedHomePage({
                   <div style={{ fontSize: 13, fontWeight: 800, color: '#FFFFFF' }}>
                     {isFa ? 'ریلز و استوری ترند' : 'Trending Reels Studio'}
                   </div>
-                  <div style={{ fontSize: 11, color: '#FC466B', fontWeight: 700 }}>
+                  <div style={{ fontSize: 11, color: '#00D4FF', fontWeight: 700 }}>
                     {isFa ? 'کیفیت فوق‌العاده ۶۰fps' : 'Ultra HD 60fps'}
                   </div>
                 </div>
@@ -640,12 +640,12 @@ export default function LocalizedHomePage({
                       width: 48,
                       height: 48,
                       borderRadius: 14,
-                      background: '#FC466B',
+                      background: '#00D4FF',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       color: '#FFFFFF',
-                      boxShadow: '0 4px 12px rgba(252, 70, 107, 0.35)',
+                      boxShadow: '0 4px 12px rgba(0, 212, 255, 0.35)',
                     }}
                   >
                     <Icon size={24} />
@@ -729,13 +729,13 @@ export default function LocalizedHomePage({
                         width: 54,
                         height: 54,
                         borderRadius: 16,
-                        background: '#FC466B',
+                        background: '#00D4FF',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         color: '#FFFFFF',
                         marginBottom: 20,
-                        boxShadow: '0 6px 18px rgba(252, 70, 107, 0.3)',
+                        boxShadow: '0 6px 18px rgba(0, 212, 255, 0.3)',
                       }}
                     >
                       <Icon size={26} />
@@ -889,9 +889,9 @@ export default function LocalizedHomePage({
                   style={{
                     borderRadius: 18,
                     border: isOpen
-                      ? '1.5px solid #FC466B'
-                      : '1.5px solid rgba(252, 70, 107, 0.25)',
-                    background: isOpen ? 'rgba(252, 70, 107, 0.08)' : 'rgba(13, 18, 30, 0.75)',
+                      ? '1.5px solid #00D4FF'
+                      : '1.5px solid rgba(0, 212, 255, 0.25)',
+                    background: isOpen ? 'rgba(0, 212, 255, 0.08)' : 'rgba(13, 18, 30, 0.75)',
                     overflow: 'hidden',
                   }}
                 >
@@ -916,7 +916,7 @@ export default function LocalizedHomePage({
                     <span>{faq.q}</span>
                     <ChevronDown
                       size={20}
-                      color="#FC466B"
+                      color="#00D4FF"
                       style={{
                         transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
                         transition: 'transform 0.25s ease',
@@ -963,7 +963,7 @@ export default function LocalizedHomePage({
               padding: '60px 40px',
               borderRadius: 36,
               textAlign: 'center',
-              boxShadow: '0 20px 60px rgba(252, 70, 107, 0.35)',
+              boxShadow: '0 20px 60px rgba(0, 212, 255, 0.35)',
             }}
           >
             <h2

@@ -15,7 +15,7 @@ export const AppMockup = () => {
       id: 'reels' as const,
       label: isFa ? 'استودیو ریلز' : 'Reels Studio',
       icon: Video,
-      image: '/screenshots/1.png',
+      image: '/app-shots/1.jpeg',
       badge: isFa ? 'قابلیت ویژه ریلز' : 'Submit Your Reel',
       title: isFa ? 'ثبت و انتشار ویدیوهای ریلز با کیفیت بالا' : 'Turn Your Moments Into Impact',
       desc: isFa
@@ -26,7 +26,7 @@ export const AppMockup = () => {
       id: 'people' as const,
       label: isFa ? 'کشف دوستان' : 'Find Your People',
       icon: Users,
-      image: '/screenshots/2.jpg',
+      image: '/app-shots/2.jpeg',
       badge: isFa ? 'جامعه فعال' : 'Active Community',
       title: isFa ? 'آدم‌های واقعی، حس و حال واقعی' : 'Discover Amazing People & Connect',
       desc: isFa
@@ -37,7 +37,7 @@ export const AppMockup = () => {
       id: 'feed' as const,
       label: isFa ? 'فید و استوری' : 'Feed & Stories',
       icon: Compass,
-      image: '/screenshots/3.jpg',
+      image: '/app-shots/3.jpeg',
       badge: isFa ? 'فید هوشمند' : 'ZEV Feed',
       title: isFa ? 'عکس‌ها و استوری‌های دوستان با نهایت کیفیت' : 'Feed • Explore • Share • Connect',
       desc: isFa
@@ -48,8 +48,8 @@ export const AppMockup = () => {
       id: 'trading' as const,
       label: isFa ? 'تحلیل و دانش' : 'Analysis & Media',
       icon: Layers,
-      image: '/screenshots/55.jpeg',
-      fallbackImage: '/screenshots/60.jpeg',
+      image: '/app-shots/4.jpeg',
+      fallbackImage: '/app-shots/5.jpeg',
       badge: isFa ? 'تخصصی' : 'Knowledge & Insights',
       title: isFa ? 'اشتراک دانش تخصصی و چارت‌های تحلیلی' : 'Deep Analysis & High Res Media',
       desc: isFa
@@ -109,10 +109,10 @@ export const AppMockup = () => {
                   fontSize: 14,
                   fontWeight: 700,
                   cursor: 'pointer',
-                  border: isActive ? '1.5px solid #FC466B' : '1.5px solid rgba(252, 70, 107, 0.3)',
-                  background: isActive ? '#FC466B' : 'rgba(255, 255, 255, 0.05)',
+                  border: isActive ? '1.5px solid #00D4FF' : '1.5px solid rgba(0, 212, 255, 0.3)',
+                  background: isActive ? '#00D4FF' : 'rgba(255, 255, 255, 0.05)',
                   color: isActive ? '#FFFFFF' : '#E2E8F0',
-                  boxShadow: isActive ? '0 8px 24px rgba(252, 70, 107, 0.35)' : 'none',
+                  boxShadow: isActive ? '0 8px 24px rgba(0, 212, 255, 0.35)' : 'none',
                   transition: 'all 0.25s ease',
                 }}
               >
@@ -131,7 +131,7 @@ export const AppMockup = () => {
             padding: '48px clamp(20px, 3.5vw, 60px)',
             background: 'rgba(13, 18, 30, 0.75)',
             border: '1px solid rgba(255, 255, 255, 0.08)',
-            boxShadow: '0 20px 60px rgba(252, 70, 107, 0.12)',
+            boxShadow: '0 20px 60px rgba(0, 212, 255, 0.12)',
           }}
         >
           <div
@@ -160,7 +160,7 @@ export const AppMockup = () => {
                   overflow: 'hidden',
                   background: '#0B0F19',
                   border: '3px solid rgba(255, 255, 255, 0.15)',
-                  boxShadow: '0 25px 60px rgba(252, 70, 107, 0.25)',
+                  boxShadow: '0 25px 60px rgba(0, 212, 255, 0.25)',
                 }}
               >
                 <Image
@@ -182,12 +182,12 @@ export const AppMockup = () => {
                   gap: 8,
                   padding: '6px 14px',
                   borderRadius: 999,
-                  background: '#FC466B',
+                  background: '#00D4FF',
                   color: '#FFFFFF',
                   fontSize: 12,
                   fontWeight: 800,
                   marginBottom: 16,
-                  boxShadow: '0 4px 12px rgba(252, 70, 107, 0.3)',
+                  boxShadow: '0 4px 12px rgba(0, 212, 255, 0.3)',
                 }}
               >
                 <span>{currentTab.badge}</span>

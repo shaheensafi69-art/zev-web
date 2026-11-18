@@ -29,7 +29,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
             left: isFa ? 20 : 'auto',
             background: 'rgba(255, 255, 255, 0.05)',
             border: '1px solid rgba(255, 255, 255, 0.08)',
-            color: '#FC466B',
+            color: '#00D4FF',
             width: 36,
             height: 36,
             borderRadius: '50%',
@@ -40,12 +40,12 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
             transition: 'all 0.2s ease',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = '#FC466B';
+            e.currentTarget.style.background = '#00D4FF';
             e.currentTarget.style.color = '#FFFFFF';
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
-            e.currentTarget.style.color = '#FC466B';
+            e.currentTarget.style.color = '#00D4FF';
           }}
           aria-label="Close modal"
         >
@@ -64,7 +64,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
               border: '1px solid rgba(255, 255, 255, 0.1)',
             }}
           >
-            <Download size={26} color="#FC466B" />
+            <Download size={26} color="#00D4FF" />
           </div>
           <h3 style={{ fontSize: 22, fontWeight: 900, color: '#FFFFFF', marginBottom: 6 }}>
             {isFa ? 'دریافت برنامه زو (ZEV)' : 'Get ZEV Everywhere'}
@@ -101,12 +101,12 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                   width: 44,
                   height: 44,
                   borderRadius: 12,
-                  background: '#FC466B',
+                  background: '#00D4FF',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   color: '#FFFFFF',
-                  boxShadow: '0 4px 12px rgba(252, 70, 107, 0.3)',
+                  boxShadow: '0 4px 12px rgba(0, 212, 255, 0.3)',
                 }}
               >
                 <Globe size={22} />
@@ -125,7 +125,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                 fontSize: 12,
                 fontWeight: 700,
                 color: '#FFFFFF',
-                background: '#FC466B',
+                background: '#00D4FF',
                 padding: '6px 12px',
                 borderRadius: 20,
               }}
@@ -156,12 +156,12 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                   width: 44,
                   height: 44,
                   borderRadius: 12,
-                  background: '#FC466B',
+                  background: '#00D4FF',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   color: '#FFFFFF',
-                  boxShadow: '0 4px 12px rgba(252, 70, 107, 0.3)',
+                  boxShadow: '0 4px 12px rgba(0, 212, 255, 0.3)',
                 }}
               >
                 <Smartphone size={22} />
@@ -180,7 +180,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                 fontSize: 12,
                 fontWeight: 700,
                 color: '#FFFFFF',
-                background: '#FC466B',
+                background: '#00D4FF',
                 padding: '6px 12px',
                 borderRadius: 20,
               }}
@@ -212,7 +212,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: '#FC466B',
+                  color: '#00D4FF',
                 }}
               >
                 <Apple size={22} />
@@ -230,7 +230,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
               style={{
                 fontSize: 11,
                 fontWeight: 700,
-                color: '#FC466B',
+                color: '#00D4FF',
                 background: 'rgba(255, 255, 255, 0.05)',
                 padding: '4px 10px',
                 borderRadius: 12,
@@ -263,7 +263,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: '#FC466B',
+                  color: '#00D4FF',
                 }}
               >
                 <Monitor size={22} />
@@ -281,7 +281,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
               style={{
                 fontSize: 11,
                 fontWeight: 700,
-                color: '#FC466B',
+                color: '#00D4FF',
                 background: 'rgba(255, 255, 255, 0.05)',
                 padding: '4px 10px',
                 borderRadius: 12,
@@ -306,7 +306,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
             color: '#334155',
           }}
         >
-          <ShieldCheck size={16} color="#FC466B" />
+          <ShieldCheck size={16} color="#00D4FF" />
           <span>
             {isFa
               ? 'تمامی فایل‌ها به طور خودکار قبل از انتشار اسکن و امضای امنیتی شده‌اند.'

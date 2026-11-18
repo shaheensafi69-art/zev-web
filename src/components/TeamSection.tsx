@@ -34,7 +34,7 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ locale, dict }) => {
         (isRtl
           ? 'بنیان‌گذار و دایرکتور اکوسیستم بین‌المللی صفی و پلتفرم زِو، معمار ارشد سیستم‌های ابری، هوش مصنوعی و معماری فلاتر.'
           : 'Founder & Director of the Safi Ecosystem and ZEV platform, Lead Cloud & Software Architect pioneering universal Flutter systems and AI.'),
-      accentGradient: 'linear-gradient(135deg, #FC466B 0%, #FF5E82 100%)',
+      accentGradient: 'linear-gradient(135deg, #00D4FF 0%, #FF5E82 100%)',
     },
     {
       rank: '02',
@@ -48,7 +48,7 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ locale, dict }) => {
         (isRtl
           ? 'مدیرعامل پلتفرم و مسئول ارشد توسعه دیپلماسی تجاری، ارتباطات شرکتی و شرکای استراتژیک در سراسر اروپا و بازارهای جهانی.'
           : 'Chief Executive Officer leading corporate governance, cross-border European relations, and global strategic alliances for ZEV.'),
-      accentGradient: 'linear-gradient(135deg, #FC466B 0%, #3F5EFB 100%)',
+      accentGradient: 'linear-gradient(135deg, #00D4FF 0%, #3F5EFB 100%)',
     },
     {
       rank: '03',
@@ -279,7 +279,7 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ locale, dict }) => {
                   style={{
                     fontSize: 12,
                     fontWeight: 800,
-                    color: '#FC466B',
+                    color: '#00D4FF',
                     letterSpacing: isRtl ? '0px' : '0.8px',
                     textTransform: isRtl ? 'none' : 'uppercase',
                     marginBottom: 14,

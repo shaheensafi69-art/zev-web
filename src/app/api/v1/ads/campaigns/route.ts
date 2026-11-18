@@ -10,10 +10,10 @@ function buildCorsHeaders(req: NextRequest): Record<string, string> {
   const origin = req.headers.get('origin') || '';
   const allowed =
     origin === 'https://web.zevapp.com' ||
-    origin === 'https://www.zevapp.com' ||
-    origin === 'https://adminportal.zevapp.com' ||
-    origin.startsWith('http://localhost:') ||
-    origin.startsWith('http://127.0.0.1:')
+      origin === 'https://www.zevapp.com' ||
+      origin === 'https://adminportal.zevapp.com' ||
+      origin.startsWith('http://localhost:') ||
+      origin.startsWith('http://127.0.0.1:')
       ? origin
       : '*';
 

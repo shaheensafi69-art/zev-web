@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Disallow: /api/
+Disallow: /api/v1/
 Disallow: /auth/
 
-Sitemap: https://web.zevapp.com/sitemap.xml
+Sitemap: https://zevapp.com/sitemap.xml

@@ -23,7 +23,7 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
       description: isFa
         ? 'بزرگترین پلتفرم آموزشی آنلاین افغان‌ها در حوزه‌های تریدینگ، برنامه‌نویسی، هوش مصنوعی و زبان‌های بین‌المللی. کاربران و دانشجویان اکادمی صفی می‌توانند با همان حساب کاربری خود فوراً وارد اپلیکیشن زو (ZEV) شوند!'
         : 'The premier global Afghan educational ecosystem offering world-class trading, software engineering, and AI courses. Safi Academy members sign into ZEV with the exact same unified credentials and shared database!',
-      accentColor: '#FC466B',
+      accentColor: '#00D4FF',
       icon: GraduationCap,
       features: [
         isFa ? 'احراز هویت مشترک با زو (Single Sign-On)' : 'Unified Authentication with ZEV',
@@ -39,7 +39,7 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
       description: isFa
         ? 'سیستم مالی پیشرفته و کارت‌های بین‌المللی ویزا برای واریز و برداشت آنی، پرداخت دستمزد تولیدکنندگان محتوا در زو، و تسهیل مراودات ارزی دانشجویان و بازرگانان در سرتاسر جهان.'
         : 'Next-gen fintech application facilitating international Visa card issuance, instant multi-currency transfers, and seamless monetization payouts for verified ZEV content creators.',
-      accentColor: '#FC466B',
+      accentColor: '#00D4FF',
       icon: CreditCard,
       features: [
         isFa ? 'صدور ویزاکارت و حساب ارزی بین‌المللی' : 'Virtual & Physical Visa Cards',
@@ -130,7 +130,7 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
             borderRadius: 28,
             background: 'rgba(13, 18, 30, 0.75)',
             border: '1px solid rgba(255, 255, 255, 0.08)',
-            boxShadow: '0 12px 35px rgba(252, 70, 107, 0.15)',
+            boxShadow: '0 12px 35px rgba(0, 212, 255, 0.15)',
             marginBottom: 50,
             display: 'flex',
             alignItems: 'center',
@@ -143,14 +143,14 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
               width: 58,
               height: 58,
               borderRadius: 18,
-              background: '#FC466B',
+              background: '#00D4FF',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               color: '#FFFFFF',
               fontWeight: 900,
               flexShrink: 0,
-              boxShadow: '0 6px 20px rgba(252, 70, 107, 0.35)',
+              boxShadow: '0 6px 20px rgba(0, 212, 255, 0.35)',
             }}
           >
             <Database size={28} />
@@ -165,7 +165,7 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
                   fontSize: 11,
                   fontWeight: 800,
                   color: '#FFFFFF',
-                  background: '#FC466B',
+                  background: '#00D4FF',
                   padding: '3px 12px',
                   borderRadius: 999,
                 }}
@@ -202,7 +202,7 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
-                  boxShadow: '0 12px 35px rgba(252, 70, 107, 0.12)',
+                  boxShadow: '0 12px 35px rgba(0, 212, 255, 0.12)',
                 }}
               >
                 <div>
@@ -227,7 +227,7 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
                         alignItems: 'center',
                         justifyContent: 'center',
                         padding: 6,
-                        boxShadow: '0 4px 12px rgba(252, 70, 107, 0.15)',
+                        boxShadow: '0 4px 12px rgba(0, 212, 255, 0.15)',
                       }}
                     >
                       <Image
@@ -242,7 +242,7 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
                       style={{
                         fontSize: 11,
                         fontWeight: 800,
-                        color: '#FC466B',
+                        color: '#00D4FF',
                         padding: '5px 12px',
                         borderRadius: 999,
                         background: 'rgba(13, 18, 30, 0.75)',
@@ -283,7 +283,7 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
                             width: 20,
                             height: 20,
                             borderRadius: '50%',
-                            background: '#FC466B',
+                            background: '#00D4FF',
                             color: '#FFFFFF',
                             display: 'flex',
                             alignItems: 'center',
@@ -356,7 +356,7 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
                   padding: 24,
                   borderRadius: 22,
                   background: 'rgba(13, 18, 30, 0.75)',
-                  border: '1.5px solid rgba(252, 70, 107, 0.25)',
+                  border: '1.5px solid rgba(0, 212, 255, 0.25)',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
@@ -382,7 +382,7 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
                         borderRadius: 12,
                         overflow: 'hidden',
                         background: 'rgba(13, 18, 30, 0.75)',
-                        border: '1px solid rgba(252, 70, 107, 0.3)',
+                        border: '1px solid rgba(0, 212, 255, 0.3)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -401,7 +401,7 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
                       style={{
                         fontSize: 11,
                         fontWeight: 700,
-                        color: '#FC466B',
+                        color: '#00D4FF',
                         padding: '3px 10px',
                         borderRadius: 999,
                         background: 'rgba(13, 18, 30, 0.75)',
@@ -427,7 +427,7 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({ locale, dict
                     marginTop: 18,
                     fontSize: 12.5,
                     fontWeight: 700,
-                    color: '#FC466B',
+                    color: '#00D4FF',
                   }}
                 >
                   <span>{isFa ? 'ورود به سایت' : 'Open Link'}</span>
