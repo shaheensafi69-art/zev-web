@@ -1,134 +1,168 @@
-'use client';
-
-import React, { use } from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
   MapPin,
   ArrowRight,
   ArrowLeft,
-  Globe,
   Server,
-  ShieldCheck,
+  Globe,
   Zap,
-  Lock,
+  ShieldCheck,
   Cpu,
-  CheckCircle2,
-  ExternalLink,
   Layers,
+  HelpCircle,
+  ExternalLink,
 } from 'lucide-react';
-import { getDictionary, isRtlLocale } from '@/dictionaries';
+import { getDictionary, isRtlLocale, locales } from '@/dictionaries';
 
-export default function LocationsPage({
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isFa = isRtlLocale(locale);
+
+  const title = isFa
+    ? 'موقعیت‌های زیرساخت و مراکز داده زو (ZEV Edge Data Centers & Global POPs)'
+    : 'ZEV Global Edge Locations & Infrastructure | Data Centers';
+
+  const description = isFa
+    ? 'بررسی شبکه جهانی سرورهای لبه و مراکز داده زو: کابل، دبی، فرانکفورت، سنگاپور و ویرجینیا با بیش از ۲۰۰ گره توزیع محتوا، تاخیر زیر ۵۰ میلی‌ثانیه و استاندارد ISO 27001.'
+    : 'Explore ZEV’s multi-region edge infrastructure: Data center hubs in Kabul, Dubai, Frankfurt, Singapore, and Virginia powering sub-400ms RTC video calling and 99.99% uptime.';
+
+  const languageAlternates: Record<string, string> = {};
+  for (const l of locales) {
+    languageAlternates[l] = `https://zevapp.com/${l}/locations`;
+  }
+
+  return {
+    title,
+    description,
+    keywords: [
+      'ZEV Locations',
+      'ZEV Data Centers',
+      'ZEV Edge Network',
+      'Sahib Group Infrastructure',
+      'Kabul Edge Node',
+      'Dubai Data Center',
+      'Frankfurt Server',
+    ],
+    alternates: {
+      canonical: `https://zevapp.com/${locale}/locations`,
+      languages: languageAlternates,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `https://zevapp.com/${locale}/locations`,
+      siteName: 'ZEV',
+      locale,
+      images: [
+        {
+          url: '/app-shots/8.jpeg',
+          width: 1200,
+          height: 630,
+          alt: 'ZEV Global Edge Data Centers & Nodes',
+        },
+      ],
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/app-shots/8.jpeg'],
+      creator: '@shaheensafi09',
+      site: '@zevapp',
+    },
+  };
+}
+
+export default async function LocationsPage({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  const { locale } = use(params);
+  const { locale } = await params;
+  const dict = getDictionary(locale);
   const isFa = isRtlLocale(locale);
 
   const hubs = [
     {
-      region: isFa ? 'منطقه آسیای میانه و خاورمیانه' : 'Central Asia & Middle East Hub',
-      city: 'Kabul • Dubai',
-      ping: '< 25ms',
-      focus: isFa
-        ? 'مسیرهای شبکه بهینه‌شده با زبان‌های دری و پښتو، کمترین تاخیر برای تماس‌های صوتی/تصویری و لایو استریمینگ.'
-        : 'Dedicated Dari & Pashto localized routing, sub-25ms latency for voice/video calls, and Agora RTC edge relay.',
-      tags: ['Kabul Point-of-Presence', 'Dubai GCC Gateway', 'RTC Media Cluster'],
+      city: isFa ? 'کابل (هاب مرکزی افغانستان)' : 'Kabul (Afghanistan Primary Edge Hub)',
+      region: isFa ? 'آسیای مرکزی و جنوب آسیا' : 'Central & South Asia POP',
+      latency: '<20ms',
+      role: isFa ? 'پایگاه رله مستقیم کاربران داخلی، سرورهای حافظه موقت محلی' : 'Direct domestic user relay & high-speed localized media caching',
     },
     {
-      region: isFa ? 'منطقه اروپا و اتحادیه اروپا' : 'European Union Edge Network',
-      city: 'Frankfurt • London • Amsterdam',
-      ping: '< 35ms',
-      focus: isFa
-        ? 'پایبندی ۱۰۰٪ به قوانین حفظ حریم خصوصی GDPR اروپا، دیتاسنترهای گواهی‌شده ISO 27001 و رمزنگاری در حالت استراحت.'
-        : 'Full GDPR compliance, ISO 27001 certified edge facilities, and strict EU data residency protections.',
-      tags: ['Frankfurt Primary Node', 'London Relay', 'GDPR Shield'],
+      city: isFa ? 'دبی (هاب خاورمیانه)' : 'Dubai (Middle East & GCC Gateway)',
+      region: isFa ? 'امارات متحده عربی' : 'United Arab Emirates Tier-4',
+      latency: '<35ms',
+      role: isFa ? 'اتصال مستقیم با کابل‌های دریایی بین‌المللی و مراکز شتاب‌دهنده RTC' : 'Subsea cable termination & Agora RTC regional acceleration mesh',
     },
     {
-      region: isFa ? 'شبکه ابری بین‌المللی و CDN سراسری' : 'Global CDN Edge & Cloud Mesh',
-      city: '200+ Global Edge Locations',
-      ping: '< 40ms Global',
-      focus: isFa
-        ? 'توزیع بلادرنگ ریلزها و تصاویر با کش لایه ۲، جلوگیری از بافرینگ حتی در اتصالات با اینترنت ۲G/3G.'
-        : 'Anycast edge delivery for instant 60fps reel caching, adaptive bitrates, and sub-second asset delivery worldwide.',
-      tags: ['Cloudflare Anycast', 'Multi-Region Supabase', 'Adaptive HLS'],
+      city: isFa ? 'فرانکفورت (هاب اروپا)' : 'Frankfurt (European Core)',
+      region: isFa ? 'آلمان / اتحادیه اروپا' : 'Germany / European Union',
+      latency: '<45ms',
+      role: isFa ? 'مرکز داده پشتیبان ابری با انطباق کامل استاندارد GDPR و ISO 27001' : 'GDPR-compliant primary disaster recovery & global state replication',
+    },
+    {
+      city: isFa ? 'سنگاپور و ویرجینیا' : 'Singapore & N. Virginia (Global Edge Mesh)',
+      region: isFa ? 'آسیا-پاسیفیک و آمریکای شمالی' : 'Asia-Pacific & North America',
+      latency: '<60ms',
+      role: isFa ? 'پوشش کاربران دوردست، پردازش ابری داده‌های ناشناس و هوش مصنوعی' : 'Global CDN distribution and AI safety moderation ingestion',
     },
   ];
 
-  const infrastructureMetrics = [
-    {
-      label: isFa ? 'نقاط حضور CDN در جهان' : 'Global Edge Locations',
-      val: '200+ Cities',
-      icon: Globe,
-    },
-    {
-      label: isFa ? 'تاخیر لایو استریمینگ' : 'Live Broadcast Latency',
-      val: '< 400ms Ultra-Low',
-      icon: Zap,
-    },
-    {
-      label: isFa ? 'استاندارد رمزنگاری ذخیره‌سازی' : 'Storage Encryption Standard',
-      val: 'AES-256 GCM',
-      icon: Lock,
-    },
-    {
-      label: isFa ? 'پایداری و دسترسی‌پذیری' : 'Global SLA Uptime',
-      val: '99.98% High Availability',
-      icon: Server,
-    },
-  ];
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Place',
+        name: 'ZEV Kabul Primary Edge Data Center',
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Kabul',
+          addressCountry: 'AF',
+        },
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: 'Where are ZEV server nodes located?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'ZEV maintains high-availability server hubs in Kabul, Dubai, Frankfurt, Singapore, and Virginia with over 200 edge relay points worldwide.',
+            },
+          },
+        ],
+      },
+    ],
+  };
 
   return (
     <div style={{ padding: '40px 0 100px', minHeight: '85vh', backgroundColor: '#07090E' }}>
-      {/* 6-Tier JSON-LD Schema (SEO, GEO, AIO, AEO, XEO, XIO) */}
+      {/* 6-Engine Schema Script */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'WebPage',
-            name: 'ZEV Global Locations & Infrastructure Mesh',
-            url: `https://zevapp.com/${locale}/locations`,
-            description:
-              'Discover ZEV global edge data centers, regional routing hubs in Kabul, Dubai, and Frankfurt, and compliance standards.',
-            mainEntity: {
-              '@type': 'FAQPage',
-              mainEntity: [
-                {
-                  '@type': 'Question',
-                  name: 'Where are ZEV servers and data centers located?',
-                  acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: 'ZEV operates across a multi-region cloud mesh with primary low-latency nodes in Kabul, Dubai, and Frankfurt, backed by 200+ global Anycast edge points for instant reel playback.',
-                  },
-                },
-                {
-                  '@type': 'Question',
-                  name: 'Is user data in ZEV protected under international privacy laws?',
-                  acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: 'Yes. ZEV adheres to ISO/IEC 27001 data governance and European GDPR principles, utilizing AES-256 storage encryption and Row-Level Security (RLS) data isolation.',
-                  },
-                },
-              ],
-            },
-          }),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
       <div className="container">
-        {/* Top Back Navigation */}
+        {/* Back Link */}
         <Link
           href={`/${locale}`}
           style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: 8,
-            color: '#00D4FF',
             fontSize: 14,
             fontWeight: 700,
-            marginBottom: 36,
+            color: '#94A3B8',
+            marginBottom: 28,
             textDecoration: 'none',
           }}
         >
@@ -136,211 +170,81 @@ export default function LocationsPage({
           <span>{isFa ? 'بازگشت به صفحه اصلی' : 'Back to Home'}</span>
         </Link>
 
-        {/* Hero Section */}
+        {/* Hero Header */}
         <div style={{ textAlign: 'center', maxWidth: 840, margin: '0 auto 60px' }}>
           <div
             style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: 8,
-              padding: '6px 18px',
-              borderRadius: 30,
-              background: 'rgba(0, 212, 255, 0.1)',
+              padding: '6px 16px',
+              borderRadius: 20,
+              background: 'rgba(0, 212, 255, 0.08)',
               border: '1px solid rgba(0, 212, 255, 0.25)',
-              color: '#00D4FF',
-              fontSize: 13,
-              fontWeight: 800,
-              marginBottom: 20,
-              letterSpacing: '0.3px',
+              marginBottom: 16,
             }}
           >
-            <Globe size={15} />
-            <span>{isFa ? 'زیرساخت ابری و موقعیت‌های منطقه‌ای ZEV' : 'ZEV Global Edge & Regional Infrastructure'}</span>
+            <MapPin size={14} color="#00D4FF" />
+            <span style={{ fontSize: 13, fontWeight: 800, color: '#00D4FF' }}>
+              {isFa ? 'شبکه جهانی لبه و مراکز داده' : 'GLOBAL EDGE TOPOLOGY'}
+            </span>
           </div>
 
           <h1
             style={{
-              fontSize: 'clamp(32px, 5vw, 52px)',
+              fontSize: 'clamp(32px, 5vw, 50px)',
               fontWeight: 900,
-              color: '#FFFFFF',
               lineHeight: 1.15,
-              marginBottom: 20,
-              letterSpacing: '-0.8px',
+              marginBottom: 18,
+              color: '#FFFFFF',
             }}
           >
-            {isFa ? 'زیرساخت پرسرعت جهانی، متصل به افغانستان و جهان' : 'Global High-Speed Cloud, Built for Worldwide Impact'}
+            {isFa ? 'موقعیت‌های سرور و زیرساخت جهانی زِو' : 'ZEV Global Edge Locations & Data Centers'}
           </h1>
 
-          <p
-            style={{
-              fontSize: 'clamp(16px, 2vw, 19px)',
-              color: '#94A3B8',
-              lineHeight: 1.7,
-              margin: '0 auto',
-            }}
-          >
+          <p style={{ fontSize: 17, color: '#94A3B8', lineHeight: 1.65 }}>
             {isFa
-              ? 'شبکه اجتماعی ZEV با اتکا به نودهای ابری لبه (Edge CDN) در بیش از ۲۰۰ شهر جهان و مراکز داده اختصاصی در کابل، دبی و اروپا، بالاترین سرعت پخش ریلز و شفاف‌ترین ویدیو کال را تضمین می‌کند.'
-              : 'ZEV leverages an Anycast distributed edge network spanning 200+ global cities with dedicated regional hubs in Kabul, Dubai, and Frankfurt, delivering sub-second reel delivery and studio RTC calling.'}
+              ? 'بیش از ۲۰۰ گره لبه و ۴ هاب داده‌ای در سراسر جهان برای تضمین دسترسی پایدار، اتصال فوری تماس‌ها و حفاظت از اطلاعات کاربران.'
+              : 'Over 200 distributed edge nodes across Kabul, Dubai, Frankfurt, and beyond ensuring sub-400ms RTC calls and zero downtime.'}
           </p>
         </div>
 
-        {/* Metrics Grid */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-            gap: 20,
-            marginBottom: 70,
-          }}
-        >
-          {infrastructureMetrics.map((item, i) => {
-            const Icon = item.icon;
-            return (
-              <div
-                key={i}
-                style={{
-                  padding: '24px 22px',
-                  borderRadius: 20,
-                  background: 'rgba(14, 20, 36, 0.75)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                  backdropFilter: 'blur(12px)',
-                }}
-              >
-                <div
-                  style={{
-                    width: 38,
-                    height: 38,
-                    borderRadius: 12,
-                    background: 'rgba(0, 212, 255, 0.12)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: '#00D4FF',
-                    marginBottom: 14,
-                  }}
-                >
-                  <Icon size={20} />
-                </div>
-                <div style={{ fontSize: 13, color: '#64748B', fontWeight: 600, marginBottom: 4 }}>
-                  {item.label}
-                </div>
-                <div style={{ fontSize: 16, color: '#FFFFFF', fontWeight: 800 }}>
-                  {item.val}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Regional Hubs Cards */}
-        <div style={{ marginBottom: 80 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 30 }}>
-            <MapPin size={22} color="#00D4FF" />
-            <h2 style={{ fontSize: 26, fontWeight: 900, color: '#FFFFFF', margin: 0 }}>
-              {isFa ? 'هاب‌ها و مراکز داده منطقه‌ای' : 'Regional Edge Hubs & Interconnects'}
-            </h2>
-          </div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-            {hubs.map((hub, i) => (
-              <div
-                key={i}
-                style={{
-                  padding: '32px 34px',
-                  borderRadius: 24,
-                  background: 'rgba(14, 20, 36, 0.75)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14, flexWrap: 'wrap', gap: 12 }}>
-                  <div>
-                    <span style={{ fontSize: 13, color: '#00D4FF', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                      {hub.region}
-                    </span>
-                    <h3 style={{ fontSize: 22, fontWeight: 800, color: '#FFFFFF', marginTop: 4 }}>
-                      {hub.city}
-                    </h3>
-                  </div>
-
-                  <div
-                    style={{
-                      padding: '6px 14px',
-                      borderRadius: 12,
-                      background: 'rgba(16, 185, 129, 0.12)',
-                      border: '1px solid rgba(16, 185, 129, 0.3)',
-                      color: '#10B981',
-                      fontSize: 12.5,
-                      fontWeight: 800,
-                    }}
-                  >
-                    Ping: {hub.ping}
-                  </div>
-                </div>
-
-                <p style={{ fontSize: 14.5, color: '#94A3B8', lineHeight: 1.7, marginBottom: 18 }}>
-                  {hub.focus}
-                </p>
-
-                <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                  {hub.tags.map((t, idx) => (
-                    <span
-                      key={idx}
-                      style={{
-                        padding: '4px 12px',
-                        borderRadius: 10,
-                        background: 'rgba(255, 255, 255, 0.04)',
-                        border: '1px solid rgba(255, 255, 255, 0.08)',
-                        color: '#CBD5E1',
-                        fontSize: 12,
-                        fontWeight: 600,
-                      }}
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Global Reliability Commitment */}
-        <div
-          style={{
-            padding: '36px 40px',
-            borderRadius: 26,
-            background: 'linear-gradient(135deg, rgba(0, 212, 255, 0.08) 0%, rgba(83, 109, 254, 0.08) 100%)',
-            border: '1px solid rgba(0, 212, 255, 0.25)',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16 }}>
+        {/* Hubs Grid */}
+        <div style={{ maxWidth: 860, margin: '0 auto 60px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: 20 }}>
+          {hubs.map((hub, idx) => (
             <div
+              key={idx}
               style={{
-                width: 44,
-                height: 44,
-                borderRadius: 14,
-                background: 'rgba(0, 212, 255, 0.15)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#00D4FF',
-                flexShrink: 0,
+                background: 'rgba(13, 18, 30, 0.75)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                borderRadius: 24,
+                padding: '28px 24px',
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
               }}
             >
-              <ShieldCheck size={24} />
-            </div>
-            <div>
-              <div style={{ fontSize: 20, fontWeight: 800, color: '#FFFFFF', marginBottom: 8 }}>
-                {isFa ? 'تعهد به پایداری جهانی و ایزولاسیون داده‌ها' : 'Global High-Availability & Data Governance'}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <Server size={20} color="#00D4FF" />
+                  <span style={{ fontSize: 16, fontWeight: 900, color: '#FFFFFF' }}>{hub.city}</span>
+                </div>
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 800,
+                    background: 'rgba(0, 212, 255, 0.12)',
+                    color: '#00D4FF',
+                    border: '1px solid rgba(0, 212, 255, 0.3)',
+                    padding: '3px 10px',
+                    borderRadius: 10,
+                  }}
+                >
+                  {hub.latency}
+                </span>
               </div>
-              <p style={{ color: '#94A3B8', fontSize: 14.5, lineHeight: 1.7, margin: 0 }}>
-                {isFa
-                  ? 'تمامی نودهای شبکه ZEV از ایزولاسیون چندلایه‌ای استفاده می‌کنند. دیتابیس مشترک با اکادمی صفی و صافی‌پی با تکثیر لحظه‌ای (Multi-Region Replication) محافظت شده تا کوچک‌ترین قطعی در سراسر جهان احساس نشود.'
-                  : 'Every ZEV edge transit point operates under continuous health telemetry and automated failover. The synchronized database cluster ensures seamless single sign-on with Safi Academy with zero single points of failure.'}
-              </p>
+              <div style={{ fontSize: 12.5, color: '#64748B', marginBottom: 10 }}>{hub.region}</div>
+              <p style={{ fontSize: 14, color: '#94A3B8', lineHeight: 1.6 }}>{hub.role}</p>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>

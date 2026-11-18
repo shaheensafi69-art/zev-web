@@ -1,6 +1,4 @@
-'use client';
-
-import React, { use } from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
   Briefcase,
@@ -17,145 +15,175 @@ import {
   Clock,
   ShieldCheck,
   TrendingUp,
+  HelpCircle,
+  ExternalLink,
 } from 'lucide-react';
-import { getDictionary, isRtlLocale } from '@/dictionaries';
+import { getDictionary, isRtlLocale, locales } from '@/dictionaries';
 
-export default function JobsPage({
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isFa = isRtlLocale(locale);
+
+  const title = isFa
+    ? 'فرصت‌های شغلی و استخدام در زو (ZEV Careers) | شرکت صاحب گروپ'
+    : 'Careers at ZEV | Join Sahib Group Engineering & Design';
+
+  const description = isFa
+    ? 'فرصت‌های شغلی فعال در تیم مهندسی زو (ZEV): استخدام معمار ارشد فلاتر، مهندس زیرساخت RTC ویدیو، توسعه‌دهنده بک‌اند ابری و لید دیزاین سیستم. کار بر روی فناوری‌های نوین در محیطی بین‌المللی.'
+    : 'Join the engineering and design elite behind ZEV Social Network. Open roles in Flutter architecture, WebRTC video calling, cloud backend, and product design at Sahib Group.';
+
+  const languageAlternates: Record<string, string> = {};
+  for (const l of locales) {
+    languageAlternates[l] = `https://zevapp.com/${l}/jobs`;
+  }
+
+  return {
+    title,
+    description,
+    keywords: [
+      'ZEV Careers',
+      'ZEV Jobs',
+      'Sahib Group Hiring',
+      'Flutter Developer Job',
+      'WebRTC Engineer Job',
+      'Shaheen Safi Careers',
+      'Remote Tech Jobs',
+    ],
+    alternates: {
+      canonical: `https://zevapp.com/${locale}/jobs`,
+      languages: languageAlternates,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `https://zevapp.com/${locale}/jobs`,
+      siteName: 'ZEV',
+      locale,
+      images: [
+        {
+          url: '/app-shots/8.jpeg',
+          width: 1200,
+          height: 630,
+          alt: 'Careers at ZEV & Sahib Group',
+        },
+      ],
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/app-shots/8.jpeg'],
+      creator: '@shaheensafi09',
+      site: '@zevapp',
+    },
+  };
+}
+
+export default async function JobsPage({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  const { locale } = use(params);
+  const { locale } = await params;
+  const dict = getDictionary(locale);
   const isFa = isRtlLocale(locale);
 
-  const perks = [
+  const openPositions = [
     {
-      icon: Laptop,
-      title: isFa ? 'دورکاری و ساعات کاری منعطف' : 'Remote-First Flexibility',
+      title: isFa ? 'معمار ارشد فلاتر (Senior Flutter Architect)' : 'Senior Flutter Universal Architect',
+      type: isFa ? 'تمام وقت • دورکاری / هیبرید' : 'Full-time • Remote / Hybrid',
+      location: isFa ? 'کابل / دبی / ریموت' : 'Kabul / Dubai / Remote',
       desc: isFa
-        ? 'آزادی انتخاب محل کار از هر نقطه جهان با ساعات شناور و تمرکز بر خروجی باکیفیت.'
-        : 'Work from anywhere with asynchronous workflows and complete autonomy.',
+        ? 'رهبری پایگاه کد یکپارچه فلاتر برای موبایل و وب، بهینه‌سازی رندرینگ سخت‌افزاری ۶۰ فریم و خطوط لوله کش ویدیو.'
+        : 'Lead our unified Flutter engine across mobile and web. Optimize GPU shaders and zero-stutter 60fps video caching.',
     },
     {
-      icon: Zap,
-      title: isFa ? 'فناوری‌های پیشرو روز' : 'Bleeding-Edge Tech Stack',
+      title: isFa ? 'مهندس ارشد زیرساخت RTC و ویدیو (WebRTC / Agora RTC)' : 'Senior RTC Video Infrastructure Engineer',
+      type: isFa ? 'تمام وقت • ریموت بین‌المللی' : 'Full-time • Global Remote',
+      location: isFa ? 'جهانی (ریموت)' : 'Global Remote',
       desc: isFa
-        ? 'کار با آخرین فناوری‌های مهندسی فلاتر، وب‌آسمبلی، موتورهای بلادرنگ آگورا و پستگرس ابری.'
-        : 'Build with Flutter WebAssembly, Agora RTC low-latency media, and Supabase clusters.',
+        ? 'توسعه و بهینه‌سازی تماس‌های ویدیویی استودیویی، کاهش تاخیر به زیر ۴۰۰ میلی‌ثانیه و فشرده‌سازی تطبیقی.'
+        : 'Build and tune sub-400ms low-latency Agora RTC video and voice mesh pipelines with AI noise reduction.',
     },
     {
-      icon: TrendingUp,
-      title: isFa ? 'پاداش و سهام رشد پروژه' : 'Competitive Pay & Growth',
+      title: isFa ? 'توسعه‌دهنده ارشد بک‌اند ابری (Cloud Backend & Security)' : 'Senior Cloud Backend & Security Engineer',
+      type: isFa ? 'تمام وقت • ریموت' : 'Full-time • Remote',
+      location: isFa ? 'دبی / فرانکفورت / ریموت' : 'Dubai / Frankfurt / Remote',
       desc: isFa
-        ? 'حقوق رقابتی بین‌المللی همراه با پاداش‌های فصلی و سهیم بودن در رشد سریع اکوسیستم صفی.'
-        : 'Competitive compensation packages, merit-based bonuses, and long-term equity options.',
+        ? 'معماری مایکروسرویس‌های توزیع‌شده با Go و Node.js، رمزگذاری TLS 1.3 و هماهنگی دیتابیس با اکوسیستم صفی.'
+        : 'Architect high-throughput Go microservices, TLS 1.3 cryptographic layers, and shared Safi Ecosystem persistence.',
     },
     {
-      icon: Heart,
-      title: isFa ? 'فرهنگ سلامت روان و رشد فردی' : 'Wellness & Personal Growth',
+      title: isFa ? 'لید موشن و دیزاین سیستم (Lead UI/UX & Motion)' : 'Lead UI/UX & Motion Design Specialist',
+      type: isFa ? 'تمام وقت • ریموت' : 'Full-time • Remote',
+      location: isFa ? 'جهانی (ریموت)' : 'Global Remote',
       desc: isFa
-        ? 'حمایت از یادگیری مستمر، بودجه خرید تجهیزات پیشرفته کاری و مرخصی‌های با حقوق.'
-        : 'Continuous learning stipends, top-tier hardware allowances, and paid time off.',
+        ? 'خلق تجربیات کاربری لوکس، انیمیشن‌های روان و استانداردهای بصری مدرن برای اپلیکیشن و وب‌سایت زو.'
+        : 'Craft luxury dark-tech mobile and desktop interfaces, micro-interactions, and consistent cross-platform guidelines.',
     },
   ];
 
-  const openings = [
-    {
-      title: isFa
-        ? 'مهندس ارشد فلاتر و سیستم‌های بلادرنگ (Senior Flutter & RTC Engineer)'
-        : 'Senior Flutter & Real-Time RTC Engineer',
-      department: isFa ? 'تیم مهندسی کلاینت' : 'Client Engineering',
-      location: isFa ? 'دورکاری (جهانی) / دبی' : 'Remote (Worldwide) / Dubai',
-      type: isFa ? 'تمام‌وقت' : 'Full-time',
-      desc: isFa
-        ? 'توسعه و بهینه‌سازی کلاینت فلاتر روی موبایل و وب، انکودینگ ویدیویی ۳۰ فریم، تاخیر زیر ۴۰۰ میلی‌ثانیه برای لایو و ویدیو کال.'
-        : 'Lead architecture of Flutter mobile and web clients, optimizing 60fps UI, sub-400ms Agora RTC streaming, and adaptive dual-stream pipelines.',
-    },
-    {
-      title: isFa
-        ? 'معمار ارشد بک‌اند و پایگاه داده توزیع‌شده (Principal Backend Architect)'
-        : 'Principal Backend & Distributed Database Architect',
-      department: isFa ? 'تیم زیرساخت ابری' : 'Cloud Infrastructure',
-      location: isFa ? 'دورکاری (جهانی)' : 'Remote (Worldwide)',
-      type: isFa ? 'تمام‌وقت' : 'Full-time',
-      desc: isFa
-        ? 'طراحی و مدیریت پایگاه داده مشترک پستگرس و Supabase، قوانین امنیتی RLS، بهینه‌سازی کوئری‌های میلیونی و سیستم‌های پوش نوتیفیکیشن.'
-        : 'Scale high-throughput Supabase/PostgreSQL clusters, implement military-grade RLS policies, and maintain FCM push microservices.',
-    },
-    {
-      title: isFa
-        ? 'متخصص امنیت محتوا و هوش مصنوعی (Trust, Safety & AI Integrity)'
-        : 'Trust, Safety & AI Content Moderation Specialist',
-      department: isFa ? 'اعتماد و امنیت' : 'Trust & Safety',
-      location: isFa ? 'دورکاری (جهانی)' : 'Remote (Worldwide)',
-      type: isFa ? 'تمام‌وقت' : 'Full-time',
-      desc: isFa
-        ? 'توسعه الگوریتم‌های تشخیص خودکار تخلف، جلوگیری از آسیب به کودکان (CSAM)، پالایش هوشمند نظرات و پایبندی به استانداردهای بین‌المللی.'
-        : 'Drive automated trust heuristics, proactive child safety compliance, anti-spam enforcement, and transparent community moderation.',
-    },
-    {
-      title: isFa
-        ? 'طراح ارشد تجربه کاربری و محصول (Lead Product & Visual Designer)'
-        : 'Lead Product & UI/UX Designer',
-      department: isFa ? 'طراحی محصول' : 'Product Design',
-      location: isFa ? 'دورکاری (جهانی)' : 'Remote (Worldwide)',
-      type: isFa ? 'تمام‌وقت' : 'Full-time',
-      desc: isFa
-        ? 'خلق سیستم دیزاین مدرن کلیرمورفیک برای وب و اپلیکیشن، انیمیشن‌های روان ۶۰ فریم و رابط‌های کاربری جذاب برای ریلز و استوری.'
-        : 'Define next-generation clearmorphic design systems across mobile and desktop, crafting silky 60fps micro-interactions.',
-    },
-  ];
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'ItemPage',
+        name: isFa ? 'فرصت‌های شغلی زو' : 'ZEV Careers',
+        url: `https://zevapp.com/${locale}/jobs`,
+      },
+      ...openPositions.map((pos) => ({
+        '@type': 'JobPosting',
+        title: pos.title,
+        description: pos.desc,
+        employmentType: 'FULL_TIME',
+        hiringOrganization: {
+          '@type': 'Organization',
+          name: 'Sahib Group (ZEV)',
+          url: 'https://zevapp.com',
+        },
+        jobLocationType: 'TELECOMMUTE',
+      })),
+      {
+        '@type': 'FAQPage',
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: 'How do I apply for a software engineering job at ZEV?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Send your CV, GitHub portfolio, and cover note directly to careers@zevapp.com with the position title in the subject line.',
+            },
+          },
+        ],
+      },
+    ],
+  };
 
   return (
     <div style={{ padding: '40px 0 100px', minHeight: '85vh', backgroundColor: '#07090E' }}>
-      {/* 6-Tier JSON-LD Schema (SEO, GEO, AIO, AEO, XEO, XIO) */}
+      {/* 6-Engine Schema Script */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'WebPage',
-            name: 'Careers at ZEV - Join the Next-Gen Social Network',
-            url: `https://zevapp.com/${locale}/jobs`,
-            description:
-              'Explore engineering, design, and growth career opportunities at ZEV Social Network (Sahib Group). Remote-first, competitive global compensation.',
-            mainEntity: {
-              '@type': 'FAQPage',
-              mainEntity: [
-                {
-                  '@type': 'Question',
-                  name: 'Are ZEV positions remote or on-site?',
-                  acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: 'ZEV is a remote-first organization. Most engineering, design, and operations roles offer full global remote flexibility.',
-                  },
-                },
-                {
-                  '@type': 'Question',
-                  name: 'How do I apply for a role at ZEV?',
-                  acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: 'Candidates can send their CV, portfolio, and GitHub profile directly to careers@zevapp.com with the target role in the subject line.',
-                  },
-                },
-              ],
-            },
-          }),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
       <div className="container">
-        {/* Top Back Navigation */}
+        {/* Back Link */}
         <Link
           href={`/${locale}`}
           style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: 8,
-            color: '#00D4FF',
             fontSize: 14,
             fontWeight: 700,
-            marginBottom: 36,
+            color: '#94A3B8',
+            marginBottom: 28,
             textDecoration: 'none',
           }}
         >
@@ -163,229 +191,152 @@ export default function JobsPage({
           <span>{isFa ? 'بازگشت به صفحه اصلی' : 'Back to Home'}</span>
         </Link>
 
-        {/* Hero Section */}
+        {/* Hero Header */}
         <div style={{ textAlign: 'center', maxWidth: 840, margin: '0 auto 60px' }}>
           <div
             style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: 8,
-              padding: '6px 18px',
-              borderRadius: 30,
-              background: 'rgba(0, 212, 255, 0.1)',
+              padding: '6px 16px',
+              borderRadius: 20,
+              background: 'rgba(0, 212, 255, 0.08)',
               border: '1px solid rgba(0, 212, 255, 0.25)',
-              color: '#00D4FF',
-              fontSize: 13,
-              fontWeight: 800,
-              marginBottom: 20,
-              letterSpacing: '0.3px',
+              marginBottom: 16,
             }}
           >
-            <Briefcase size={15} />
-            <span>{isFa ? 'فرصت‌های شغلی و همکاری در ZEV' : 'Careers & Opportunities at ZEV'}</span>
+            <Briefcase size={14} color="#00D4FF" />
+            <span style={{ fontSize: 13, fontWeight: 800, color: '#00D4FF' }}>
+              {isFa ? 'فرصت‌های همکاری و استخدام' : 'CAREERS AT ZEV'}
+            </span>
           </div>
 
           <h1
             style={{
-              fontSize: 'clamp(32px, 5vw, 52px)',
+              fontSize: 'clamp(32px, 5vw, 50px)',
               fontWeight: 900,
-              color: '#FFFFFF',
               lineHeight: 1.15,
-              marginBottom: 20,
-              letterSpacing: '-0.8px',
+              marginBottom: 18,
+              color: '#FFFFFF',
             }}
           >
-            {isFa ? 'آینده شبکه‌های اجتماعی را با ما بسازید' : 'Build the Future of Social Networking'}
+            {isFa ? 'در ساخت آینده فناوری با ما همراه شوید' : 'Build the Future of Social Technology'}
           </h1>
 
-          <p
-            style={{
-              fontSize: 'clamp(16px, 2vw, 19px)',
-              color: '#94A3B8',
-              lineHeight: 1.7,
-              margin: '0 auto',
-            }}
-          >
+          <p style={{ fontSize: 17, color: '#94A3B8', lineHeight: 1.65 }}>
             {isFa
-              ? 'ما در زو تیمی از نخبه‌ترین مهندسان و طراحان هستیم که شبکه‌ای پرسرعت، امن و جهانی را با افتخار برای میلیون‌ها انسان خلق می‌کنیم.'
-              : 'Join a world-class team of passionate engineers and creative visionaries creating a lightning-fast, privacy-first social platform for global communities.'}
+              ? 'تیم مهندسی صاحب گروپ همواره در جستجوی نخبگان برنامه‌نویسی و معماران بااستعداد برای خلق ارزش‌های ماندگار است.'
+              : 'Join an agile, mission-driven team engineering high-throughput social systems, sub-400ms RTC pipelines, and universal Flutter applications.'}
           </p>
         </div>
 
-        {/* Perks & Benefits Grid */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-            gap: 22,
-            marginBottom: 80,
-          }}
-        >
-          {perks.map((p, i) => {
-            const Icon = p.icon;
-            return (
-              <div
-                key={i}
-                style={{
-                  padding: '28px 24px',
-                  borderRadius: 22,
-                  background: 'rgba(14, 20, 36, 0.75)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                }}
-              >
-                <div
-                  style={{
-                    width: 42,
-                    height: 42,
-                    borderRadius: 14,
-                    background: 'rgba(0, 212, 255, 0.12)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: '#00D4FF',
-                    marginBottom: 16,
-                  }}
-                >
-                  <Icon size={22} />
+        {/* Job Listings */}
+        <div style={{ maxWidth: 860, margin: '0 auto 60px', display: 'flex', flexDirection: 'column', gap: 20 }}>
+          {openPositions.map((job, idx) => (
+            <div
+              key={idx}
+              style={{
+                background: 'rgba(13, 18, 30, 0.75)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                borderRadius: 24,
+                padding: '30px 28px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 12,
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
+              }}
+            >
+              <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 10 }}>
+                <h3 style={{ fontSize: 19, fontWeight: 900, color: '#FFFFFF' }}>{job.title}</h3>
+                <div style={{ display: 'flex', gap: 10 }}>
+                  <span
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 700,
+                      background: 'rgba(0, 212, 255, 0.1)',
+                      color: '#00D4FF',
+                      border: '1px solid rgba(0, 212, 255, 0.25)',
+                      padding: '4px 10px',
+                      borderRadius: 10,
+                    }}
+                  >
+                    {job.type}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 700,
+                      background: 'rgba(255, 255, 255, 0.05)',
+                      color: '#94A3B8',
+                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                      padding: '4px 10px',
+                      borderRadius: 10,
+                    }}
+                  >
+                    {job.location}
+                  </span>
                 </div>
-                <h3 style={{ fontSize: 17, fontWeight: 800, color: '#FFFFFF', marginBottom: 8 }}>
-                  {p.title}
-                </h3>
-                <p style={{ fontSize: 13.5, color: '#94A3B8', lineHeight: 1.6, margin: 0 }}>
-                  {p.desc}
-                </p>
               </div>
-            );
-          })}
-        </div>
 
-        {/* Open Positions */}
-        <div style={{ marginBottom: 80 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 30 }}>
-            <Briefcase size={22} color="#00D4FF" />
-            <h2 style={{ fontSize: 26, fontWeight: 900, color: '#FFFFFF', margin: 0 }}>
-              {isFa ? 'موقعیت‌های شغلی فعال' : 'Open Positions'}
-            </h2>
-          </div>
+              <p style={{ fontSize: 14.5, color: '#94A3B8', lineHeight: 1.65 }}>{job.desc}</p>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-            {openings.map((job, i) => (
-              <div
-                key={i}
-                style={{
-                  padding: '30px 32px',
-                  borderRadius: 24,
-                  background: 'rgba(14, 20, 36, 0.75)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-start',
-                  flexWrap: 'wrap',
-                  gap: 20,
-                }}
-              >
-                <div style={{ maxWidth: 700 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12, flexWrap: 'wrap' }}>
-                    <span
-                      style={{
-                        padding: '4px 12px',
-                        borderRadius: 12,
-                        background: 'rgba(0, 212, 255, 0.12)',
-                        border: '1px solid rgba(0, 212, 255, 0.25)',
-                        color: '#00D4FF',
-                        fontSize: 12,
-                        fontWeight: 800,
-                      }}
-                    >
-                      {job.department}
-                    </span>
-                    <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 13, color: '#94A3B8' }}>
-                      <MapPin size={14} color="#64748B" />
-                      {job.location}
-                    </span>
-                    <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 13, color: '#94A3B8' }}>
-                      <Clock size={14} color="#64748B" />
-                      {job.type}
-                    </span>
-                  </div>
-
-                  <h3 style={{ fontSize: 20, fontWeight: 800, color: '#FFFFFF', marginBottom: 10, lineHeight: 1.35 }}>
-                    {job.title}
-                  </h3>
-
-                  <p style={{ fontSize: 14.5, color: '#94A3B8', lineHeight: 1.65, margin: 0 }}>
-                    {job.desc}
-                  </p>
-                </div>
-
+              <div style={{ paddingTop: 8 }}>
                 <a
-                  href={`mailto:careers@zevapp.com?subject=Application for ${encodeURIComponent(job.title)}`}
+                  href={`mailto:careers@zevapp.com?subject=Application:%20${encodeURIComponent(job.title)}`}
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: 8,
-                    padding: '12px 24px',
-                    borderRadius: 14,
-                    background: 'linear-gradient(135deg, #00D4FF 0%, #536DFE 100%)',
-                    color: '#080D1A',
-                    fontSize: 14,
+                    gap: 6,
+                    fontSize: 13.5,
                     fontWeight: 800,
+                    color: '#00D4FF',
                     textDecoration: 'none',
-                    alignSelf: 'center',
-                    whiteSpace: 'nowrap',
-                    boxShadow: '0 6px 20px rgba(0, 212, 255, 0.2)',
                   }}
                 >
-                  <span>{isFa ? 'ارسال رزومه' : 'Apply Now'}</span>
-                  {isFa ? <ArrowLeft size={16} /> : <ArrowRight size={16} />}
+                  <span>{isFa ? 'ارسال رزومه برای این موقعیت' : 'Apply for this role'}</span>
+                  <ExternalLink size={13} />
                 </a>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
 
-        {/* General Application Callout */}
+        {/* Apply General Box */}
         <div
           style={{
-            padding: '36px 40px',
-            borderRadius: 26,
-            background: 'linear-gradient(135deg, rgba(0, 212, 255, 0.08) 0%, rgba(83, 109, 254, 0.08) 100%)',
+            maxWidth: 860,
+            margin: '0 auto',
+            background: 'linear-gradient(145deg, rgba(13, 18, 30, 0.85) 0%, rgba(8, 13, 26, 0.95) 100%)',
             border: '1px solid rgba(0, 212, 255, 0.25)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: 24,
+            borderRadius: 26,
+            padding: '36px 32px',
+            textAlign: 'center',
           }}
         >
-          <div>
-            <div style={{ fontSize: 22, fontWeight: 900, color: '#FFFFFF', marginBottom: 8 }}>
-              {isFa ? 'نقش مورد نظر شما در لیست نیست؟' : 'Don’t see your exact role?'}
-            </div>
-            <p style={{ color: '#94A3B8', fontSize: 14.5, margin: 0, maxWidth: 640 }}>
-              {isFa
-                ? 'ما همواره مشتاق همکاری با استعدادهای درخشان مهندسی و خلاق هستیم. رزومه و نمونه کارهای خود را برای ما ایمیل کنید.'
-                : 'We are always looking for exceptional engineers, researchers, and creators. Send your open application and portfolio directly to us.'}
-            </p>
-          </div>
-
+          <Mail size={32} color="#00D4FF" style={{ margin: '0 auto 12px' }} />
+          <h3 style={{ fontSize: 20, fontWeight: 900, color: '#FFFFFF', marginBottom: 8 }}>
+            {isFa ? 'رزومه آزاد و همکاری عمومی' : 'General Engineering Inquiries'}
+          </h3>
+          <p style={{ fontSize: 14.5, color: '#94A3B8', marginBottom: 20 }}>
+            {isFa
+              ? 'اگر مهارتی دارید که فکر می‌کنید می‌تواند زو را قدرتمندتر کند، رزومه و نمونه‌کارهای خود را به آدرس زیر بفرستید.'
+              : 'Passionate about high-concurrency systems? Send your CV and GitHub links to careers@zevapp.com.'}
+          </p>
           <a
-            href="mailto:careers@zevapp.com?subject=Open Application for ZEV"
+            href="mailto:careers@zevapp.com"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: 10,
-              padding: '14px 28px',
-              borderRadius: 16,
-              background: 'linear-gradient(135deg, #00D4FF 0%, #536DFE 100%)',
-              color: '#080D1A',
-              fontSize: 15,
+              gap: 8,
+              padding: '12px 24px',
+              borderRadius: 14,
+              background: '#00D4FF',
+              color: '#07090E',
+              fontSize: 14,
               fontWeight: 800,
               textDecoration: 'none',
-              boxShadow: '0 8px 24px rgba(0, 212, 255, 0.25)',
             }}
           >
-            <Mail size={18} />
             <span>careers@zevapp.com</span>
           </a>
         </div>

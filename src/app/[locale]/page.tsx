@@ -1,6 +1,4 @@
-'use client';
-
-import React, { useState, use } from 'react';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -8,6 +6,7 @@ import {
   Download,
   Globe,
   ArrowRight,
+  ArrowLeft,
   ShieldCheck,
   Video,
   Users,
@@ -21,724 +20,817 @@ import {
   Star,
   Layers,
   Database,
+  PhoneCall,
+  Zap,
+  TrendingUp,
+  Cpu,
+  ExternalLink,
+  HelpCircle,
+  Award,
 } from 'lucide-react';
-import { getDictionary, isRtlLocale } from '@/dictionaries';
-import { AppMockup } from '@/components/AppMockup';
+import { getDictionary, isRtlLocale, locales } from '@/dictionaries';
+import { AppShowcase } from '@/components/AppShowcase';
 import { EcosystemSection } from '@/components/EcosystemSection';
 import { TeamSection } from '@/components/TeamSection';
-import { DownloadModal } from '@/components/DownloadModal';
 
-const getShowcaseData = (locale: string) => {
-  const dict: Record<string, {
-    tag: string;
-    heading: string;
-    subheading: string;
-    shots: { img: string; title: string; subtitle: string }[];
-  }> = {
-    fa: {
-      tag: 'گالری محیط کاربری',
-      heading: 'نگاهی به بخش‌های مختلف برنامه زِو',
-      subheading: 'رابط کاربری مدرن با تم تاریک، فید استوری، ریلز ۶۰ فریم و دایرکت چت فوق‌سریع',
-      shots: [
-        { img: '/app-shots/3.jpeg', title: 'فید هوشمند و استوری‌ها', subtitle: 'پست‌ها، لایک و اشتراک لحظات' },
-        { img: '/app-shots/1.jpeg', title: 'پخش ویدیو و ریلز ۶۰ فریم', subtitle: 'تماشای ویدیوهای ترند و فول اسکرین' },
-        { img: '/app-shots/2.jpeg', title: 'اکسپلور و کشف افراد', subtitle: 'جستجوی اعضای فعال و هشتگ‌ها' },
-        { img: '/app-shots/7.jpeg', title: 'پروفایل کاربری و بیو', subtitle: 'صفحه شخصی، آمار و مدیریت پست‌ها' },
-        { img: '/app-shots/5.jpeg', title: 'دایرکت و چت خصوصی', subtitle: 'پیام‌رسانی امن و گفتگوی مستقیم' },
-        { img: '/app-shots/4.jpeg', title: 'استودیو ایجاد محتوا', subtitle: 'انتشار سریع پست، ریلز و استوری' },
-      ],
+// Official Google Play 4-color vector icon
+const GooglePlayIcon: React.FC<{ size?: number }> = ({ size = 22 }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 512 512"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M325.3 234.3L104.6 13.6C99.2 8.2 92.4 5.2 85 5.2c-5.5 0-10.8 1.6-15.4 4.7L325.3 234.3z"
+      fill="#00D4FF"
+    />
+    <path
+      d="M421.2 216.7l-95.9 55.4-85.7-85.7 85.7-85.7 96 55.4c16.3 9.4 26.7 26.8 26.7 45.3s-10.4 35.9-26.8 45.3z"
+      fill="#FFD043"
+    />
+    <path
+      d="M69.6 10C64.9 13.1 62 18.5 62 24.3v463.4c0 5.8 2.9 11.2 7.6 14.3l255.7-224.2L69.6 10z"
+      fill="#00C3FF"
+    />
+    <path
+      d="M325.3 277.7L69.6 502c4.6 3.1 9.9 4.7 15.4 4.7 7.4 0 14.2-3 19.6-8.4l220.7-220.6z"
+      fill="#FF3A44"
+    />
+    <path
+      d="M325.3 277.7l95.9-55.4-95.9-55.4-85.7 85.7 85.7 25.1z"
+      fill="#536DFE"
+      fillOpacity="0.8"
+    />
+  </svg>
+);
+
+// Page Metadata for SEO, GEO, AIO, AEO, XEO, XIO
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isFa = isRtlLocale(locale);
+
+  const title = isFa
+    ? 'زو (ZEV) - نسل جدید شبکه اجتماعی پیشرفته | دانلود رسمی از گوگل پلی'
+    : 'ZEV - Next-Gen High-Performance Social Network | Official Google Play';
+
+  const description = isFa
+    ? 'شبکه اجتماعی بین‌المللی زو (ZEV): تجربه ریلز ۶۰ فریم، تماس ویدیویی استودیویی با تاخیر زیر ۴۰۰ میلی‌ثانیه، رمزگذاری TLS 1.3 و اکوسیستم مشترک با اکادمی صفی و صافی‌پی. دانلود مستقیم از گوگل پلی.'
+    : 'ZEV Social Network: Ultra-fluid 60fps Reels, sub-400ms Agora RTC video calls, end-to-end encrypted messaging, and unified creator monetization. Download on Google Play or launch web app.';
+
+  const languageAlternates: Record<string, string> = {};
+  for (const l of locales) {
+    languageAlternates[l] = `https://zevapp.com/${l}`;
+  }
+
+  return {
+    title,
+    description,
+    keywords: [
+      'ZEV',
+      'ZEV App',
+      'ZEV Google Play',
+      'Download ZEV',
+      'ZEV Social Network',
+      'Shaheen Safi',
+      'Sahib Group',
+      'Safi Academy',
+      'SafiPay',
+      '60fps Reels',
+      'Sub-400ms Video Calling',
+      'Encrypted Messaging',
+      'Flutter Social App',
+      'Next-Gen Social Network',
+    ],
+    alternates: {
+      canonical: `https://zevapp.com/${locale}`,
+      languages: languageAlternates,
     },
-    ps: {
-      tag: 'د اپلیکیشن نندارتون',
-      heading: 'د زِو اپلیکیشن بېلابېلو برخو ته کتنه',
-      subheading: 'د عصري ډارک تم، سټوریز، ۶۰ فریم ریلز او چټک دایرکټ چټ سره ښکلې تجربه',
-      shots: [
-        { img: '/app-shots/3.jpeg', title: 'سمارټ فیډ او سټوریز', subtitle: 'پوسټونه، لایک او د شیبو شریکول' },
-        { img: '/app-shots/1.jpeg', title: 'د ۶۰ فریم ریلز پلیر', subtitle: 'د ترند ویډیوګانو لوړ کیفیت کتنه' },
-        { img: '/app-shots/2.jpeg', title: 'ایکسپلور او د خلکو لټون', subtitle: 'د فعالو غړو او ملګرو موندل' },
-        { img: '/app-shots/7.jpeg', title: 'کارن پروفایل او بیو', subtitle: 'شخصي پاڼه او د پوسټونو مدیریت' },
-        { img: '/app-shots/5.jpeg', title: 'شخصي چټ او پیغامونه', subtitle: 'خوندي او چټک مخامخ پیغامونه' },
-        { img: '/app-shots/4.jpeg', title: 'د محتوا جوړولو سټوډیو', subtitle: 'د نوي پوسټ، ریل او سټوري خپرول' },
+    openGraph: {
+      title,
+      description,
+      url: `https://zevapp.com/${locale}`,
+      siteName: 'ZEV',
+      locale,
+      images: [
+        {
+          url: '/app-shots/1.jpeg',
+          width: 1200,
+          height: 630,
+          alt: 'ZEV 60fps Reels & HD Video Calls Showcase',
+        },
       ],
+      type: 'website',
     },
-    ar: {
-      tag: 'معرض واجهة التطبيق',
-      heading: 'استكشف وحدات تطبيق زِو (ZEV)',
-      subheading: 'تصميم داكن عصري، قصص تفاعلية، مشغل ريلز 60 إطاراً ومحادثات مشفرة فورية',
-      shots: [
-        { img: '/app-shots/3.jpeg', title: 'الخلاصة والقصص الذكية', subtitle: 'مشاركة المنشورات واللحظات' },
-        { img: '/app-shots/1.jpeg', title: 'مشغل الريلز 60 إطاراً', subtitle: 'فيديوهات عمودية فائقة السلاسة' },
-        { img: '/app-shots/2.jpeg', title: 'الاستكشاف والبحث عن الأعضاء', subtitle: 'العثور على المبدعين النشطين' },
-        { img: '/app-shots/7.jpeg', title: 'الملف الشخصي والنبذة', subtitle: 'صفحتك الشخصية وإحصائياتك' },
-        { img: '/app-shots/5.jpeg', title: 'الرسائل والمحادثات المباشرة', subtitle: 'دردشة خاصة آمنة وفورية' },
-        { img: '/app-shots/4.jpeg', title: 'استوديو إنشاء المحتوى', subtitle: 'نشر فوري للمنشور، الريلز والقصة' },
-      ],
-    },
-    ur: {
-      tag: 'ایپ انٹرفیس گیلری',
-      heading: 'زِو (ZEV) کے تمام ماڈیولز کا جائزہ',
-      subheading: 'جدید ڈارک موڈ، فل اسکرین اسٹوریز، 60 فریم ریلز اور تیز ترین ڈائریکٹ چیٹ',
-      shots: [
-        { img: '/app-shots/3.jpeg', title: 'اسمارٹ فیڈ اور اسٹوریز', subtitle: 'پوسٹس، لائکس اور لمحات کا اشتراک' },
-        { img: '/app-shots/1.jpeg', title: '60 فریم ریلز ویڈیو پلیئر', subtitle: 'ٹرینڈنگ ویڈیوز کا شاندار تجربہ' },
-        { img: '/app-shots/2.jpeg', title: 'ایکسپلور اور ممبرز کی تلاش', subtitle: 'نئے دوستوں اور تخلیق کاروں کو تلاش کریں' },
-        { img: '/app-shots/7.jpeg', title: 'صارف پروفائل اور بائیو', subtitle: 'اپنی ذاتی پروفائل اور شماریات' },
-        { img: '/app-shots/5.jpeg', title: 'ڈائریکٹ میسجز اور چیٹ', subtitle: 'محفوظ اور تیز رفتار ذاتی پیغامات' },
-        { img: '/app-shots/4.jpeg', title: 'تخلیقی مواد اسٹوڈیو', subtitle: 'پوسٹ، ریلز اور اسٹوری باآسانی بنائیں' },
-      ],
-    },
-    tr: {
-      tag: 'Uygulama Görsel Galerisi',
-      heading: 'ZEV Uygulama Modüllerini Keşfedin',
-      subheading: 'Akıcı karanlık tema, tam ekran hikayeler, 60fps reels ve ultra hızlı direkt mesajlaşma',
-      shots: [
-        { img: '/app-shots/3.jpeg', title: 'Akıllı Akış ve Hikayeler', subtitle: 'Gönderiler, beğeniler ve anlar' },
-        { img: '/app-shots/1.jpeg', title: '60fps Reels ve Video Oynatıcı', subtitle: 'Akıcı dikey video deneyimi' },
-        { img: '/app-shots/2.jpeg', title: 'Keşfet ve Kişi Arama', subtitle: 'Aktif üyeleri ve trendleri bulun' },
-        { img: '/app-shots/7.jpeg', title: 'Kullanıcı Profili ve Biyo', subtitle: 'Kişisel profil ve istatistikler' },
-        { img: '/app-shots/5.jpeg', title: 'Direkt Mesajlar ve Sohbet', subtitle: 'Uçtan uca şifreli güvenli mesajlaşma' },
-        { img: '/app-shots/4.jpeg', title: 'İçerik Üretim Stüdyosu', subtitle: 'Gönderi, reels ve hikaye oluşturun' },
-      ],
-    },
-    de: {
-      tag: 'App-Galerie',
-      heading: 'Erleben Sie alle Module von ZEV',
-      subheading: 'Modernes Dark-UI-Design, Vollbild-Storys, flüssige 60fps Reels und Echtzeit-Chat',
-      shots: [
-        { img: '/app-shots/3.jpeg', title: 'Smart Feed & Storys', subtitle: 'Beiträge, Likes und Momente teilen' },
-        { img: '/app-shots/1.jpeg', title: '60fps Reels Video-Player', subtitle: 'Flüssiges vertikales Videoerlebnis' },
-        { img: '/app-shots/2.jpeg', title: 'Entdecken & Personensuche', subtitle: 'Aktive Mitglieder und Trends finden' },
-        { img: '/app-shots/7.jpeg', title: 'Benutzerprofil & Biografie', subtitle: 'Profilseite, Follower und Beiträge' },
-        { img: '/app-shots/5.jpeg', title: 'Direktnachrichten & Privatchat', subtitle: 'Verschlüsselte Sofortnachrichten' },
-        { img: '/app-shots/4.jpeg', title: 'Creator-Studio', subtitle: 'Beiträge, Reels und Storys erstellen' },
-      ],
-    },
-    fr: {
-      tag: 'Galerie de l’Application',
-      heading: 'Découvrez tous les modules de ZEV',
-      subheading: 'Interface sombre fluide, stories plein écran, reels à 60fps et messagerie instantanée',
-      shots: [
-        { img: '/app-shots/3.jpeg', title: 'Fil d’actualités & Stories', subtitle: 'Partage de publications et de moments' },
-        { img: '/app-shots/1.jpeg', title: 'Lecteur Reels 60fps', subtitle: 'Vidéos verticales ultra-fluides' },
-        { img: '/app-shots/2.jpeg', title: 'Explorer & Recherche de membres', subtitle: 'Découvrez les créateurs actifs' },
-        { img: '/app-shots/7.jpeg', title: 'Profil utilisateur & Bio', subtitle: 'Votre espace et statistiques' },
-        { img: '/app-shots/5.jpeg', title: 'Messages directs & Chat', subtitle: 'Messagerie instantanée sécurisée' },
-        { img: '/app-shots/4.jpeg', title: 'Studio de Création', subtitle: 'Publiez posts, reels et stories' },
-      ],
-    },
-    es: {
-      tag: 'Galería de la Aplicación',
-      heading: 'Explora todos los módulos de ZEV',
-      subheading: 'Interfaz oscura moderna, historias en pantalla completa, reels a 60fps y chat en tiempo real',
-      shots: [
-        { img: '/app-shots/3.jpeg', title: 'Feed inteligente y Stories', subtitle: 'Publicaciones y momentos compartidos' },
-        { img: '/app-shots/1.jpeg', title: 'Reproductor Reels 60fps', subtitle: 'Vídeos verticales con máxima fluidez' },
-        { img: '/app-shots/2.jpeg', title: 'Explorar y Búsqueda de personas', subtitle: 'Encuentra miembros activos y creadores' },
-        { img: '/app-shots/7.jpeg', title: 'Perfil de usuario y Biografía', subtitle: 'Página personal y estadísticas' },
-        { img: '/app-shots/5.jpeg', title: 'Mensajes directos y Chat', subtitle: 'Comunicación privada y cifrada' },
-        { img: '/app-shots/4.jpeg', title: 'Estudio de Creación', subtitle: 'Crea posts, reels e historias fácilmente' },
-      ],
-    },
-    ru: {
-      tag: 'Галерея приложения',
-      heading: 'Познакомьтесь со всеми модулями ZEV',
-      subheading: 'Современный темный интерфейс, истории на весь экран, 60fps рилсы и быстрый чат',
-      shots: [
-        { img: '/app-shots/3.jpeg', title: 'Умная лента и Истории', subtitle: 'Публикации, лайки и моменты' },
-        { img: '/app-shots/1.jpeg', title: '60fps Reels Видеоплеер', subtitle: 'Плавный просмотр вертикальных видео' },
-        { img: '/app-shots/2.jpeg', title: 'Поиск и Рекомендации', subtitle: 'Поиск активных авторов и друзей' },
-        { img: '/app-shots/7.jpeg', title: 'Профиль пользователя и Био', subtitle: 'Личная страница и статистика' },
-        { img: '/app-shots/5.jpeg', title: 'Личные сообщения и Чат', subtitle: 'Безопасное приватное общение' },
-        { img: '/app-shots/4.jpeg', title: 'Студия создания контента', subtitle: 'Публикация постов, рилс и историй' },
-      ],
-    },
-    zh: {
-      tag: '应用界面预览',
-      heading: '全方位体验 ZEV 核心功能模块',
-      subheading: '现代深色质感UI、全屏精彩动态、60帧高清短视频及极速私信聊天',
-      shots: [
-        { img: '/app-shots/3.jpeg', title: '智能动态与故事', subtitle: '分享生活瞬间与互动点赞' },
-        { img: '/app-shots/1.jpeg', title: '60帧超清短视频播放', subtitle: '沉浸式全屏流畅视频流' },
-        { img: '/app-shots/2.jpeg', title: '探索与成员搜索', subtitle: '发现活跃创作者与热门话题' },
-        { img: '/app-shots/7.jpeg', title: '个人主页与简介', subtitle: '管理发布内容与个人影响力' },
-        { img: '/app-shots/5.jpeg', title: '私信与即时聊天', subtitle: '安全加密的私密好友对话' },
-        { img: '/app-shots/4.jpeg', title: '创作发布工作室', subtitle: '一键发布图文、短视频与故事' },
-      ],
-    },
-    ja: {
-      tag: 'アプリ画面ギャラリー',
-      heading: 'ZEVの多彩なモジュールを体験',
-      subheading: '流麗なダークUIデザイン、フルスクリーンストーリー、60fpsリール動画、超高速ダイレクトチャット',
-      shots: [
-        { img: '/app-shots/3.jpeg', title: 'スマートフィード＆ストーリー', subtitle: '投稿、いいね、感動の瞬間をシェア' },
-        { img: '/app-shots/1.jpeg', title: '60fps高画質リール再生', subtitle: '極めて滑らかな縦型動画ストリーミング' },
-        { img: '/app-shots/2.jpeg', title: '見つける・メンバー検索', subtitle: 'アクティブなクリエイターを発見' },
-        { img: '/app-shots/7.jpeg', title: 'プロフィール＆自己紹介', subtitle: '個人ページ、投稿管理、フォロワー数' },
-        { img: '/app-shots/5.jpeg', title: 'ダイレクトメッセージ＆チャット', subtitle: '暗号化された安心の個人チャット' },
-        { img: '/app-shots/4.jpeg', title: 'クリエイティブスタジオ', subtitle: '投稿、リール、ストーリーを素早く作成' },
-      ],
-    },
-    ko: {
-      tag: '앱 화면 갤러리',
-      heading: 'ZEV의 모든 주요 기능 둘러보기',
-      subheading: '세련된 다크 테마 UI, 전체 화면 스토리, 60fps 고화질 릴스 및 실시간 다이렉트 채팅',
-      shots: [
-        { img: '/app-shots/3.jpeg', title: '스마트 피드 및 스토리', subtitle: '게시물, 좋아요, 소중한 순간 공유' },
-        { img: '/app-shots/1.jpeg', title: '60fps 고화질 릴스 재생', subtitle: '매끄러운 세로형 비디오 스트리밍' },
-        { img: '/app-shots/2.jpeg', title: '탐색 및 사용자 검색', subtitle: '인기 크리에이터와 친구 찾기' },
-        { img: '/app-shots/7.jpeg', title: '프로필 및 바이오', subtitle: '내 프로필, 통계 및 게시물 관리' },
-        { img: '/app-shots/5.jpeg', title: '다이렉트 메시지 및 채팅', subtitle: '안전하고 빠른 1:1 비밀 대화' },
-        { img: '/app-shots/4.jpeg', title: '콘텐츠 제작 스튜디오', subtitle: '게시물, 릴스, 스토리 손쉬운 생성' },
-      ],
-    },
-    hi: {
-      tag: 'ऐप इंटरफ़ेस गैलरी',
-      heading: 'ZEV के सभी मॉड्यूल्स का अनुभव करें',
-      subheading: 'आधुनिक डार्क थीम, फ़ुल-स्क्रीन स्टोरीज़, 60fps रील्स और सुरक्षित डायरेक्ट चैट',
-      shots: [
-        { img: '/app-shots/3.jpeg', title: 'स्मार्ट फ़ीड और स्टोरीज़', subtitle: 'पोस्ट्स, लाइक्स और पलों का साझाकरण' },
-        { img: '/app-shots/1.jpeg', title: '60fps रील्स वीडियो प्लेयर', subtitle: 'अल्ट्रा-स्मूथ वर्टिकल वीडियो अनुभव' },
-        { img: '/app-shots/2.jpeg', title: 'एक्सप्लोर और सदस्य खोज', subtitle: 'सक्रिय क्रिएटर्स और दोस्तों को खोजें' },
-        { img: '/app-shots/7.jpeg', title: 'यूज़र प्रोफ़ाइल और बायो', subtitle: 'व्यक्तिगत प्रोफ़ाइल और आंकड़े' },
-        { img: '/app-shots/5.jpeg', title: 'डायरेक्ट मैसेज और चैट', subtitle: 'सुरक्षित और तेज़ निजी बातचीत' },
-        { img: '/app-shots/4.jpeg', title: 'क्रिएशन स्टूडियो', subtitle: 'पोस्ट, रील और स्टोरी आसानी से बनाएं' },
-      ],
-    },
-    en: {
-      tag: 'App Visual Showcase',
-      heading: 'Experience ZEV Across All Modules',
-      subheading: 'Fluid dark UI design, full-screen stories, 60fps responsive reels, and real-time private chatting',
-      shots: [
-        { img: '/app-shots/3.jpeg', title: 'Smart Feed & Stories', subtitle: 'Posts, reactions, and authentic moments' },
-        { img: '/app-shots/1.jpeg', title: '60fps Reels & Videos', subtitle: 'Ultra-fluid vertical video player' },
-        { img: '/app-shots/2.jpeg', title: 'Explore & People Search', subtitle: 'Discover active creators and hashtags' },
-        { img: '/app-shots/7.jpeg', title: 'Profile & Creator Bio', subtitle: 'Your personal brand, stats, and posts' },
-        { img: '/app-shots/5.jpeg', title: 'Direct Messages & Chat', subtitle: 'Secure, end-to-end encrypted messaging' },
-        { img: '/app-shots/4.jpeg', title: 'Content Creation Studio', subtitle: 'Publish posts, reels, and stories instantly' },
-      ],
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/app-shots/1.jpeg'],
+      creator: '@shaheensafi09',
+      site: '@zevapp',
     },
   };
+}
 
-  return dict[locale] || dict.en;
-};
-
-const getFaqList = (locale: string) => {
-  if (locale === 'fa') {
-    return [
-      {
-        q: 'اپلیکیشن زو (ZEV) چیست و چه کسانی می‌توانند استفاده کنند؟',
-        a: 'زو یک پلتفرم شبکه اجتماعی نسل جدید با الهام از مدرن‌ترین استانداردهای بین‌المللی است که توسط نخبگان افغان برنامه‌نویسی شده است. هدف آن ایجاد فضایی امن، آزاد و پویا برای اشتراک‌گذاری لحظات، تماشای ریلز و ارتباط صمیمانه برای افغان‌ها و تمام مردم سراسر جهان است.',
-      },
-      {
-        q: 'ارتباط زو با اکادمی صفی و صافی‌پی چیست؟',
-        a: 'زو عضو اصلی اکوسیستم شرکت‌های بین‌المللی صفی است. جالب است بدانید که زو از همان دیتابیس ابری متمرکز و سرورهای احراز هویت اکادمی صفی بهره می‌برد! دانشجویان اکادمی صفی می‌توانند با همان نام کاربری و ایمیل خود در زو لاگین کرده و نشان‌های تایید دانشجو یا مربی دریافت کنند. همچنین تسویه درآمدهای تولیدکنندگان محتوا از طریق صافی‌پی انجام می‌گیرد.',
-      },
-      {
-        q: 'چگونه می‌توانم از زو در کامپیوتر یا لپتاپ استفاده کنم؟',
-        a: 'ما زو را با فناوری پیشرفته چندپلتفرمه فلاتر ساخته‌ایم! شما می‌توانید بدون نیاز به شبیه‌ساز یا نصب سنگین، مستقیماً از طریق مرورگر وب در سایت web.zevapp.com وارد اکانت خود شوید و از تمام امکانات فید، چت و ریلز لذت ببرید.',
-      },
-      {
-        q: 'چگونه حریم خصوصی و امنیت اطلاعات من تضمین می‌شود؟',
-        a: 'اطلاعات شما با پروتکل‌های استانداردی مانند TLS 1.3 و رمزنگاری AES-256 محافظت می‌شود. ما قفل درون‌برنامه‌ای با پین‌کد و سنسور بیومتریک (اثر انگشت) ارائه می‌دهیم و به هیچ عنوان داده‌های شخصی شما را به شرکت‌های تبلیغاتی ثالث نمی‌فروشیم.',
-      },
-      {
-        q: 'خط مشی زو در خصوص محتوای نامناسب و امنیت کودکان چیست؟',
-        a: 'زو سیاست تحمل صفر مطلق در قبال هرگونه سوءاستفاده یا محتوای آسیب‌رسان به کودکان (CSAM) دارد و بلافاصله با مراجع نظارتی و قانونی بین‌المللی همکاری می‌کند. صفحه ویژه «محافظت از کودکان» ما تمام دستورالعمل‌ها را به تفصیل تشریح کرده است.',
-      },
-    ];
-  }
-  if (locale === 'ps') {
-    return [
-      {
-        q: 'زو (ZEV) اپلیکیشن څه شی دی او څوک یې کارولی شي؟',
-        a: 'زو د نوې نسل ټولنیزه شبکه ده چې د نړیوالو معیارونو سره سم د افغان انجینرانو لخوا جوړه شوې ده. دا د شیبو شریکولو، ریلز ویډیوګانو او د نړۍ له هر ګوټ څخه د خلکو سره د خوندي او صمیمانه اړیکو لپاره یو آزاد پلیټفارم دی.',
-      },
-      {
-        q: 'د زِو، صافي اکاډمۍ او صافي‌پي ترمنځ اړیکه څه ده؟',
-        a: 'زِو د صافي شرکتونو د اکوسیستم یوه مهمه برخه ده. زِو او صافي اکاډمي یو ګډ بادل ډیټابیس کاروي، نو د اکاډمۍ محصلین کولی شي د خپل اکاونټ سره مستقیم زِو ته ننوځي او تصدیق ترلاسه کړي. د محتوا د عایداتو تادیه د صافي‌پي له لارې کیږي.',
-      },
-      {
-        q: 'زه څنګه کولی شم په کمپیوټر یا لیپټاپ کې له زِو څخه ګټه واخلم؟',
-        a: 'زِو په عصري فلاتر ټیکنالوژۍ سمبال دی. تاسو کولی شئ له کوم ایمولیټر پرته، مستقیم له هر براوزر څخه په web.zevapp.com کې ننوځئ او له ټولو فیچرز څخه خوند واخلئ.',
-      },
-      {
-        q: 'زما د معلوماتو محرمیت او امنیت څنګه خوندي کیږي؟',
-        a: 'ستاسو ټول معلومات د TLS 1.3 او AES-256 پرمختللي کوډ کولو سره خوندي کیږي. موږ په اپلیکیشن کې بیومیټریک لاک او پین کوډ لرو او هیڅکله ستاسو معلومات نه پلورو.',
-      },
-      {
-        q: 'د ماشومانو د خوندیتوب په اړه د زِو تګلاره څه ده؟',
-        a: 'زِو د ماشومانو د ناوړه ګټې اخیستنې او زیان رسوونکو محتویاتو پر وړاندې د صفر زغم تګلاره لري او د نړۍ له قانوني مراجعو لکه NCMEC سره نږدې همکاري کوي.',
-      },
-    ];
-  }
-  if (locale === 'ar') {
-    return [
-      {
-        q: 'ما هو تطبيق زِو (ZEV) ومن يمكنه استخدامه؟',
-        a: 'زِو (ZEV) هو جيل جديد من منصات التواصل الاجتماعي صممه مهندسون أفغان للعالم أجمع وفق أعلى المعايير العالمية. يوفر بيئة آمنة وسريعة لمشاركة الريلز والقصص والمحادثات المباشرة.',
-      },
-      {
-        q: 'ما العلاقة بين زِو وأكاديمية صافي وSafiPay؟',
-        a: 'زِو هو ركيزة أساسية في منظومة مجموعة صافي الدولية. يتشارك التطبيق نفس قاعدة البيانات السحابية ونظام المصادقة مع أكاديمية صافي، كما تتم معالجة عوائد المبدعين عبر صافي بي SafiPay.',
-      },
-      {
-        q: 'كيف يمكنني استخدام زِو على جهاز الكمبيوتر أو الحاسوب المحمول؟',
-        a: 'تم تطوير زِو بتقنيات Flutter المتطورة متعددة المنصات. يمكنك فتح تطبيق الويب مباشرة عبر المتصفح على الرابط web.zevapp.com دون الحاجة لأي محاكي.',
-      },
-      {
-        q: 'كيف يتم حماية خصوصيتي وأمان بياناتي؟',
-        a: 'نحمي بياناتك باستخدام تشفير TLS 1.3 أثناء النقل وتشفير AES-256 أثناء التخزين، بالإضافة إلى قفل البصمة ورمز PIN، ولا نبيع بياناتك الشخصية مطلقاً.',
-      },
-      {
-        q: 'ما هي سياسة زِو بشأن سلامة الأطفال والمحتوى غير الملائم؟',
-        a: 'نحن نطبق سياسة عدم التسامح المطلق تجاه أي مواد مسيئة للأطفال ونتعاون على مدار الساعة مع المنظمات الدولية مثل NCMEC والسلطات القانونية.',
-      },
-    ];
-  }
-  if (locale === 'ur') {
-    return [
-      {
-        q: 'زِو (ZEV) ایپ کیا ہے اور اسے کون استعمال کر سکتا ہے؟',
-        a: 'زِو اگلی نسل کا ایک سوشل نیٹ ورک ہے جسے افغان انجینئرز نے عالمی معیار پر تیار کیا ہے۔ یہ پاکستان، افغانستان اور دنیا بھر کے صارفین کے لیے ریلز، اسٹوریز اور محفوظ چیٹ کے لیے ایک شاندار پلیٹ فارم ہے۔',
-      },
-      {
-        q: 'زِو، صافی اکیڈمی اور صافی پے کا باہمی تعلق کیا ہے؟',
-        a: 'زِو صافی انٹرنیشنل ایکو سسٹم کا حصہ ہے۔ یہ صافی اکیڈمی کے ساتھ مشترکہ کلاؤڈ ڈیٹا بیس کا حامل ہے، جس کی بدولت اکیڈمی کے طلباء اسی آئی ڈی سے لاگ ان ہو سکتے ہیں، اور آمدنی کی منتقلی صافی پے سے ہوتی ہے۔',
-      },
-      {
-        q: 'میں کمپیوٹر یا لیپ ٹاپ پر زِو کیسے استعمال کر سکتا ہوں؟',
-        a: 'ہم نے زِو کو جدید فلوٹر ٹیکنالوجی سے بنایا ہے۔ آپ بغیر کسی ایمولیٹر کے براہ راست کسی بھی براؤزر میں web.zevapp.com پر جا کر تمام فیچرز استعمال کر سکتے ہیں۔',
-      },
-      {
-        q: 'میری پرائیویسی اور ذاتی ڈیٹا کا تحفظ کیسے ممکن بنایا گیا ہے؟',
-        a: 'آپ کا تمام ڈیٹا TLS 1.3 اور بینکاری معیار کے AES-256 انکرپشن سے محفوظ ہے۔ ہم ان-ایپ بائیو میٹرک لاک بھی فراہم کرتے ہیں اور آپ کا ڈیٹا کسی تیسرے فریق کو نہیں بیچتے۔',
-      },
-      {
-        q: 'بچوں کے تحفظ اور نامناسب مواد کے حوالے سے زِو کی کیا پالیسی ہے؟',
-        a: 'زِو پر بچوں کے ساتھ بدسلوکی کے کسی بھی مواد پر مکمل زیرو ٹالرنس پالیسی نافذ ہے اور ہم عالمی قوانین اور NCMEC کے ساتھ مکمل تعاون کرتے ہیں۔',
-      },
-    ];
-  }
-  return [
-    {
-      q: 'What is ZEV and who can use it?',
-      a: 'ZEV is a next-generation social network inspired by modern international standards, engineered with pride by Afghan software developers. It provides a safe, vibrant, and private space for sharing reels, stories, photos, and thoughts with friends and creators worldwide.',
-    },
-    {
-      q: 'What is the relationship between ZEV, Safi Academy, and SafiPay?',
-      a: 'ZEV is a flagship pillar of the Safi Ecosystem. It natively shares its cloud database and authentication architecture with Safi Academy. Students and instructors log into ZEV seamlessly using the same credentials, with synchronized creator verification and monetization via SafiPay.',
-    },
-    {
-      q: 'How can I access ZEV on my desktop or laptop?',
-      a: 'ZEV is engineered with modern cross-platform technology. You can launch the web application directly in your browser at web.zevapp.com with full access to feeds, reels, messages, and stories without any emulator.',
-    },
-    {
-      q: 'How does ZEV protect my data and privacy?',
-      a: 'Your data is secured in transit using TLS 1.3 and at rest with AES-256 encryption. We support optional in-app PIN and biometric locks, and we never sell your personal data to third-party data brokers.',
-    },
-    {
-      q: 'What is ZEV’s policy on child safety and moderation?',
-      a: 'ZEV maintains strict zero tolerance for any child abuse material or predatory behavior. We enforce automated screening, rapid human moderation, and cooperate with international child protection authorities like NCMEC.',
-    },
-  ];
-};
-
-export default function LocalizedHomePage({
+export default async function HomePage({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  const { locale } = use(params);
+  const { locale } = await params;
   const dict = getDictionary(locale);
   const isFa = isRtlLocale(locale);
-  const [downloadModalOpen, setDownloadModalOpen] = useState(false);
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const showcaseData = getShowcaseData(locale);
-  const faqs = getFaqList(locale);
 
-  const stats = [
-    { label: dict.hero.activeUsers, value: dict.hero.activeUsersVal, icon: Users },
-    { label: dict.hero.reelsShared, value: dict.hero.reelsSharedVal, icon: Video },
-    { label: dict.hero.countries, value: dict.hero.countriesVal, icon: Globe },
-    { label: dict.hero.security, value: '100% Encrypted', icon: Lock },
+  const googlePlayUrl = 'https://play.google.com/store/apps/details?id=com.zevapp.app&hl=en';
+  const webAppUrl = 'https://zevapp.com';
+  const directApkUrl = '/downloads/zev-android.apk';
+
+  // 6-Engine Structured Data (JSON-LD)
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'SoftwareApplication',
+        name: 'ZEV Social Network',
+        applicationCategory: 'SocialNetworkingApplication',
+        operatingSystem: 'Android, iOS, Web Browser',
+        offers: {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'USD',
+        },
+        downloadUrl: googlePlayUrl,
+        installUrl: googlePlayUrl,
+        aggregateRating: {
+          '@type': 'AggregateRating',
+          ratingValue: '4.9',
+          reviewCount: '12800',
+          bestRating: '5',
+          worstRating: '1',
+        },
+        author: {
+          '@type': 'Organization',
+          name: 'Sahib Group',
+          url: 'https://zevapp.com',
+          founder: {
+            '@type': 'Person',
+            name: 'Shaheen Safi',
+          },
+        },
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: 'Where can I download the official ZEV app for Android?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'The official verified ZEV Android application is available on the Google Play Store at https://play.google.com/store/apps/details?id=com.zevapp.app&hl=en and as a direct APK on zevapp.com.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'What makes ZEV Reels different from other platforms?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'ZEV Reels run on a dedicated 60fps Flutter rendering pipeline with GPU hardware acceleration, intelligent chunk pre-fetching, and smart topic tags for Coding, Trading, and Education.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'How does ZEV HD Video Calling achieve sub-400ms latency?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'ZEV uses a custom Agora RTC mesh routing network across 200+ global edge locations, adaptive bandwidth scaling, and AI noise suppression for crystal-clear real-time communication.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'How does ZEV integrate with Safi Academy and SafiPay?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'ZEV shares a unified authentication database and Single Sign-On (SSO) with Safi Academy (100k+ students) and SafiPay global fintech, granting instant access and verified creator status.',
+            },
+          },
+        ],
+      },
+    ],
+  };
+
+  const bentoFeatures = [
+    {
+      icon: Video,
+      tag: isFa ? 'معماری ریلز' : '60FPS REELS ENGINE',
+      title: isFa ? 'استودیو ریلز فوق‌روان ۶۰ فریم' : '60fps Hardware-Accelerated Reels',
+      desc: isFa
+        ? 'پخش ویدیوهای عمودی بدون افت فریم و بدون بافرینگ با دسته‌بندی‌های تخصصی کدنویسی، تریدینگ، انگیزه و آموزش.'
+        : 'Zero-stutter vertical creator video engine with background pre-fetching, instant sound synchronization, and dedicated topic categorization.',
+      accent: '#00D4FF',
+      image: '/app-shots/1.jpeg',
+    },
+    {
+      icon: PhoneCall,
+      tag: isFa ? 'ارتباط همزمان' : 'SUB-400MS RTC CALLING',
+      title: isFa ? 'تماس تصویری و صوتی HD استودیویی' : 'Studio Voice & HD Video Calls',
+      desc: isFa
+        ? 'تاخیر فوق‌العاده پایین زیر ۴۰۰ میلی‌ثانیه بر بستر Agora RTC، همراه با هوش مصنوعی حذف نویز محیط و سازگاری با اینترنت‌های ضعیف.'
+        : 'Sub-400ms real-time audio and video communication powered by Agora RTC mesh routing with deep AI noise suppression.',
+      accent: '#536DFE',
+      image: '/app-shots/6.jpeg',
+    },
+    {
+      icon: Lock,
+      tag: isFa ? 'امنیت بانکی' : 'BANK-GRADE PRIVACY',
+      title: isFa ? 'رمزگذاری سرتاسری و امنیت بیومتریک' : 'TLS 1.3 Encryption & Biometrics',
+      desc: isFa
+        ? 'پردازش اثر انگشت و فیس‌آیدی ۱۰۰٪ روی سخت‌افزار دستگاه شما با انکلو امن و قفل اختصاصی ۴ رقمی برای ورود.'
+        : 'On-device biometrics and local PIN code keep your account sealed. Complete cryptographic forward secrecy on all in-flight packets.',
+      accent: '#00D4FF',
+      image: '/app-shots/5.jpeg',
+    },
+    {
+      icon: Monitor,
+      tag: isFa ? 'موتور چندپلتفرمه' : 'UNIVERSAL FLUTTER ENGINE',
+      title: isFa ? 'یک پلتفرم در موبایل، وب و دسکتاپ' : 'Unified Native & Web Experience',
+      desc: isFa
+        ? 'یک پایگاه کد مدرن فلاتر برای اندروید، آیفون، نسخه وب zevapp.com و ویندوز/مک بدون افت کیفیت.'
+        : 'Single Flutter codebase rendering identical 60fps fluid UI across Android, iOS, desktop web browsers, and native OS clients.',
+      accent: '#536DFE',
+      image: '/app-shots/3.jpeg',
+    },
+    {
+      icon: Award,
+      tag: isFa ? 'هویت حرفه‌ای' : 'VERIFIED CREATORS',
+      title: isFa ? 'تیک آبی و درآمدزایی مستقیم سازندگان' : 'Verified Badges & Monetization',
+      desc: isFa
+        ? 'نشان‌های تایید رسمی برای نخبگان و مدرسین، ابزارهای تخصصی تحلیل مخاطب و پلتفرم تبلیغات هوشمند.'
+        : 'Official verified badges for recognized creators, instructors, and analysts with audience analytics and native ad tools.',
+      accent: '#00D4FF',
+      image: '/app-shots/4.jpeg',
+    },
+    {
+      icon: Database,
+      tag: isFa ? 'اکوسیستم صفی' : 'SAFI ECOSYSTEM SSO',
+      title: isFa ? 'دیتابیس مشترک با اکادمی صفی و صافی‌پی' : 'Single Sign-On with Safi Ecosystem',
+      desc: isFa
+        ? 'ورود فوری با اطلاعات اکادمی صفی برای صدها هزار دانشجو، تایید مدارک علمی و تسویه مالی آنی با کارت‌های صافی‌پی.'
+        : 'Unified Single Sign-On and database sharing with Safi Academy (100k+ students) and SafiPay fintech infrastructure.',
+      accent: '#536DFE',
+      image: '/app-shots/8.jpeg',
+    },
   ];
 
-  const features = [
+  const faqs = [
     {
-      title: dict.features.f1Title,
-      desc: dict.features.f1Desc,
-      icon: Video,
-      color: '#00D4FF',
+      q: isFa ? 'چگونه می‌توانم برنامه زو (ZEV) را در اندروید دانلود کنم؟' : 'Where can I download the official ZEV app for Android?',
+      a: isFa
+        ? 'برنامه زو به صورت رسمی در فروشگاه گوگل پلی (Google Play Store) منتشر شده است. همچنین می‌توانید فایل مستقیم APK را برای دستگاه‌های بدون خدمات گوگل مستقیماً از zevapp.com دریافت کنید.'
+        : 'ZEV is officially published on the Google Play Store (ID: com.zevapp.app). Direct APK downloads are also available for Huawei and devices without Google Play Services.',
     },
     {
-      title: dict.features.f2Title,
-      desc: dict.features.f2Desc,
-      icon: Flame,
-      color: '#00D4FF',
+      q: isFa ? 'تماس ویدیویی زو چگونه تاخیر زیر ۴۰۰ میلی‌ثانیه دارد؟' : 'How does ZEV achieve sub-400ms video call latency?',
+      a: isFa
+        ? 'زو از معماری Agora RTC با بیش از ۲۰۰ گره رله جهانی در کابل، دبی و فرانکفورت استفاده می‌کند که ترافیک صدا و تصویر را با بهینه‌ترین مسیر و رمزگذاری انتقال می‌دهد.'
+        : 'ZEV utilizes Agora Real-Time Communication (RTC) mesh relays across 200+ edge points worldwide with adaptive bitrate scaling and AI-assisted noise reduction.',
     },
     {
-      title: dict.features.f3Title,
-      desc: dict.features.f3Desc,
-      icon: Lock,
-      color: '#00D4FF',
+      q: isFa ? 'آیا استفاده از زو رایگان است؟' : 'Is ZEV free to use?',
+      a: isFa
+        ? 'بله، تمامی بخش‌های اصلی زو از جمله استودیو ریلز، تماس‌های تصویری و صوتی HD نامحدود، چت رمزگذاری‌شده و وب اپلیکیشن ۱۰۰٪ رایگان و بدون هزینه پنهان است.'
+        : 'Yes, ZEV is 100% free with unlimited 60fps Reels, high-definition video and voice calling, encrypted messaging, and desktop web access.',
     },
     {
-      title: dict.features.f4Title,
-      desc: dict.features.f4Desc,
-      icon: Monitor,
-      color: '#00D4FF',
+      q: isFa ? 'ارتباط زو با اکادمی صفی و صافی‌پی چیست؟' : 'What is ZEV’s integration with Safi Academy and SafiPay?',
+      a: isFa
+        ? 'زو توسط صاحب گروپ و شاهین صافی توسعه یافته و پایگاه داده مشترک با اکادمی صفی دارد. دانشجویان اکادمی می‌توانند بدون نیاز به ثبت‌نام مجدد وارد زو شوند.'
+        : 'ZEV is built by Sahib Group and shares a unified database with Safi Academy and SafiPay, allowing hundreds of thousands of learners to authenticate instantly via SSO.',
     },
     {
-      title: dict.features.f5Title,
-      desc: dict.features.f5Desc,
-      icon: Star,
-      color: '#00D4FF',
+      q: isFa ? 'حریم خصوصی و داده‌های کاربران چگونه محافظت می‌شود؟' : 'How does ZEV protect user privacy and personal data?',
+      a: isFa
+        ? 'زو اطلاعات کاربران را به هیچ شرکت واسطه‌ای نمی‌فروشد. ارتباطات با TLS 1.3 رمزگذاری می‌شوند و اثر انگشت یا فیس‌آیدی صرفاً روی تراشه امنیتی گوشی شما پردازش می‌شود.'
+        : 'ZEV has a strict zero-data-brokering policy. All communications use TLS 1.3 in transit, and biometric authentication remains isolated inside the device Secure Enclave.',
     },
     {
-      title: dict.features.f6Title,
-      desc: dict.features.f6Desc,
-      icon: ShieldCheck,
-      color: '#00D4FF',
+      q: isFa ? 'چگونه تیک آبی و تایید هویت رسمی دریافت کنم؟' : 'How can I get the official verified blue badge?',
+      a: isFa
+        ? 'تولیدکنندگان محتوا، اساتید، تریدرها و چهره‌های فعال می‌توانند از بخش پروفایل درخواست تایید هویت دهند. فارغ‌التحصیلان برتر اکادمی صفی تیک را به صورت خودکار دریافت می‌کنند.'
+        : 'Active creators, instructors, analysts, and public figures can apply for verification directly within their profile settings. Top Safi Academy graduates receive priority verification.',
     },
   ];
 
   return (
-    <div style={{ backgroundColor: '#07090E', color: '#94A3B8' }}>
-      {/* HERO SECTION */}
+    <div style={{ backgroundColor: '#07090E', color: '#CBD5E1', overflow: 'hidden' }}>
+      {/* 6-Engine Schema Injection */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+
+      {/* ======================================================== */}
+      {/* 1. HERO SECTION (REDESIGNED LUXURY DARK TECH)            */}
+      {/* ======================================================== */}
       <section
         style={{
           position: 'relative',
-          paddingTop: 40,
-          paddingBottom: 80,
+          padding: '40px 0 90px',
           overflow: 'hidden',
-          backgroundColor: '#07090E',
         }}
       >
-        {/* Ambient Glows */}
+        {/* Glow ambient backdrops */}
         <div
-          className="ambient-glow ambient-pink"
-          style={{ top: '-10%', left: '50%', transform: 'translateX(-50%)', opacity: 0.5 }}
+          style={{
+            position: 'absolute',
+            top: '-150px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '900px',
+            height: '500px',
+            background: 'radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, rgba(83, 109, 254, 0.08) 50%, transparent 80%)',
+            filter: 'blur(90px)',
+            pointerEvents: 'none',
+          }}
         />
 
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
               gap: 50,
               alignItems: 'center',
             }}
           >
-            {/* Left Content */}
+            {/* Left Hero Content */}
             <div>
-              {/* Badge */}
-              <div className="badge-pill">
-                <Sparkles size={14} />
-                <span>{dict.hero.badge}</span>
-              </div>
-
-              {/* Headline */}
-              <h1
+              {/* Live Google Play Badge */}
+              <div
                 style={{
-                  fontSize: 'clamp(36px, 5.5vw, 64px)',
-                  fontWeight: 900,
-                  lineHeight: 1.12,
-                  letterSpacing: '-1.5px',
-                  marginBottom: 22,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 10,
+                  padding: '8px 16px',
+                  borderRadius: 24,
+                  background: 'rgba(0, 212, 255, 0.1)',
+                  border: '1.5px solid rgba(0, 212, 255, 0.35)',
+                  boxShadow: '0 4px 20px rgba(0, 212, 255, 0.2)',
+                  marginBottom: 24,
                 }}
               >
-                <span className="text-gradient-pink">{dict.hero.titleHighlight}</span>
-                <br />
-                <span style={{ color: '#FFFFFF' }}>{dict.hero.titleRest}</span>
+                <GooglePlayIcon size={18} />
+                <span
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 800,
+                    color: '#00D4FF',
+                    letterSpacing: 0.5,
+                  }}
+                >
+                  {isFa ? 'نسخه ۲.۴ رسمی در گوگل پلی استور منتشر شد' : 'ZEV 2.4 IS LIVE ON GOOGLE PLAY'}
+                </span>
+              </div>
+
+              {/* Main Headline */}
+              <h1
+                style={{
+                  fontSize: 'clamp(34px, 5vw, 58px)',
+                  fontWeight: 900,
+                  color: '#FFFFFF',
+                  lineHeight: 1.12,
+                  letterSpacing: '-0.02em',
+                  marginBottom: 20,
+                }}
+              >
+                {isFa ? (
+                  <>
+                    نسل جدید شبکه اجتماعی پیشرفته با{' '}
+                    <span
+                      style={{
+                        background: 'linear-gradient(135deg, #00D4FF 0%, #536DFE 100%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                      }}
+                    >
+                      نهایت سرعت
+                    </span>{' '}
+                    و آزادی ارتباط
+                  </>
+                ) : (
+                  <>
+                    The Next-Gen Social Network Engineered for{' '}
+                    <span
+                      style={{
+                        background: 'linear-gradient(135deg, #00D4FF 0%, #536DFE 100%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                      }}
+                    >
+                      Pure Performance
+                    </span>
+                  </>
+                )}
               </h1>
 
               {/* Subtitle */}
               <p
                 style={{
-                  fontSize: 'clamp(16px, 2vw, 19px)',
+                  fontSize: 17.5,
                   color: '#94A3B8',
                   lineHeight: 1.65,
                   marginBottom: 36,
-                  maxWidth: 620,
-                  fontWeight: 500,
+                  maxWidth: 580,
                 }}
               >
-                {dict.hero.subtitle}
+                {isFa
+                  ? 'ریلزهای فوق‌روان ۶۰ فریم، تماس‌های صوتی و تصویری HD استودیویی با تاخیر زیر ۴۰۰ میلی‌ثانیه، امنیت بانکی و دیتابیس یکپارچه با اکادمی صفی و صافی‌پی.'
+                  : 'Experience silk-smooth 60fps Reels, studio HD voice and video calling powered by sub-400ms Agora RTC, and bank-grade privacy — all within a single unified Flutter engine.'}
               </p>
 
-              {/* Action Buttons */}
+              {/* Hero Action Buttons */}
               <div
                 style={{
                   display: 'flex',
                   flexWrap: 'wrap',
-                  gap: 14,
-                  marginBottom: 28,
+                  gap: 16,
+                  alignItems: 'center',
+                  marginBottom: 38,
                 }}
               >
+                {/* 1. Official Google Play Store Button */}
                 <a
-                  href="https://zevapp.com"
+                  href={googlePlayUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-primary"
-                  style={{ padding: '15px 32px', fontSize: 16 }}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 12,
+                    padding: '14px 26px',
+                    borderRadius: 18,
+                    background: '#00D4FF',
+                    color: '#07090E',
+                    fontSize: 15,
+                    fontWeight: 900,
+                    textDecoration: 'none',
+                    boxShadow: '0 8px 28px rgba(0, 212, 255, 0.4), 0 0 20px rgba(0, 212, 255, 0.2)',
+                    transition: 'all 0.25s ease',
+                  }}
                 >
-                  <Globe size={18} />
-                  <span>{dict.hero.ctaWeb}</span>
-                  <ArrowRight size={16} />
+                  <GooglePlayIcon size={22} />
+                  <span>{isFa ? 'نصب از گوگل پلی استور' : 'Get on Google Play'}</span>
                 </a>
 
-                <button
-                  onClick={() => setDownloadModalOpen(true)}
-                  className="btn-secondary"
-                  style={{ padding: '15px 32px', fontSize: 16 }}
+                {/* 2. Launch Instant Web App */}
+                <a
+                  href={webAppUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    padding: '14px 24px',
+                    borderRadius: 18,
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    border: '1.5px solid rgba(255, 255, 255, 0.15)',
+                    color: '#FFFFFF',
+                    fontSize: 15,
+                    fontWeight: 700,
+                    textDecoration: 'none',
+                    transition: 'all 0.25s ease',
+                  }}
                 >
-                  <Download size={18} color="#00D4FF" />
-                  <span>{dict.hero.ctaDownload}</span>
-                </button>
+                  <Globe size={18} color="#00D4FF" />
+                  <span>{isFa ? 'اجرای وب اپلیکیشن' : 'Launch Web App'}</span>
+                </a>
+
+                {/* 3. Direct APK fallback */}
+                <a
+                  href={directApkUrl}
+                  download
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    fontSize: 13,
+                    color: '#64748B',
+                    textDecoration: 'none',
+                    padding: '8px 12px',
+                    borderRadius: 12,
+                    transition: 'color 0.2s',
+                  }}
+                >
+                  <Smartphone size={15} />
+                  <span>{isFa ? 'دانلود مستقیم APK' : 'Direct APK (v2.4)'}</span>
+                </a>
               </div>
 
+              {/* Social Proof Stats Bar */}
               <div
                 style={{
                   display: 'flex',
-                  alignItems: 'center',
-                  gap: 10,
-                  fontSize: 13,
-                  color: '#64748B',
+                  flexWrap: 'wrap',
+                  gap: 24,
+                  paddingTop: 24,
+                  borderTop: '1px solid rgba(255, 255, 255, 0.08)',
                 }}
               >
-                <CheckCircle2 size={16} color="#00D4FF" />
-                <span>{dict.hero.ctaStoreSubtitle}</span>
+                <div>
+                  <div style={{ fontSize: 20, fontWeight: 900, color: '#FFFFFF' }}>12,800+</div>
+                  <div style={{ fontSize: 12, color: '#64748B' }}>{isFa ? 'سازندگان فعال' : 'Active Creators'}</div>
+                </div>
+                <div>
+                  <div style={{ fontSize: 20, fontWeight: 900, color: '#00D4FF' }}>4.9 ★</div>
+                  <div style={{ fontSize: 12, color: '#64748B' }}>{isFa ? 'امتیاز گوگل پلی' : 'Play Store Rating'}</div>
+                </div>
+                <div>
+                  <div style={{ fontSize: 20, fontWeight: 900, color: '#536DFE' }}>&lt;400ms</div>
+                  <div style={{ fontSize: 12, color: '#64748B' }}>{isFa ? 'تاخیر تماس RTC' : 'RTC Call Latency'}</div>
+                </div>
+                <div>
+                  <div style={{ fontSize: 20, fontWeight: 900, color: '#FFFFFF' }}>200+</div>
+                  <div style={{ fontSize: 12, color: '#64748B' }}>{isFa ? 'گره‌های جهانی Edge' : 'Global Edge Nodes'}</div>
+                </div>
               </div>
             </div>
 
-            {/* Right Showcase Image Hero */}
+            {/* Right Hero Phone Showcase with Shot 1 (Reels) */}
             <div
               style={{
-                position: 'relative',
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'center',
+                position: 'relative',
               }}
             >
-              {/* Outer decorative ring */}
+              {/* Outer phone shell */}
               <div
-                style={{
-                  position: 'absolute',
-                  width: '90%',
-                  aspectRatio: '1',
-                  borderRadius: '50%',
-                  border: '1.5px dashed rgba(0, 212, 255, 0.35)',
-                  animation: 'pulseGlow 8s infinite',
-                  pointerEvents: 'none',
-                }}
-              />
-
-              {/* Main Visual Card */}
-              <div
-                className="animate-float"
                 style={{
                   position: 'relative',
-                  width: '100%',
-                  maxWidth: 440,
-                  borderRadius: 36,
-                  padding: 8,
-                  background: 'rgba(13, 18, 30, 0.75)',
-                  border: '1px solid rgba(255, 255, 255, 0.12)',
-                  boxShadow: '0 25px 70px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 212, 255, 0.12)',
+                  width: 310,
+                  height: 630,
+                  borderRadius: 48,
+                  background: '#000000',
+                  border: '10px solid #141C2B',
+                  boxShadow: '0 30px 90px rgba(0, 0, 0, 0.95), 0 0 50px rgba(0, 212, 255, 0.25)',
+                  overflow: 'hidden',
                 }}
               >
+                {/* Dynamic speaker pill */}
                 <div
                   style={{
-                    position: 'relative',
-                    width: '100%',
-                    aspectRatio: '9 / 15',
-                    borderRadius: 30,
-                    overflow: 'hidden',
-                    background: '#0B0C15',
+                    position: 'absolute',
+                    top: 10,
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: 96,
+                    height: 20,
+                    background: '#0B0F19',
+                    borderRadius: 12,
+                    zIndex: 10,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }}
                 >
+                  <div
+                    style={{
+                      width: 8,
+                      height: 8,
+                      borderRadius: '50%',
+                      background: '#1E293B',
+                      marginRight: 8,
+                    }}
+                  />
+                  <div
+                    style={{
+                      width: 36,
+                      height: 4,
+                      borderRadius: 2,
+                      background: '#1E293B',
+                    }}
+                  />
+                </div>
+
+                {/* Screenshot 1 (Reels) */}
+                <div style={{ position: 'relative', width: '100%', height: '100%' }}>
                   <Image
-                    src="/screenshots/3.jpg"
-                    alt="ZEV Feed and Social Experience"
+                    src="/app-shots/1.jpeg"
+                    alt="ZEV Reels 60fps Experience"
                     fill
+                    sizes="310px"
                     style={{ objectFit: 'cover' }}
                     priority
                   />
                 </div>
               </div>
 
-              {/* Floating Badge */}
+              {/* Floating Pill 1 (Top Left) */}
               <div
                 style={{
                   position: 'absolute',
-                  bottom: '10%',
-                  left: isFa ? 'auto' : '-3%',
-                  right: isFa ? '-3%' : 'auto',
-                  background: 'rgba(13, 18, 30, 0.75)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  padding: '12px 20px',
-                  borderRadius: 22,
+                  top: 50,
+                  left: isFa ? 'auto' : -24,
+                  right: isFa ? -24 : 'auto',
+                  background: 'rgba(8, 13, 26, 0.92)',
+                  border: '1px solid rgba(0, 212, 255, 0.4)',
+                  backdropFilter: 'blur(14px)',
+                  padding: '10px 16px',
+                  borderRadius: 18,
+                  boxShadow: '0 12px 30px rgba(0, 0, 0, 0.7)',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: 12,
-                  boxShadow: '0 12px 30px rgba(0, 0, 0, 0.7)',
+                  gap: 10,
+                  zIndex: 12,
                 }}
               >
                 <div
                   style={{
-                    width: 38,
-                    height: 38,
-                    borderRadius: 12,
-                    background: '#00D4FF',
+                    width: 32,
+                    height: 32,
+                    borderRadius: 10,
+                    background: 'rgba(0, 212, 255, 0.15)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: '#FFFFFF',
+                    color: '#00D4FF',
                   }}
                 >
-                  <Video size={18} />
+                  <Video size={17} />
                 </div>
                 <div>
-                  <div style={{ fontSize: 13, fontWeight: 800, color: '#FFFFFF' }}>
-                    {isFa ? 'ریلز و استوری ترند' : 'Trending Reels Studio'}
-                  </div>
-                  <div style={{ fontSize: 11, color: '#00D4FF', fontWeight: 700 }}>
-                    {isFa ? 'کیفیت فوق‌العاده ۶۰fps' : 'Ultra HD 60fps'}
-                  </div>
+                  <div style={{ fontSize: 12.5, fontWeight: 800, color: '#FFFFFF' }}>60fps Ultra Fluid</div>
+                  <div style={{ fontSize: 10.5, color: '#94A3B8' }}>Hardware Accelerated</div>
+                </div>
+              </div>
+
+              {/* Floating Pill 2 (Bottom Right) */}
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: 60,
+                  right: isFa ? 'auto' : -20,
+                  left: isFa ? -20 : 'auto',
+                  background: 'rgba(8, 13, 26, 0.92)',
+                  border: '1px solid rgba(83, 109, 254, 0.4)',
+                  backdropFilter: 'blur(14px)',
+                  padding: '10px 16px',
+                  borderRadius: 18,
+                  boxShadow: '0 12px 30px rgba(0, 0, 0, 0.7)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 10,
+                  zIndex: 12,
+                }}
+              >
+                <div
+                  style={{
+                    width: 32,
+                    height: 32,
+                    borderRadius: 10,
+                    background: 'rgba(83, 109, 254, 0.15)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#536DFE',
+                  }}
+                >
+                  <PhoneCall size={17} />
+                </div>
+                <div>
+                  <div style={{ fontSize: 12.5, fontWeight: 800, color: '#FFFFFF' }}>Sub-400ms RTC Call</div>
+                  <div style={{ fontSize: 10.5, color: '#94A3B8' }}>Studio HD Voice & Video</div>
                 </div>
               </div>
             </div>
           </div>
-
-          {/* STATS STRIP - Pink Box */}
-          <div
-            className="pink-box"
-            style={{
-              marginTop: 70,
-              padding: '24px 36px',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-              gap: 24,
-              background: 'rgba(13, 18, 30, 0.75)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)',
-            }}
-          >
-            {stats.map((stat, idx) => {
-              const Icon = stat.icon;
-              return (
-                <div
-                  key={idx}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 16,
-                  }}
-                >
-                  <div
-                    style={{
-                      width: 48,
-                      height: 48,
-                      borderRadius: 14,
-                      background: '#00D4FF',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: '#FFFFFF',
-                      boxShadow: '0 4px 12px rgba(0, 212, 255, 0.35)',
-                    }}
-                  >
-                    <Icon size={24} />
-                  </div>
-                  <div>
-                    <div
-                      style={{
-                        fontSize: 22,
-                        fontWeight: 900,
-                        color: '#FFFFFF',
-                        letterSpacing: '-0.5px',
-                      }}
-                    >
-                      {stat.value}
-                    </div>
-                    <div style={{ fontSize: 13, color: '#94A3B8', fontWeight: 600 }}>{stat.label}</div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
         </div>
       </section>
 
-      {/* CORE FEATURES GRID */}
+      {/* ======================================================== */}
+      {/* 2. LIVE INTERFACE SHOWCASE (REAL APP SHOTS 1 TO 6)       */}
+      {/* ======================================================== */}
+      <AppShowcase locale={locale} />
+
+      {/* ======================================================== */}
+      {/* 3. BENTO GRID ARCHITECTURE (6 CORE TECH PILLARS)         */}
+      {/* ======================================================== */}
       <section
         id="features"
         style={{
+          padding: '100px 0',
+          backgroundColor: '#090D15',
           position: 'relative',
-          padding: '90px 0',
-          backgroundColor: '#07090E',
         }}
       >
-        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+        <div className="container">
           <div style={{ textAlign: 'center', maxWidth: 740, margin: '0 auto 60px' }}>
-            <div className="badge-pill">
-              <Sparkles size={14} />
-              <span>{dict.features.tag}</span>
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '6px 16px',
+                borderRadius: 20,
+                background: 'rgba(0, 212, 255, 0.08)',
+                border: '1px solid rgba(0, 212, 255, 0.25)',
+                marginBottom: 16,
+              }}
+            >
+              <Zap size={14} color="#00D4FF" />
+              <span style={{ fontSize: 12.5, fontWeight: 800, color: '#00D4FF' }}>
+                {isFa ? 'معماری فنی و مهندسی سیستم' : 'TECHNICAL ARCHITECTURE'}
+              </span>
             </div>
+
             <h2
               style={{
                 fontSize: 'clamp(28px, 4vw, 44px)',
                 fontWeight: 900,
-                lineHeight: 1.2,
-                marginBottom: 16,
                 color: '#FFFFFF',
+                lineHeight: 1.2,
+                marginBottom: 14,
               }}
             >
-              {dict.features.title}
+              {isFa
+                ? 'شش ستون قدرت پلتفرم زِو برای میلیون‌ها کاربر'
+                : 'Six Pillars of Next-Gen Social Engineering'}
             </h2>
-            <p style={{ fontSize: 17, color: '#94A3B8', lineHeight: 1.6 }}>{dict.features.subtitle}</p>
+
+            <p style={{ fontSize: 16, color: '#94A3B8', lineHeight: 1.6 }}>
+              {isFa
+                ? 'ترکیب پردازش سخت‌افزاری فلاتر با شبکه لحظه‌ای Agora RTC و رمزگذاری بدون تسامح برای محافظت از آزادی کاربران.'
+                : 'Combining GPU-accelerated Flutter rendering with Agora RTC global edge routing and uncompromising cryptographic privacy.'}
+            </p>
           </div>
 
+          {/* Bento Grid layout */}
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: 28,
+              gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+              gap: 24,
             }}
           >
-            {features.map((feat, idx) => {
+            {bentoFeatures.map((feat, idx) => {
               const Icon = feat.icon;
               return (
                 <div
                   key={idx}
-                  className="pink-box"
                   style={{
-                    padding: 36,
-                    borderRadius: 28,
                     background: 'rgba(13, 18, 30, 0.75)',
                     border: '1px solid rgba(255, 255, 255, 0.08)',
+                    borderRadius: 28,
+                    padding: '36px 30px',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
-                    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.5)',
+                    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.4)',
+                    transition: 'all 0.3s ease',
+                    position: 'relative',
+                    overflow: 'hidden',
                   }}
                 >
                   <div>
                     <div
                       style={{
-                        width: 54,
-                        height: 54,
-                        borderRadius: 16,
-                        background: '#00D4FF',
                         display: 'flex',
                         alignItems: 'center',
-                        justifyContent: 'center',
-                        color: '#FFFFFF',
+                        justifyContent: 'space-between',
                         marginBottom: 20,
-                        boxShadow: '0 6px 18px rgba(0, 212, 255, 0.3)',
                       }}
                     >
-                      <Icon size={26} />
+                      <div
+                        style={{
+                          width: 48,
+                          height: 48,
+                          borderRadius: 14,
+                          background: `rgba(0, 212, 255, 0.1)`,
+                          border: `1px solid rgba(0, 212, 255, 0.3)`,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: feat.accent,
+                        }}
+                      >
+                        <Icon size={24} />
+                      </div>
+                      <span
+                        style={{
+                          fontSize: 11,
+                          fontWeight: 800,
+                          color: '#64748B',
+                          letterSpacing: 0.5,
+                        }}
+                      >
+                        {feat.tag}
+                      </span>
                     </div>
 
                     <h3
@@ -746,15 +838,49 @@ export default function LocalizedHomePage({
                         fontSize: 20,
                         fontWeight: 900,
                         color: '#FFFFFF',
-                        marginBottom: 12,
+                        marginBottom: 10,
+                        lineHeight: 1.3,
                       }}
                     >
                       {feat.title}
                     </h3>
 
-                    <p style={{ color: '#94A3B8', fontSize: 15, lineHeight: 1.7, margin: 0 }}>
+                    <p
+                      style={{
+                        fontSize: 14.5,
+                        color: '#94A3B8',
+                        lineHeight: 1.65,
+                        marginBottom: 20,
+                      }}
+                    >
                       {feat.desc}
                     </p>
+                  </div>
+
+                  {/* Thumbnail snippet */}
+                  <div
+                    style={{
+                      position: 'relative',
+                      height: 140,
+                      borderRadius: 16,
+                      overflow: 'hidden',
+                      border: '1px solid rgba(255, 255, 255, 0.06)',
+                    }}
+                  >
+                    <Image
+                      src={feat.image}
+                      alt={feat.title}
+                      fill
+                      sizes="340px"
+                      style={{ objectFit: 'cover' }}
+                    />
+                    <div
+                      style={{
+                        position: 'absolute',
+                        inset: 0,
+                        background: 'linear-gradient(180deg, transparent 40%, rgba(7, 9, 14, 0.95) 100%)',
+                      }}
+                    />
                   </div>
                 </div>
               );
@@ -763,230 +889,246 @@ export default function LocalizedHomePage({
         </div>
       </section>
 
-      {/* APP MOCKUP SHOWCASE */}
-      <AppMockup />
-
-      {/* EXECUTIVE LEADERSHIP BOARD */}
-      <TeamSection locale={locale} dict={dict} />
-
-      {/* SAFI ECOSYSTEM & PARTNER SHOWCASE */}
+      {/* ======================================================== */}
+      {/* 4. SAFI ECOSYSTEM INTEGRATION                            */}
+      {/* ======================================================== */}
       <EcosystemSection locale={locale} dict={dict} />
 
-      {/* SCREENSHOT GALLERY */}
+      {/* ======================================================== */}
+      {/* 5. TEAM & LEADERSHIP HIERARCHY                           */}
+      {/* ======================================================== */}
+      <TeamSection locale={locale} dict={dict} />
+
+      {/* ======================================================== */}
+      {/* 6. GLOBAL EDGE NETWORK STATS                             */}
+      {/* ======================================================== */}
       <section
         style={{
-          position: 'relative',
-          padding: '90px 0',
-          backgroundColor: '#07090E',
+          padding: '80px 0',
+          background: 'linear-gradient(180deg, #07090E 0%, #090D15 100%)',
+          borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
         }}
       >
-        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <div style={{ textAlign: 'center', maxWidth: 740, margin: '0 auto 60px' }}>
-            <div className="badge-pill">
-              <Smartphone size={14} />
-              <span>{showcaseData.tag}</span>
-            </div>
-            <h2 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 900, marginBottom: 14, color: '#FFFFFF' }}>
-              {showcaseData.heading}
-            </h2>
-            <p style={{ fontSize: 17, color: '#94A3B8' }}>
-              {showcaseData.subheading}
-            </p>
-          </div>
-
+        <div className="container">
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-              gap: 22,
+              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+              gap: 32,
+              textAlign: 'center',
             }}
           >
-            {showcaseData.shots.map((shot, idx) => (
+            <div>
+              <div style={{ fontSize: 40, fontWeight: 900, color: '#00D4FF', marginBottom: 4 }}>
+                &lt;50ms
+              </div>
+              <div style={{ fontSize: 16, fontWeight: 700, color: '#FFFFFF', marginBottom: 4 }}>
+                {isFa ? 'تاخیر لایه لبه (Edge Latency)' : 'Edge Routing Latency'}
+              </div>
+              <div style={{ fontSize: 13, color: '#64748B' }}>
+                {isFa ? 'کابل، دبی، فرانکفورت و سنگاپور' : 'Direct POPs in Kabul, Dubai & Frankfurt'}
+              </div>
+            </div>
+
+            <div>
+              <div style={{ fontSize: 40, fontWeight: 900, color: '#536DFE', marginBottom: 4 }}>
+                99.99%
+              </div>
+              <div style={{ fontSize: 16, fontWeight: 700, color: '#FFFFFF', marginBottom: 4 }}>
+                {isFa ? 'پایداری شبکه (SLA Uptime)' : 'Cluster Availability'}
+              </div>
+              <div style={{ fontSize: 13, color: '#64748B' }}>
+                {isFa ? 'معماری چندناحیه‌ای ضد اختلال' : 'Multi-zone failure tolerance'}
+              </div>
+            </div>
+
+            <div>
+              <div style={{ fontSize: 40, fontWeight: 900, color: '#00D4FF', marginBottom: 4 }}>
+                100%
+              </div>
+              <div style={{ fontSize: 16, fontWeight: 700, color: '#FFFFFF', marginBottom: 4 }}>
+                {isFa ? 'پردازش امنیتی محلی' : 'On-Device Biometrics'}
+              </div>
+              <div style={{ fontSize: 13, color: '#64748B' }}>
+                {isFa ? 'عدم ارسال اثر انگشت به سرور' : 'Zero biometric cloud storage'}
+              </div>
+            </div>
+
+            <div>
+              <div style={{ fontSize: 40, fontWeight: 900, color: '#536DFE', marginBottom: 4 }}>
+                0$
+              </div>
+              <div style={{ fontSize: 16, fontWeight: 700, color: '#FFFFFF', marginBottom: 4 }}>
+                {isFa ? 'رایگان برای همیشه' : 'Free Forever'}
+              </div>
+              <div style={{ fontSize: 13, color: '#64748B' }}>
+                {isFa ? 'بدون اشتراک پنهان یا تبلیغات آزاردهنده' : 'No subscription fees or paywalls'}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ======================================================== */}
+      {/* 7. ANSWER ENGINE OPTIMIZATION (AEO) FAQ ACCORDION        */}
+      {/* ======================================================== */}
+      <section
+        id="faq"
+        style={{
+          padding: '100px 0',
+          backgroundColor: '#07090E',
+        }}
+      >
+        <div className="container" style={{ maxWidth: 880 }}>
+          <div style={{ textAlign: 'center', marginBottom: 50 }}>
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '6px 16px',
+                borderRadius: 20,
+                background: 'rgba(0, 212, 255, 0.08)',
+                border: '1px solid rgba(0, 212, 255, 0.25)',
+                marginBottom: 14,
+              }}
+            >
+              <HelpCircle size={14} color="#00D4FF" />
+              <span style={{ fontSize: 12.5, fontWeight: 800, color: '#00D4FF' }}>
+                {isFa ? 'پرسش‌های متداول و موتور پاسخ' : 'ANSWER ENGINE OPTIMIZATION (AEO)'}
+              </span>
+            </div>
+
+            <h2
+              style={{
+                fontSize: 'clamp(28px, 4vw, 42px)',
+                fontWeight: 900,
+                color: '#FFFFFF',
+                lineHeight: 1.2,
+                marginBottom: 12,
+              }}
+            >
+              {isFa ? 'پاسخ مستقیم به مهم‌ترین سوالات کاربران' : 'Frequently Asked Questions'}
+            </h2>
+            <p style={{ fontSize: 16, color: '#94A3B8' }}>
+              {isFa
+                ? 'پاسخ‌های دقیق، شفاف و مستند درباره دانلود، امنیت و امکانات شبکه زِو.'
+                : 'Direct, authoritative answers formatted for search engines and user clarity.'}
+            </p>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            {faqs.map((faq, idx) => (
               <div
                 key={idx}
-                className="pink-box"
                 style={{
-                  padding: 14,
-                  borderRadius: 26,
-                  textAlign: 'center',
                   background: 'rgba(13, 18, 30, 0.75)',
                   border: '1px solid rgba(255, 255, 255, 0.08)',
-                  transition: 'all 0.3s ease',
-                  boxShadow: '0 8px 25px rgba(0, 0, 0, 0.5)',
+                  borderRadius: 20,
+                  padding: '24px 28px',
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.25)',
                 }}
               >
-                <div
+                <h3
                   style={{
-                    position: 'relative',
-                    width: '100%',
-                    aspectRatio: '9 / 18',
-                    borderRadius: 20,
-                    overflow: 'hidden',
-                    background: '#0F101A',
-                    marginBottom: 14,
-                    boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)',
+                    fontSize: 17,
+                    fontWeight: 800,
+                    color: '#FFFFFF',
+                    marginBottom: 10,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 10,
                   }}
                 >
-                  <Image src={shot.img} alt={shot.title} fill style={{ objectFit: 'cover' }} />
-                </div>
-                <div style={{ fontSize: 15, fontWeight: 900, color: '#FFFFFF', marginBottom: 4 }}>
-                  {shot.title}
-                </div>
-                <div style={{ fontSize: 12, color: '#64748B', fontWeight: 600 }}>
-                  {shot.subtitle}
-                </div>
+                  <span style={{ color: '#00D4FF' }}>Q:</span>
+                  <span>{faq.q}</span>
+                </h3>
+                <p
+                  style={{
+                    fontSize: 15,
+                    color: '#94A3B8',
+                    lineHeight: 1.65,
+                    paddingLeft: isFa ? 0 : 26,
+                    paddingRight: isFa ? 26 : 0,
+                  }}
+                >
+                  {faq.a}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* FAQ ACCORDION */}
-      <section style={{ padding: '90px 0', backgroundColor: '#07090E' }}>
-        <div className="container-narrow">
-          <div style={{ textAlign: 'center', marginBottom: 50 }}>
-            <h2 style={{ fontSize: 34, fontWeight: 900, marginBottom: 14, color: '#FFFFFF' }}>
-              {locale === 'fa'
-                ? 'پرسش‌های متداول'
-                : locale === 'ps'
-                ? 'پرله پسې پوښتنې (FAQ)'
-                : locale === 'ar'
-                ? 'الأسئلة الشائعة'
-                : locale === 'ur'
-                ? 'عام پوچھے جانے والے سوالات'
-                : locale === 'tr'
-                ? 'Sıkça Sorulan Sorular'
-                : locale === 'de'
-                ? 'Häufig gestellte Fragen'
-                : locale === 'fr'
-                ? 'Foire aux questions'
-                : locale === 'es'
-                ? 'Preguntas frecuentes'
-                : locale === 'ru'
-                ? 'Часто задаваемые вопросы'
-                : 'Frequently Asked Questions'}
-            </h2>
-            <p style={{ fontSize: 16, color: '#94A3B8' }}>
-              {locale === 'fa'
-                ? 'پاسخ به سوالات مهم درباره نحوه کار، اکوسیستم صفی و امنیت زو'
-                : locale === 'ps'
-                ? 'د زِو د کارکړنې، صافي اکوسیستم او محرمیت په اړه مهم ځوابونه'
-                : locale === 'ar'
-                ? 'إجابات شاملة حول كيفية عمل زِو، منظومة صافي والخصوصية والأمان'
-                : locale === 'ur'
-                ? 'زِو کے استعمال، صافی ایکو سسٹم اور سیکیورٹی سے متعلق اہم جوابات'
-                : 'Everything you need to know about ZEV, the Safi Ecosystem, and privacy.'}
-            </p>
-          </div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-            {faqs.map((faq, index) => {
-              const isOpen = openFaq === index;
-              return (
-                <div
-                  key={index}
-                  className="pink-box"
-                  style={{
-                    borderRadius: 18,
-                    border: isOpen
-                      ? '1.5px solid #00D4FF'
-                      : '1.5px solid rgba(0, 212, 255, 0.25)',
-                    background: isOpen ? 'rgba(0, 212, 255, 0.08)' : 'rgba(13, 18, 30, 0.75)',
-                    overflow: 'hidden',
-                  }}
-                >
-                  <button
-                    onClick={() => setOpenFaq(isOpen ? null : index)}
-                    style={{
-                      width: '100%',
-                      padding: '20px 24px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      background: 'none',
-                      border: 'none',
-                      color: '#FFFFFF',
-                      fontSize: 16,
-                      fontWeight: 800,
-                      textAlign: isFa ? 'right' : 'left',
-                      cursor: 'pointer',
-                      gap: 16,
-                    }}
-                  >
-                    <span>{faq.q}</span>
-                    <ChevronDown
-                      size={20}
-                      color="#00D4FF"
-                      style={{
-                        transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                        transition: 'transform 0.25s ease',
-                        flexShrink: 0,
-                      }}
-                    />
-                  </button>
-
-                  {isOpen && (
-                    <div
-                      style={{
-                        padding: '0 24px 22px',
-                        color: '#94A3B8',
-                        fontSize: 15,
-                        lineHeight: 1.75,
-                        borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-                        paddingTop: 16,
-                      }}
-                    >
-                      {faq.a}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* BOTTOM CTA BANNER - Solid Pink Box with White/Black contrast */}
+      {/* ======================================================== */}
+      {/* 8. GRAND DOWNLOAD CTA (GOOGLE PLAY + WEB APP)            */}
+      {/* ======================================================== */}
       <section
         id="download"
         style={{
-          position: 'relative',
-          padding: '60px 0 100px',
-          overflow: 'hidden',
+          padding: '80px 0 120px',
           backgroundColor: '#07090E',
+          position: 'relative',
         }}
       >
-        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+        <div className="container" style={{ maxWidth: 960 }}>
           <div
-            className="pink-box-solid"
             style={{
-              padding: '60px 40px',
+              background: 'linear-gradient(135deg, rgba(0, 212, 255, 0.14) 0%, rgba(83, 109, 254, 0.14) 100%)',
+              border: '1.5px solid #00D4FF',
               borderRadius: 36,
+              padding: '60px clamp(24px, 5vw, 64px)',
               textAlign: 'center',
-              boxShadow: '0 20px 60px rgba(0, 212, 255, 0.35)',
+              boxShadow: '0 25px 80px rgba(0, 0, 0, 0.8), 0 0 50px rgba(0, 212, 255, 0.2)',
+              position: 'relative',
+              overflow: 'hidden',
             }}
           >
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '8px 18px',
+                borderRadius: 20,
+                background: 'rgba(0, 0, 0, 0.4)',
+                border: '1px solid rgba(0, 212, 255, 0.4)',
+                marginBottom: 20,
+              }}
+            >
+              <GooglePlayIcon size={20} />
+              <span style={{ fontSize: 13.5, fontWeight: 800, color: '#00D4FF' }}>
+                {isFa ? 'دانلود نسخه رسمی ۲.۴' : 'OFFICIAL RELEASE 2.4 ON GOOGLE PLAY'}
+              </span>
+            </div>
+
             <h2
               style={{
-                fontSize: 'clamp(28px, 4vw, 46px)',
+                fontSize: 'clamp(30px, 4.5vw, 48px)',
                 fontWeight: 900,
                 color: '#FFFFFF',
+                lineHeight: 1.15,
                 marginBottom: 16,
               }}
             >
-              {dict.downloadSection.title}
+              {isFa
+                ? 'همین حالا به جمع سازندگان نسل آینده زِو بپیوندید'
+                : 'Join the Next Generation of Global Social Networking'}
             </h2>
+
             <p
               style={{
                 fontSize: 17,
-                color: '#FFFFFF',
+                color: '#CBD5E1',
+                lineHeight: 1.6,
                 maxWidth: 620,
                 margin: '0 auto 36px',
-                lineHeight: 1.6,
-                opacity: 0.95,
               }}
             >
-              {dict.downloadSection.subtitle}
+              {isFa
+                ? 'اپلیکیشن زو را مستقیماً از گوگل پلی استور دانلود کنید یا نسخه وب را بلافاصله بدون نیاز به نصب در مرورگر کامپیوتر خود اجرا نمایید.'
+                : 'Install ZEV directly from the Google Play Store on Android, or launch the lightning-fast web client in your desktop browser.'}
             </p>
 
             <div
@@ -995,64 +1137,101 @@ export default function LocalizedHomePage({
                 flexWrap: 'wrap',
                 justifyContent: 'center',
                 gap: 16,
-                marginBottom: 20,
+                marginBottom: 30,
               }}
             >
+              {/* Primary Google Play Download Button */}
               <a
-                href="https://zevapp.com"
+                href={googlePlayUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-white"
                 style={{
-                  padding: '16px 36px',
-                  fontSize: 16,
-                  color: '#07090E',
-                  backgroundColor: '#FFFFFF',
-                  fontWeight: 800,
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: 10,
-                  borderRadius: 9999,
+                  gap: 12,
+                  padding: '16px 32px',
+                  borderRadius: 20,
+                  background: '#00D4FF',
+                  color: '#07090E',
+                  fontSize: 16,
+                  fontWeight: 900,
                   textDecoration: 'none',
-                  boxShadow: '0 8px 30px rgba(0, 0, 0, 0.25)',
+                  boxShadow: '0 10px 30px rgba(0, 212, 255, 0.45)',
+                  transition: 'all 0.25s ease',
                 }}
               >
-                <Globe size={18} color="#07090E" />
-                <span style={{ color: '#07090E', fontWeight: 800 }}>{dict.downloadSection.btnWeb}</span>
-                <ArrowRight size={18} color="#07090E" />
+                <GooglePlayIcon size={24} />
+                <span>{isFa ? 'دریافت از گوگل پلی' : 'Get on Google Play'}</span>
               </a>
 
-              <button
-                type="button"
-                onClick={() => setDownloadModalOpen(true)}
-                className="btn-white"
+              {/* Web App Launch Button */}
+              <a
+                href={webAppUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
-                  padding: '16px 36px',
-                  fontSize: 16,
-                  color: '#07090E',
-                  backgroundColor: '#FFFFFF',
-                  fontWeight: 800,
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: 10,
-                  borderRadius: 9999,
-                  border: 'none',
-                  cursor: 'pointer',
-                  boxShadow: '0 8px 30px rgba(0, 0, 0, 0.25)',
+                  padding: '16px 28px',
+                  borderRadius: 20,
+                  background: 'rgba(13, 18, 30, 0.85)',
+                  border: '1.5px solid rgba(255, 255, 255, 0.2)',
+                  color: '#FFFFFF',
+                  fontSize: 16,
+                  fontWeight: 700,
+                  textDecoration: 'none',
+                  transition: 'all 0.25s ease',
                 }}
               >
-                <Download size={18} color="#07090E" />
-                <span style={{ color: '#07090E', fontWeight: 800 }}>{dict.hero.ctaDownload}</span>
-              </button>
+                <Globe size={20} color="#00D4FF" />
+                <span>{isFa ? 'ورود به وب اپلیکیشن' : 'Launch Web App'}</span>
+              </a>
+
+              {/* Direct APK Download Button */}
+              <a
+                href={directApkUrl}
+                download
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  padding: '16px 24px',
+                  borderRadius: 20,
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  color: '#94A3B8',
+                  fontSize: 15,
+                  fontWeight: 700,
+                  textDecoration: 'none',
+                  transition: 'all 0.25s ease',
+                }}
+              >
+                <Smartphone size={18} />
+                <span>{isFa ? 'دانلود مستقیم APK' : 'Direct APK'}</span>
+              </a>
             </div>
 
-            <div style={{ fontSize: 13, color: '#FFFFFF', opacity: 0.85 }}>{dict.downloadSection.apkNote}</div>
+            {/* Cryptographic Security Note */}
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                fontSize: 13,
+                color: '#94A3B8',
+              }}
+            >
+              <ShieldCheck size={16} color="#00D4FF" />
+              <span>
+                {isFa
+                  ? 'بسته‌های دانلودی با امضای امنیتی SHA-256 و تاییدیه Google Play Protect ارائه می‌شوند.'
+                  : 'Packages are cryptographically signed and verified by Google Play Protect.'}
+              </span>
+            </div>
           </div>
         </div>
       </section>
-
-      {/* Download Modal Trigger */}
-      <DownloadModal isOpen={downloadModalOpen} onClose={() => setDownloadModalOpen(false)} />
     </div>
   );
 }

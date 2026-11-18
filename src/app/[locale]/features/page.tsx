@@ -1,6 +1,4 @@
-'use client';
-
-import React, { use } from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -20,25 +18,138 @@ import {
   CheckCircle2,
   ArrowRight,
   ArrowLeft,
+  PhoneCall,
+  ExternalLink,
+  HelpCircle,
 } from 'lucide-react';
-import { getDictionary, isRtlLocale } from '@/dictionaries';
+import { getDictionary, isRtlLocale, locales } from '@/dictionaries';
 
-export default function FeaturesPage({
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isFa = isRtlLocale(locale);
+
+  const title = isFa
+    ? 'ویژگی‌ها و معماری فنی زو (ZEV) | ریلز ۶۰ فریم، تماس تصویری RTC و رمزگذاری'
+    : 'ZEV Core Features & Architecture | 60fps Reels, Sub-400ms RTC & E2EE';
+
+  const description = isFa
+    ? 'بررسی کامل معماری فنی شبکه اجتماعی زو (ZEV): پخش ریلز ۶۰ فریم، تماس ویدیویی HD با تاخیر زیر ۴۰۰ میلی‌ثانیه بر بستر Agora، رمزگذاری TLS 1.3، قفل بیومتریک و موتور فلاتر.'
+    : 'Explore ZEV technical architecture: 60fps hardware-accelerated Reels, sub-400ms Agora RTC video calling, TLS 1.3 encryption, on-device biometric security, and universal Flutter engine.';
+
+  const languageAlternates: Record<string, string> = {};
+  for (const l of locales) {
+    languageAlternates[l] = `https://zevapp.com/${l}/features`;
+  }
+
+  return {
+    title,
+    description,
+    keywords: [
+      'ZEV Features',
+      'ZEV 60fps Reels',
+      'ZEV Video Call Agora RTC',
+      'Sub-400ms Calling',
+      'Encrypted Messaging ZEV',
+      'Flutter Web App',
+      'Biometric App Lock',
+      'Safi Ecosystem SSO',
+      'Next-Gen Social Network',
+    ],
+    alternates: {
+      canonical: `https://zevapp.com/${locale}/features`,
+      languages: languageAlternates,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `https://zevapp.com/${locale}/features`,
+      siteName: 'ZEV',
+      locale,
+      images: [
+        {
+          url: '/app-shots/6.jpeg',
+          width: 1200,
+          height: 630,
+          alt: 'ZEV 60fps Reels and Sub-400ms RTC Video Calling',
+        },
+      ],
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/app-shots/6.jpeg'],
+      creator: '@shaheensafi09',
+      site: '@zevapp',
+    },
+  };
+}
+
+export default async function FeaturesPage({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  const { locale } = use(params);
+  const { locale } = await params;
   const dict = getDictionary(locale);
   const isFa = isRtlLocale(locale);
 
+  const googlePlayUrl = 'https://play.google.com/store/apps/details?id=com.zevapp.app&hl=en';
+  const webAppUrl = 'https://zevapp.com';
+
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'SoftwareApplication',
+        name: 'ZEV Social Network',
+        applicationCategory: 'SocialNetworkingApplication',
+        operatingSystem: 'Android, iOS, Web Browser',
+        featureList: [
+          '60fps Hardware-Accelerated Reels Player',
+          'Sub-400ms Agora RTC Video and Voice Calling',
+          'End-to-End Cryptographic Direct Messaging',
+          'On-Device Secure Enclave Biometrics & PIN Lock',
+          'Universal Cross-Platform Flutter Architecture',
+          'Unified Single Sign-On with Safi Academy & SafiPay',
+        ],
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: 'How does ZEV deliver steady 60fps Reels?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'ZEV employs GPU-accelerated video decoders, optimized Impeller shaders in Flutter, and predictive chunk caching so reels play instantly with zero stutter.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'How does ZEV HD Video Calling function in low-bandwidth regions?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Using Agora RTC mesh relays and adaptive video bitrates, ZEV dynamically adjusts resolution between 720p and 1080p while preserving audio clarity even on 3G networks.',
+            },
+          },
+        ],
+      },
+    ],
+  };
+
   const detailedFeatures = [
     {
-      title: isFa ? 'استودیو پیشرفته ریلز ۶۰ فریم' : 'High-Performance 60fps Reels Studio',
-      badge: isFa ? 'قابلیت شاخص' : 'Flagship Feature',
+      title: isFa ? 'استودیو پیشرفته ریلز ۶۰ فریم' : '60fps Hardware-Accelerated Reels Studio',
+      badge: isFa ? 'قابلیت پرچمدار' : 'Flagship Engine',
       icon: Video,
-      color: '#FC466B',
-      image: '/screenshots/1.png',
+      accent: '#00D4FF',
+      image: '/app-shots/1.jpeg',
       desc: isFa
         ? 'سیستم فشرده‌سازی و پخش فوق‌سریع برای ویدیوهای عمودی با کیفیت فول اچ‌دی بدون افت فریم حتی روی سرعت‌های معمولی اینترنت.'
         : 'Smooth 60fps vertical short-form video streaming engine with optimized hardware decoders, real-time audio sync, and zero buffering.',
@@ -49,11 +160,26 @@ export default function FeaturesPage({
       ],
     },
     {
+      title: isFa ? 'تماس صوتی و تصویری HD با تاخیر زیر ۴۰۰ میلی‌ثانیه' : 'Sub-400ms Studio RTC Video Calling',
+      badge: isFa ? 'ارتباط زنده' : 'Real-Time RTC',
+      icon: PhoneCall,
+      accent: '#536DFE',
+      image: '/app-shots/6.jpeg',
+      desc: isFa
+        ? 'برقراری تماس تصویری و صوتی همزمان با بالاترین پایداری بر بستر بیش از ۲۰۰ گره Agora RTC با فناوری هوشمند حذف نویز محیطی.'
+        : 'Crystal-clear 1080p video and studio voice calls with sub-400ms latency across 200+ global edge relay nodes, complete with background AI noise cancellation.',
+      bullets: [
+        isFa ? 'تاخیر فوق‌العاده پایین زیر ۴۰۰ میلی‌ثانیه در سطح جهان' : 'Ultra-low sub-400ms worldwide latency',
+        isFa ? 'سازگاری هوشمند با نوسانات سرعت اینترنت و ۳G' : 'Adaptive bitrate scaling preventing dropouts on weak networks',
+        isFa ? 'رمزگذاری کامل جریان صدا و تصویر بدون شنود واسط' : 'End-to-end encrypted audio and video payloads',
+      ],
+    },
+    {
       title: isFa ? 'فید هوشمند، اکسپلور و استوری ۲۴ ساعته' : 'Dynamic Feed, Explore & Ephemeral Stories',
-      badge: isFa ? 'ارتباط روزمره' : 'Daily Social Hub',
+      badge: isFa ? 'تعامل روزمره' : 'Daily Social Hub',
       icon: Flame,
-      color: '#FC466B',
-      image: '/screenshots/2.jpg',
+      accent: '#00D4FF',
+      image: '/app-shots/3.jpeg',
       desc: isFa
         ? 'الگوریتم شفاف و بدون سانسور کاذب که محتوای دوستان و سازندگان مورد علاقه شما را به صورت دقیق و زمانی نمایش می‌دهد.'
         : 'Chronological and interest-driven feed architecture connecting creators, friends, and active members without opaque black-box shadowbans.',
@@ -65,15 +191,15 @@ export default function FeaturesPage({
     },
     {
       title: isFa ? 'معماری چندپلتفرمه فلاتر (Flutter Universal Engine)' : 'Cross-Platform Flutter Universal Engine',
-      badge: isFa ? 'فناوری روز' : 'Modern Tech Stack',
+      badge: isFa ? 'فناوری مدرن' : 'Modern Tech Stack',
       icon: Monitor,
-      color: '#FC466B',
-      image: '/screenshots/3.jpg',
+      accent: '#536DFE',
+      image: '/app-shots/2.jpeg',
       desc: isFa
-        ? 'یک پایگاه کد مدرن که همزمان تجربه روان نیتیو را روی اندروید، آیفون، نسخه وب web.zevapp.com و ویندوز/مک ارائه می‌کند.'
-        : 'Single unified Flutter codebase delivering identical 60fps fluid interfaces across Android, iOS, Web browsers at web.zevapp.com, and desktop PCs.',
+        ? 'یک پایگاه کد مدرن که همزمان تجربه روان نیتیو را روی اندروید، آیفون، نسخه وب zevapp.com و ویندوز/مک ارائه می‌کند.'
+        : 'Single unified Flutter codebase delivering identical 60fps fluid interfaces across Android, iOS, Web browsers at zevapp.com, and desktop PCs.',
       bullets: [
-        isFa ? 'ورود مستقیم از طریق وب در کامپیوتر بدون نیاز به شبیه‌ساز' : 'Instant browser access at web.zevapp.com with zero installation',
+        isFa ? 'ورود مستقیم از طریق وب در کامپیوتر بدون نیاز به شبیه‌ساز' : 'Instant browser access at zevapp.com with zero installation',
         isFa ? 'همگام‌سازی لحظه‌ای نشست‌ها و پیام‌ها در تمام پلتفرم‌ها' : 'Instant cross-device message and feed state synchronization',
         isFa ? 'مصرف بهینه باتری و رم دستگاه با رندرینگ سخت‌افزاری' : 'Optimized GPU-accelerated rendering and low memory footprint',
       ],
@@ -82,8 +208,8 @@ export default function FeaturesPage({
       title: isFa ? 'امنیت بانکی، رمزگذاری TLS 1.3 و قفل بیومتریک' : 'Bank-Grade Security & On-Device Biometrics',
       badge: isFa ? 'حریم خصوصی مطلق' : 'Privacy First',
       icon: Lock,
-      color: '#FC466B',
-      image: '/screenshots/55.jpeg',
+      accent: '#00D4FF',
+      image: '/app-shots/5.jpeg',
       desc: isFa
         ? 'پایبندی به استانداردهای بین‌المللی حفظ حریم خصوصی؛ پردازش اثر انگشت و فیس‌آیدی ۱۰۰٪ روی سخت‌افزار دستگاه شما.'
         : 'Enterprise cryptography with TLS 1.3 in transit and AES-256 at rest. Biometrics remain sealed within your device Secure Enclave.',
@@ -97,6 +223,12 @@ export default function FeaturesPage({
 
   return (
     <div style={{ padding: '40px 0 100px', minHeight: '85vh', backgroundColor: '#07090E' }}>
+      {/* 6-Engine Schema Script */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+
       <div className="container">
         {/* Back Link */}
         <Link
@@ -109,10 +241,8 @@ export default function FeaturesPage({
             fontWeight: 700,
             color: '#94A3B8',
             marginBottom: 28,
-            transition: 'color 0.2s',
+            textDecoration: 'none',
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = '#FC466B')}
-          onMouseLeave={(e) => (e.currentTarget.style.color = '#475569')}
         >
           {isFa ? <ArrowRight size={16} /> : <ArrowLeft size={16} />}
           <span>{isFa ? 'بازگشت به صفحه اصلی' : 'Back to Home'}</span>
@@ -120,9 +250,22 @@ export default function FeaturesPage({
 
         {/* Hero Header */}
         <div style={{ textAlign: 'center', maxWidth: 840, margin: '0 auto 60px' }}>
-          <div className="badge-pill">
-            <Sparkles size={14} />
-            <span>{isFa ? 'تمام قابلیت‌ها و امکانات فنی زو' : 'Comprehensive Feature Suite'}</span>
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              padding: '6px 16px',
+              borderRadius: 20,
+              background: 'rgba(0, 212, 255, 0.08)',
+              border: '1px solid rgba(0, 212, 255, 0.25)',
+              marginBottom: 16,
+            }}
+          >
+            <Sparkles size={14} color="#00D4FF" />
+            <span style={{ fontSize: 13, fontWeight: 800, color: '#00D4FF' }}>
+              {isFa ? 'قابلیت‌ها و توانمندی‌های سیستم' : 'Architectural Excellence'}
+            </span>
           </div>
 
           <h1
@@ -134,96 +277,148 @@ export default function FeaturesPage({
               color: '#FFFFFF',
             }}
           >
-            {isFa ? 'طراحی شده برای نهایت کیفیت، امنیت و سرعت' : 'Engineered for Performance, Privacy & Reach'}
+            {isFa
+              ? 'امکانات نسل بعدی زِو؛ فراتر از یک شبکه اجتماعی ساده'
+              : 'Built for High Throughput, Privacy & Global Scale'}
           </h1>
 
-          <p style={{ fontSize: 18, color: '#94A3B8', lineHeight: 1.7 }}>
+          <p style={{ fontSize: 17, color: '#94A3B8', lineHeight: 1.65 }}>
             {isFa
-              ? 'در زو، هر پیکسل و هر خط کد با وسواس بالا پیاده‌سازی شده تا نسل جدید شبکه‌های اجتماعی را به دستان شما برساند.'
-              : 'Discover how ZEV combines modern Flutter rendering, cloud video transcoding, and bank-grade privacy into an unmatched social experience.'}
+              ? 'طراحی شده با برترین فناوری‌های روز دنیا؛ از ریلزهای ۶۰ فریم بدون توقف تا ارتباط ویدیویی استودیویی و امنیت بیومتریک.'
+              : 'Engineered from scratch using Flutter universal graphics, Agora RTC mesh relays, and bank-grade cryptographic standards.'}
           </p>
+
+          <div style={{ display: 'flex', justifyContent: 'center', gap: 14, marginTop: 28 }}>
+            <a
+              href={googlePlayUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '12px 24px',
+                borderRadius: 16,
+                background: '#00D4FF',
+                color: '#07090E',
+                fontSize: 14,
+                fontWeight: 800,
+                textDecoration: 'none',
+              }}
+            >
+              <span>{isFa ? 'دانلود نسخه گوگل پلی' : 'Get on Google Play'}</span>
+              <ExternalLink size={14} />
+            </a>
+            <a
+              href={webAppUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '12px 22px',
+                borderRadius: 16,
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.12)',
+                color: '#FFFFFF',
+                fontSize: 14,
+                fontWeight: 700,
+                textDecoration: 'none',
+              }}
+            >
+              <span>{isFa ? 'اجرای وب اپلیکیشن' : 'Launch Web App'}</span>
+            </a>
+          </div>
         </div>
 
-        {/* Detailed Feature Blocks */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+        {/* Features Vertical Showcase */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 40, marginBottom: 80 }}>
           {detailedFeatures.map((feat, idx) => {
             const Icon = feat.icon;
-            const isEven = idx % 2 === 1;
+            const isEven = idx % 2 === 0;
             return (
               <div
                 key={idx}
-                className="pink-box"
                 style={{
-                  padding: '44px 36px',
-                  borderRadius: 32,
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
                   background: 'rgba(13, 18, 30, 0.75)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  borderRadius: 32,
+                  padding: '40px clamp(20px, 4vw, 48px)',
                   display: 'grid',
                   gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
                   gap: 40,
                   alignItems: 'center',
-                  boxShadow: '0 10px 30px rgba(252, 70, 107, 0.08)',
+                  boxShadow: '0 15px 40px rgba(0, 0, 0, 0.4)',
                 }}
               >
                 {/* Content Side */}
-                <div style={{ order: isEven && !isFa ? 2 : 1 }}>
-                  <span
+                <div style={{ order: isEven ? 1 : 2 }}>
+                  <div
                     style={{
-                      fontSize: 12,
-                      fontWeight: 800,
-                      color: '#FC466B',
-                      background: 'rgba(13, 18, 30, 0.75)',
-                      border: '1px solid rgba(252, 70, 107, 0.35)',
-                      padding: '5px 14px',
-                      borderRadius: 999,
                       display: 'inline-flex',
                       alignItems: 'center',
-                      gap: 6,
+                      gap: 8,
+                      padding: '6px 14px',
+                      borderRadius: 12,
+                      background: 'rgba(0, 212, 255, 0.1)',
+                      border: '1px solid rgba(0, 212, 255, 0.3)',
                       marginBottom: 16,
+                      fontSize: 12.5,
+                      fontWeight: 800,
+                      color: feat.accent,
                     }}
                   >
-                    <Icon size={14} />
+                    <Icon size={16} />
                     <span>{feat.badge}</span>
-                  </span>
+                  </div>
 
-                  <h2 style={{ fontSize: 'clamp(24px, 3vw, 32px)', fontWeight: 900, color: '#FFFFFF', marginBottom: 14 }}>
+                  <h2
+                    style={{
+                      fontSize: 'clamp(24px, 3.5vw, 34px)',
+                      fontWeight: 900,
+                      color: '#FFFFFF',
+                      marginBottom: 12,
+                      lineHeight: 1.25,
+                    }}
+                  >
                     {feat.title}
                   </h2>
 
-                  <p style={{ fontSize: 16, color: '#94A3B8', lineHeight: 1.75, marginBottom: 24 }}>
+                  <p
+                    style={{
+                      fontSize: 15.5,
+                      color: '#94A3B8',
+                      lineHeight: 1.7,
+                      marginBottom: 24,
+                    }}
+                  >
                     {feat.desc}
                   </p>
 
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                     {feat.bullets.map((b, bIdx) => (
-                      <div key={bIdx} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <div
-                          style={{
-                            width: 22,
-                            height: 22,
-                            borderRadius: '50%',
-                            background: '#FC466B',
-                            color: '#FFFFFF',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            fontSize: 11,
-                            fontWeight: 900,
-                            flexShrink: 0,
-                          }}
-                        >
-                          ✓
-                        </div>
-                        <span style={{ fontSize: 15, color: '#CBD5E1', fontWeight: 600 }}>{b}</span>
+                      <div
+                        key={bIdx}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 10,
+                          fontSize: 14,
+                          color: '#E2E8F0',
+                        }}
+                      >
+                        <CheckCircle2 size={17} color="#00D4FF" style={{ flexShrink: 0 }} />
+                        <span>{b}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                {/* Screenshot Visual Side */}
+                {/* Screenshot Frame Side */}
                 <div
                   style={{
-                    order: isEven && !isFa ? 1 : 2,
+                    order: isEven ? 2 : 1,
                     display: 'flex',
                     justifyContent: 'center',
                   }}
@@ -231,17 +426,21 @@ export default function FeaturesPage({
                   <div
                     style={{
                       position: 'relative',
-                      width: '100%',
-                      maxWidth: 320,
-                      aspectRatio: '9 / 16',
-                      borderRadius: 28,
+                      width: 280,
+                      height: 480,
+                      borderRadius: 32,
                       overflow: 'hidden',
-                      border: '1px solid rgba(255, 255, 255, 0.12)',
-                      boxShadow: '0 15px 40px rgba(252, 70, 107, 0.2)',
-                      background: 'rgba(13, 18, 30, 0.75)',
+                      border: '6px solid #141C2B',
+                      boxShadow: '0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 212, 255, 0.15)',
                     }}
                   >
-                    <Image src={feat.image} alt={feat.title} fill style={{ objectFit: 'cover' }} />
+                    <Image
+                      src={feat.image}
+                      alt={feat.title}
+                      fill
+                      sizes="280px"
+                      style={{ objectFit: 'cover' }}
+                    />
                   </div>
                 </div>
               </div>
@@ -249,38 +448,67 @@ export default function FeaturesPage({
           })}
         </div>
 
-        {/* Bottom CTA Banner (Pink Box) */}
-        <div
-          className="pink-box"
-          style={{
-            marginTop: 60,
-            padding: '48px 36px',
-            borderRadius: 30,
-            background: 'rgba(13, 18, 30, 0.75)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            textAlign: 'center',
-            boxShadow: '0 12px 35px rgba(252, 70, 107, 0.1)',
-          }}
-        >
-          <h3 style={{ fontSize: 28, fontWeight: 900, color: '#FFFFFF', marginBottom: 12 }}>
-            {isFa ? 'تجربه این امکانات در دستان شماست' : 'Ready to Experience Next-Gen Social Networking?'}
-          </h3>
-          <p style={{ fontSize: 16, color: '#94A3B8', maxWidth: 580, margin: '0 auto 28px' }}>
-            {isFa
-              ? 'همین حالا از طریق نسخه وب یا دانلود برنامه وارد دنیای پرهیجان زو شوید.'
-              : 'Launch ZEV directly in your desktop browser or download for Android & iOS.'}
-          </p>
-          <a
-            href="https://zevapp.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary"
-            style={{ padding: '14px 32px', fontSize: 15 }}
-          >
-            <Globe size={18} />
-            <span>{dict.nav.openWebApp}</span>
-            <ArrowRight size={16} />
-          </a>
+        {/* Answer Engine Section (AEO) */}
+        <div style={{ maxWidth: 840, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 32 }}>
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '6px 14px',
+                borderRadius: 16,
+                background: 'rgba(0, 212, 255, 0.08)',
+                marginBottom: 10,
+              }}
+            >
+              <HelpCircle size={15} color="#00D4FF" />
+              <span style={{ fontSize: 13, fontWeight: 800, color: '#00D4FF' }}>
+                {isFa ? 'پرسش‌های متداول فنی' : 'Technical Specifications FAQ'}
+              </span>
+            </div>
+            <h3 style={{ fontSize: 24, fontWeight: 900, color: '#FFFFFF' }}>
+              {isFa ? 'اطلاعات تخصصی موتور و رندرینگ زِو' : 'Architecture & Performance Insights'}
+            </h3>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <div
+              style={{
+                background: 'rgba(13, 18, 30, 0.75)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                borderRadius: 20,
+                padding: '22px 26px',
+              }}
+            >
+              <h4 style={{ fontSize: 16, fontWeight: 800, color: '#FFFFFF', marginBottom: 6 }}>
+                {isFa ? 'آیا ریلز زو با سرعت‌های پایین اینترنت کار می‌کند؟' : 'Does ZEV Reels buffer on low internet speeds?'}
+              </h4>
+              <p style={{ fontSize: 14, color: '#94A3B8', lineHeight: 1.6 }}>
+                {isFa
+                  ? 'بله، زو از الگوریتم فشرده‌سازی تطبیقی H.264/H.265 و بارگذاری هوشمند تکه‌ای استفاده می‌کند تا ویدیوها حتی با اینترنت‌های نسل سوم (3G) بدون توقف پخش شوند.'
+                  : 'Yes. ZEV integrates adaptive H.264/H.265 compression and multi-segment progressive chunk pre-fetching, allowing uninterrupted video streaming even on 3G cellular connections.'}
+              </p>
+            </div>
+
+            <div
+              style={{
+                background: 'rgba(13, 18, 30, 0.75)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                borderRadius: 20,
+                padding: '22px 26px',
+              }}
+            >
+              <h4 style={{ fontSize: 16, fontWeight: 800, color: '#FFFFFF', marginBottom: 6 }}>
+                {isFa ? 'چگونه داده‌های پیام‌رسان محافظت می‌شوند؟' : 'How are messages safeguarded against interception?'}
+              </h4>
+              <p style={{ fontSize: 14, color: '#94A3B8', lineHeight: 1.6 }}>
+                {isFa
+                  ? 'تمامی پیام‌ها، تصاویر و ویس‌ها با پروتکل TLS 1.3 و کلیدهای رمزنگاری پیشرفته در حال انتقال محافظت می‌شوند و هیچ شخص ثالثی امکان استراق سمع محتوا را نخواهد داشت.'
+                  : 'All chat packets, voice memos, and media are encrypted in transit via TLS 1.3 with forward secrecy, preventing ISP or man-in-the-middle eavesdropping.'}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

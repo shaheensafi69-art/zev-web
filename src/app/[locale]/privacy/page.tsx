@@ -1,6 +1,4 @@
-'use client';
-
-import React, { use } from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
   ShieldCheck,
@@ -16,17 +14,119 @@ import {
   CheckCircle2,
   FileText,
   Key,
+  HelpCircle,
+  ExternalLink,
 } from 'lucide-react';
-import { getDictionary, isRtlLocale } from '@/dictionaries';
+import { getDictionary, isRtlLocale, locales } from '@/dictionaries';
 
-export default function LocalizedPrivacyPage({
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isFa = isRtlLocale(locale);
+
+  const title = isFa
+    ? 'سیاست حفظ حریم خصوصی زو (ZEV Privacy Policy) | امنیت داده‌ها و رمزگذاری'
+    : 'ZEV Privacy Policy | Data Protection, TLS 1.3 & On-Device Biometrics';
+
+  const description = isFa
+    ? 'سیاست رسمی حفظ حریم خصوصی زو (ZEV): عدم فروش داده‌ها به اشخاص ثالث، رمزگذاری TLS 1.3، پردازش بیومتریک ۱۰۰٪ روی سخت‌افزار دستگاه و انطباق با استانداردهای GDPR و COPPA.'
+    : 'Official ZEV Privacy Policy: Zero data brokering, TLS 1.3 encryption, on-device Secure Enclave biometrics, right to erasure, and strict GDPR / COPPA compliance.';
+
+  const languageAlternates: Record<string, string> = {};
+  for (const l of locales) {
+    languageAlternates[l] = `https://zevapp.com/${l}/privacy`;
+  }
+
+  return {
+    title,
+    description,
+    keywords: [
+      'ZEV Privacy Policy',
+      'ZEV Data Protection',
+      'ZEV Security Policy',
+      'On-Device Biometrics',
+      'GDPR Compliance ZEV',
+      'No Data Brokering',
+    ],
+    alternates: {
+      canonical: `https://zevapp.com/${locale}/privacy`,
+      languages: languageAlternates,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `https://zevapp.com/${locale}/privacy`,
+      siteName: 'ZEV',
+      locale,
+      images: [
+        {
+          url: '/app-shots/8.jpeg',
+          width: 1200,
+          height: 630,
+          alt: 'ZEV Privacy Policy & Data Sovereignty',
+        },
+      ],
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/app-shots/8.jpeg'],
+      creator: '@shaheensafi09',
+      site: '@zevapp',
+    },
+  };
+}
+
+export default async function PrivacyPage({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  const { locale } = use(params);
+  const { locale } = await params;
   const dict = getDictionary(locale);
   const isFa = isRtlLocale(locale);
+
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'PrivacyPolicy',
+        name: isFa ? 'سیاست حفظ حریم خصوصی زو' : 'ZEV Privacy Policy',
+        url: `https://zevapp.com/${locale}/privacy`,
+        publisher: {
+          '@type': 'Organization',
+          name: 'Sahib Group (ZEV)',
+          url: 'https://zevapp.com',
+        },
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: 'Does ZEV sell user data to advertising companies?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'No. ZEV has an uncompromising zero-data-brokering policy. We never sell, lease, or monetize user personal data, behavioral telemetry, or chat messages.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'Where are my biometric credentials stored?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Biometric information (Fingerprint and Face ID) never leaves your device. It is processed strictly inside your smartphone Secure Enclave hardware.',
+            },
+          },
+        ],
+      },
+    ],
+  };
 
   const sections = [
     {
@@ -42,8 +142,8 @@ export default function LocalizedPrivacyPage({
       id: 'unified-database',
       title: isFa ? '۲. معماری دیتابیس مشترک با اکادمی صفی' : '2. Shared Database Architecture with Safi Academy',
       content: isFa
-        ? 'پلتفرم زو و اکادمی صفی بر روی یک زیرساخت دیتابیس ابری واحد (Supabase Cloud با رمزنگاری سرتاسری AES-256) میزبانی می‌شوند. این به کاربران اجازه می‌دهد با یک نام کاربری و رمز عبور وارد هر دو پلتفرم شوند. اطلاعات دانشجویی و کیف پول صافی‌پی شما در محیطی کاملاً ایزوله و امن نگهداری شده و هرگز در فید عمومی افشا نمی‌گردد.'
-        : 'ZEV and Safi Academy operate over an enterprise-grade unified cloud database cluster (Supabase Enterprise with AES-256 at-rest encryption). This enables single sign-on across the Safi Ecosystem. Student records and SafiPay balance tokens remain strictly isolated from public social feeds.',
+        ? 'پلتفرم زو و اکادمی صفی بر روی یک زیرساخت دیتابیس ابری واحد (با رمزنگاری سرتاسری AES-256) میزبانی می‌شوند. این به کاربران اجازه می‌دهد با یک نام کاربری و رمز عبور وارد هر دو پلتفرم شوند. اطلاعات دانشجویی و کیف پول صافی‌پی شما در محیطی کاملاً ایزوله و امن نگهداری شده و هرگز در فید عمومی افشا نمی‌گردد.'
+        : 'ZEV and Safi Academy operate over an enterprise-grade unified cloud database cluster with AES-256 at-rest encryption. This enables single sign-on across the Safi Ecosystem. Student records and SafiPay balance tokens remain strictly isolated from public social feeds.',
     },
     {
       icon: Lock,
@@ -71,16 +171,22 @@ export default function LocalizedPrivacyPage({
     },
     {
       icon: Trash2,
-      id: 'deletion-rights',
-      title: isFa ? '۶. حق فراموشی و حذف دائمی حساب' : '6. Complete Account & Data Deletion Rights',
+      id: 'deletion',
+      title: isFa ? '۶. حق فراموشی و حذف آنی حساب' : '6. Right to Erasure & Immediate Account Deletion',
       content: isFa
-        ? 'شما در هر لحظه اختیار کامل دارید تا از بخش تنظیمات اپلیکیشن، حساب کاربری خود را به همراه تمامی عکس‌ها، ریلزها، پیام‌ها و دنبال‌کنندگان به طور دائمی و غیرقابل بازگشت حذف نمایید. پس از تایید، داده‌های شما در کمتر از ۷ روز کاری از تمامی بک‌آپ‌های سرور پاکسازی خواهند شد.'
-        : 'In compliance with GDPR and modern privacy standards, users possess the absolute right to request irreversible account and media deletion via in-app preferences or by contacting our data protection officer. Residual cached backups are purged within 7 business days.',
+        ? 'شما در هر زمان حق دارید حساب کاربری خود و تمامی داده‌های مربوطه (پست‌ها، ریلزها، پیام‌ها و فایل‌ها) را به طور خودکار و بدون نیاز به تایید دستی از طریق بخش تنظیمات یا صفحه حذف حساب پاک کنید. حذف داده‌ها قطعی و غیرقابل بازگشت است.'
+        : 'You maintain absolute sovereignty over your account data. You may trigger an immediate, automated, irreversible deletion of your profile, media, comments, and messages directly from inside the app or via our dedicated account deletion tool.',
     },
   ];
 
   return (
     <div style={{ padding: '40px 0 100px', minHeight: '85vh', backgroundColor: '#07090E' }}>
+      {/* 6-Engine Schema Script */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+
       <div className="container">
         {/* Back Link */}
         <Link
@@ -93,238 +199,124 @@ export default function LocalizedPrivacyPage({
             fontWeight: 700,
             color: '#94A3B8',
             marginBottom: 28,
-            transition: 'color 0.2s',
+            textDecoration: 'none',
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = '#FC466B')}
-          onMouseLeave={(e) => (e.currentTarget.style.color = '#475569')}
         >
           {isFa ? <ArrowRight size={16} /> : <ArrowLeft size={16} />}
-          <span>{isFa ? 'بازگشت به صفحه اصلی زو' : 'Back to ZEV Home'}</span>
+          <span>{isFa ? 'بازگشت به صفحه اصلی' : 'Back to Home'}</span>
         </Link>
 
-        {/* Hero Section Banner (Pink Box) */}
-        <div
-          className="pink-box"
-          style={{
-            padding: '36px clamp(20px, 3vw, 48px)',
-            borderRadius: 32,
-            background: 'rgba(13, 18, 30, 0.75)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            boxShadow: '0 12px 35px rgba(252, 70, 107, 0.1)',
-            marginBottom: 36,
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-            <span
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 8,
-                padding: '6px 16px',
-                borderRadius: 999,
-                background: 'rgba(13, 18, 30, 0.75)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                fontSize: 13,
-                fontWeight: 800,
-                color: '#FC466B',
-              }}
-            >
-              <ShieldCheck size={15} />
-              {isFa ? 'سند رسمی شفافیت و حریم خصوصی • نسخه ۲.۴' : 'Official Privacy Policy • Revision 2.4'}
-            </span>
-            <span
-              style={{
-                padding: '6px 14px',
-                borderRadius: 999,
-                background: 'rgba(13, 18, 30, 0.75)',
-                border: '1px solid rgba(252, 70, 107, 0.25)',
-                fontSize: 12,
-                fontWeight: 700,
-                color: '#94A3B8',
-              }}
-            >
-              zevapp.com/privacy
+        {/* Hero Header */}
+        <div style={{ textAlign: 'center', maxWidth: 840, margin: '0 auto 60px' }}>
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              padding: '6px 16px',
+              borderRadius: 20,
+              background: 'rgba(0, 212, 255, 0.08)',
+              border: '1px solid rgba(0, 212, 255, 0.25)',
+              marginBottom: 16,
+            }}
+          >
+            <ShieldCheck size={14} color="#00D4FF" />
+            <span style={{ fontSize: 13, fontWeight: 800, color: '#00D4FF' }}>
+              {isFa ? 'شفافیت، امنیت و استقلال داده‌ها' : 'PRIVACY & DATA SOVEREIGNTY'}
             </span>
           </div>
 
           <h1
             style={{
-              fontSize: 'clamp(28px, 3.5vw, 44px)',
+              fontSize: 'clamp(32px, 5vw, 50px)',
               fontWeight: 900,
-              lineHeight: 1.2,
+              lineHeight: 1.15,
+              marginBottom: 18,
               color: '#FFFFFF',
-              marginBottom: 16,
-              letterSpacing: '-0.5px',
             }}
           >
-            {isFa ? 'سیاست حفظ حریم خصوصی و امنیت داده‌ها در زو (ZEV)' : 'ZEV Privacy & Data Protection Policy'}
+            {isFa ? 'سیاست حفظ حریم خصوصی زِو' : 'ZEV Global Privacy Policy'}
           </h1>
 
-          <p
-            style={{
-              fontSize: 'clamp(15px, 1.2vw, 17px)',
-              color: '#94A3B8',
-              maxWidth: 1200,
-              lineHeight: 1.8,
-              margin: 0,
-            }}
-          >
+          <p style={{ fontSize: 17, color: '#94A3B8', lineHeight: 1.65 }}>
             {isFa
-              ? 'در زو (zevapp.com)، حریم خصوصی و امنیت اطلاعات کاربران بالاترین اولویت ماست. ما معتقدیم اطلاعات شما متعلق به خود شماست. این سند نحوه جمع‌آوری، رمزنگاری و حفاظت از اطلاعات شما را در تمامی نسخه‌های اپلیکیشن به صورت کاملاً شفاف و مستند بیان می‌کند.'
-              : 'At ZEV (zevapp.com), user data sovereignty is our central design pillar. This document details how your personal information is encrypted, managed, and safeguarded across all client applications and cloud subsystems.'}
+              ? 'تعهد رسمی شرکت صاحب گروپ به حفاظت از اطلاعات شخصی، عدم فروش داده‌ها و رمزگذاری بانکی.'
+              : 'Our legally binding commitment to personal data protection, zero data brokering, and cryptographic security.'}
           </p>
         </div>
 
-        {/* 2-Column Layout */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'minmax(0, 1.7fr) minmax(340px, 1fr)',
-            gap: 36,
-            alignItems: 'start',
-          }}
-          className="child-safety-grid"
-        >
-          {/* Main Content Articles */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-            {sections.map((sec, i) => {
-              const Icon = sec.icon;
-              return (
-                <div
-                  key={i}
-                  id={sec.id}
-                  className="pink-box"
-                  style={{
-                    padding: '30px clamp(20px, 2.5vw, 36px)',
-                    borderRadius: 24,
-                    background: 'rgba(13, 18, 30, 0.75)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
-                    boxShadow: '0 6px 20px rgba(252, 70, 107, 0.06)',
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 14 }}>
-                    <div
-                      style={{
-                        width: 44,
-                        height: 44,
-                        borderRadius: 14,
-                        background: '#FC466B',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: '#FFFFFF',
-                        flexShrink: 0,
-                        boxShadow: '0 4px 15px rgba(252, 70, 107, 0.3)',
-                      }}
-                    >
-                      <Icon size={22} />
-                    </div>
-                    <h2 style={{ fontSize: 19, fontWeight: 900, color: '#FFFFFF', margin: 0 }}>
-                      {sec.title}
-                    </h2>
-                  </div>
-
-                  <p style={{ fontSize: 15, color: '#94A3B8', lineHeight: 1.8, margin: 0 }}>
-                    {sec.content}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Sidebar */}
-          <div style={{ position: 'sticky', top: 105, display: 'flex', flexDirection: 'column', gap: 24 }}>
-            {/* Quick Index (Pink Box) */}
-            <div
-              className="pink-box"
-              style={{
-                padding: 26,
-                borderRadius: 24,
-                background: 'rgba(13, 18, 30, 0.75)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                boxShadow: '0 8px 25px rgba(252, 70, 107, 0.08)',
-              }}
-            >
-              <h3 style={{ fontSize: 16, fontWeight: 900, color: '#FFFFFF', marginBottom: 16 }}>
-                {isFa ? 'فهرست سرفصل‌های این سند' : 'Document Outline'}
-              </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                {sections.map((sec, idx) => (
-                  <a
-                    key={idx}
-                    href={`#${sec.id}`}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 10,
-                      fontSize: 13.5,
-                      fontWeight: 700,
-                      color: '#94A3B8',
-                      textDecoration: 'none',
-                      padding: '8px 12px',
-                      borderRadius: 12,
-                      background: 'rgba(13, 18, 30, 0.75)',
-                      border: '1px solid rgba(252, 70, 107, 0.2)',
-                      transition: 'all 0.2s',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.color = '#FFFFFF';
-                      e.currentTarget.style.background = '#FC466B';
-                      e.currentTarget.style.borderColor = '#FC466B';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.color = '#CBD5E1';
-                      e.currentTarget.style.background = 'rgba(13, 18, 30, 0.75)';
-                      e.currentTarget.style.borderColor = 'rgba(252, 70, 107, 0.2)';
-                    }}
-                  >
-                    <span style={{ color: '#FC466B', fontWeight: 800 }}>•</span>
-                    <span className="truncate">{sec.title}</span>
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {/* Privacy Officer Contact (Pink Box) */}
-            <div
-              className="pink-box"
-              style={{
-                padding: 26,
-                borderRadius: 24,
-                background: 'rgba(13, 18, 30, 0.75)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                boxShadow: '0 8px 25px rgba(252, 70, 107, 0.1)',
-              }}
-            >
-              <h4 style={{ fontSize: 16, fontWeight: 900, color: '#FFFFFF', marginBottom: 10 }}>
-                {isFa ? 'مسئول حفاظت از داده‌ها (DPO)' : 'Data Protection Officer'}
-              </h4>
-              <p style={{ fontSize: 13.5, color: '#94A3B8', lineHeight: 1.6, marginBottom: 16 }}>
-                {isFa
-                  ? 'جهت درخواست استخراج اطلاعات، حذف دائمی حساب، یا هرگونه سوال حقوقی پیرامون حریم خصوصی با ایمیل مستقیم مسئول حفاظت از داده‌ها تماس حاصل فرمایید:'
-                  : 'For subject access requests, complete deletion certifications, or compliance questions, reach our global Data Protection unit:'}
-              </p>
-              <a
-                href="mailto:privacy@zevapp.com"
+        {/* Policy Sections */}
+        <div style={{ maxWidth: 860, margin: '0 auto 60px', display: 'flex', flexDirection: 'column', gap: 24 }}>
+          {sections.map((sec, idx) => {
+            const Icon = sec.icon;
+            return (
+              <div
+                key={idx}
+                id={sec.id}
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 12,
-                  padding: '12px 16px',
-                  borderRadius: 14,
-                  background: '#FC466B',
-                  textDecoration: 'none',
-                  color: '#FFFFFF',
-                  fontSize: 14,
-                  fontWeight: 800,
-                  boxShadow: '0 6px 18px rgba(252, 70, 107, 0.3)',
+                  background: 'rgba(13, 18, 30, 0.75)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  borderRadius: 24,
+                  padding: '30px 28px',
+                  boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
                 }}
               >
-                <Mail size={18} color="#FFFFFF" />
-                <span>privacy@zevapp.com</span>
-              </a>
-            </div>
-          </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 14 }}>
+                  <div
+                    style={{
+                      width: 40,
+                      height: 40,
+                      borderRadius: 12,
+                      background: 'rgba(0, 212, 255, 0.1)',
+                      border: '1px solid rgba(0, 212, 255, 0.25)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#00D4FF',
+                    }}
+                  >
+                    <Icon size={20} />
+                  </div>
+                  <h2 style={{ fontSize: 18, fontWeight: 800, color: '#FFFFFF' }}>{sec.title}</h2>
+                </div>
+                <p style={{ fontSize: 15, color: '#CBD5E1', lineHeight: 1.75 }}>{sec.content}</p>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Privacy Contact */}
+        <div
+          style={{
+            maxWidth: 860,
+            margin: '0 auto',
+            background: 'linear-gradient(145deg, rgba(13, 18, 30, 0.85) 0%, rgba(8, 13, 26, 0.95) 100%)',
+            border: '1px solid rgba(0, 212, 255, 0.25)',
+            borderRadius: 26,
+            padding: '36px 32px',
+            textAlign: 'center',
+          }}
+        >
+          <Mail size={32} color="#00D4FF" style={{ margin: '0 auto 12px' }} />
+          <h3 style={{ fontSize: 20, fontWeight: 900, color: '#FFFFFF', marginBottom: 8 }}>
+            {isFa ? 'افسر حفاظت از داده‌ها (DPO)' : 'Data Protection Officer (DPO)'}
+          </h3>
+          <p style={{ fontSize: 14.5, color: '#94A3B8', marginBottom: 18 }}>
+            {isFa
+              ? 'جهت هرگونه استعلام، اعمال حق حذف یا گزارش امنیتی با ایمیل رسمی حریم خصوصی مکاتبه فرمایید.'
+              : 'Direct all GDPR, CCPA, or personal data sovereignty inquiries to privacy@zevapp.com.'}
+          </p>
+          <a
+            href="mailto:privacy@zevapp.com"
+            style={{
+              color: '#00D4FF',
+              fontWeight: 800,
+              fontSize: 15,
+              textDecoration: 'none',
+            }}
+          >
+            privacy@zevapp.com
+          </a>
         </div>
       </div>
     </div>

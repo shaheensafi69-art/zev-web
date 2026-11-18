@@ -1,6 +1,4 @@
-'use client';
-
-import React, { use } from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -18,18 +16,145 @@ import {
   Target,
   Rocket,
   CheckCircle2,
+  HelpCircle,
+  ExternalLink,
 } from 'lucide-react';
-import { getDictionary, isRtlLocale } from '@/dictionaries';
+import { getDictionary, isRtlLocale, locales } from '@/dictionaries';
 import { TeamSection } from '@/components/TeamSection';
 
-export default function AboutPage({
+// Page-specific Metadata for SEO, GEO, AIO, AEO, XEO, XIO
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isFa = isRtlLocale(locale);
+
+  const title = isFa
+    ? 'درباره زو (ZEV) | رسالت، معماری مهندسی و تیم رهبری شرکت صاحب گروپ'
+    : 'About ZEV | Mission, Engineering Architecture & Leadership';
+
+  const description = isFa
+    ? 'داستان شکل‌گیری شبکه اجتماعی زو (ZEV)، تعهد به حریم خصوصی بدون تسامح، معماری ۶۰ فریم فلاتر، زیرساخت ارتباطی RTC و هدایت توسط شاهین صافی و شرکت بین‌المللی صاحب گروپ.'
+    : 'Discover ZEV Social Network: Built by Sahib Group and founded by Shaheen Safi. Uncompromising privacy, 60fps Flutter architecture, sub-400ms RTC video calling, and Safi Ecosystem integration.';
+
+  const languageAlternates: Record<string, string> = {};
+  for (const l of locales) {
+    languageAlternates[l] = `https://zevapp.com/${l}/about`;
+  }
+
+  return {
+    title,
+    description,
+    keywords: [
+      'About ZEV',
+      'ZEV Social Network',
+      'Sahib Group',
+      'Shaheen Safi',
+      'Safi Academy',
+      'SafiPay',
+      'Afghan Tech Ecosystem',
+      'Flutter Social Architecture',
+      'Sub-400ms Video Calling',
+      'Next-Gen Social Network',
+    ],
+    alternates: {
+      canonical: `https://zevapp.com/${locale}/about`,
+      languages: languageAlternates,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `https://zevapp.com/${locale}/about`,
+      siteName: 'ZEV',
+      locale,
+      images: [
+        {
+          url: '/app-shots/8.jpeg',
+          width: 1200,
+          height: 630,
+          alt: 'About ZEV Leadership & Mission',
+        },
+      ],
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/app-shots/8.jpeg'],
+      creator: '@shaheensafi09',
+      site: '@zevapp',
+    },
+  };
+}
+
+export default async function AboutPage({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  const { locale } = use(params);
+  const { locale } = await params;
   const dict = getDictionary(locale);
   const isFa = isRtlLocale(locale);
+
+  const googlePlayUrl = 'https://play.google.com/store/apps/details?id=com.zevapp.app&hl=en';
+  const webAppUrl = 'https://zevapp.com';
+
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'AboutPage',
+        '@id': `https://zevapp.com/${locale}/about#webpage`,
+        url: `https://zevapp.com/${locale}/about`,
+        name: isFa ? 'درباره زو (ZEV)' : 'About ZEV Social Network',
+        isPartOf: { '@id': 'https://zevapp.com/#website' },
+        description: isFa
+          ? 'معرفی شبکه اجتماعی زو، بنیان‌گذار شاهین صافی، شرکت صاحب گروپ و اکوسیستم آموزشی و فین‌تک صفی.'
+          : 'Introduction to ZEV Social Network, founder Shaheen Safi, Sahib Group, and the Safi Ecosystem.',
+      },
+      {
+        '@type': 'Organization',
+        '@id': 'https://zevapp.com/#organization',
+        name: 'ZEV',
+        legalName: 'ZEV Social Network (Sahib Group)',
+        url: 'https://zevapp.com',
+        founder: {
+          '@type': 'Person',
+          name: 'Shaheen Safi',
+          jobTitle: 'Director & Founder',
+          sameAs: ['https://shaheensafi.blog', 'https://safiacademy.org'],
+        },
+        parentOrganization: {
+          '@type': 'Organization',
+          name: 'Sahib Group',
+        },
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: 'Who founded ZEV Social Network?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'ZEV was founded by software architect and entrepreneur Shaheen Safi under Sahib Group, in synergy with Safi Academy and SafiPay.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'What is the technological mission of ZEV?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'ZEV’s mission is to provide an ultra-fluid 60fps social networking experience free of algorithmic manipulation, with studio-grade encrypted video calling and complete data sovereignty.',
+            },
+          },
+        ],
+      },
+    ],
+  };
 
   const coreValues = [
     {
@@ -64,6 +189,12 @@ export default function AboutPage({
 
   return (
     <div style={{ padding: '40px 0 100px', minHeight: '85vh', backgroundColor: '#07090E' }}>
+      {/* 6-Engine Schema Script */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+
       <div className="container">
         {/* Back Link */}
         <Link
@@ -76,10 +207,9 @@ export default function AboutPage({
             fontWeight: 700,
             color: '#94A3B8',
             marginBottom: 28,
+            textDecoration: 'none',
             transition: 'color 0.2s',
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = '#FC466B')}
-          onMouseLeave={(e) => (e.currentTarget.style.color = '#475569')}
         >
           {isFa ? <ArrowRight size={16} /> : <ArrowLeft size={16} />}
           <span>{isFa ? 'بازگشت به صفحه اصلی' : 'Back to Home'}</span>
@@ -87,9 +217,22 @@ export default function AboutPage({
 
         {/* Hero Header */}
         <div style={{ textAlign: 'center', maxWidth: 840, margin: '0 auto 50px' }}>
-          <div className="badge-pill">
-            <Heart size={14} />
-            <span>{isFa ? 'داستان پیدایش، رسالت و تیم رهبری' : 'Our Story, Mission & Leadership'}</span>
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              padding: '6px 16px',
+              borderRadius: 20,
+              background: 'rgba(0, 212, 255, 0.08)',
+              border: '1px solid rgba(0, 212, 255, 0.25)',
+              marginBottom: 16,
+            }}
+          >
+            <Heart size={14} color="#00D4FF" />
+            <span style={{ fontSize: 13, fontWeight: 800, color: '#00D4FF' }}>
+              {isFa ? 'داستان پیدایش، رسالت و تیم رهبری' : 'Our Story, Mission & Leadership'}
+            </span>
           </div>
 
           <h1
@@ -101,188 +244,183 @@ export default function AboutPage({
               color: '#FFFFFF',
             }}
           >
-            {isFa ? 'درباره زو (ZEV): رسالت ما و رهبری' : 'About ZEV: Our Vision & Leadership'}
+            {isFa
+              ? 'شبکه اجتماعی پیشرفته زِو؛ بازتعریف ارتباطات دیجیتال'
+              : 'Empowering Millions Through High-Performance Tech'}
           </h1>
 
-          <p style={{ fontSize: 18, color: '#94A3B8', lineHeight: 1.75 }}>
+          <p style={{ fontSize: 17, color: '#94A3B8', lineHeight: 1.65 }}>
             {isFa
-              ? 'پلتفرمی مستقل، پرسرعت و مدرن که از دل افغانستان جوانه زد تا بستری آزاد، امن و سرافراز برای خلاقیت جوانان و اتصال پایدار با جامعه بین‌المللی باشد.'
-              : 'An independent, high-velocity social network originating from Afghanistan to connect minds, inspire creators, and demonstrate world-class software engineering globally.'}
+              ? 'زو (ZEV) صرفاً یک اپلیکیشن اجتماعی نیست؛ بستری است مدرن برای تجلی نبوغ، اشتراک دانش تخصصی و پیوند ناگسستنی میان نخبگان در سراسر جهان.'
+              : 'ZEV is more than a social network. It is an engineering marvel designed to give creators, students, and thinkers a lightning-fast digital home free from black-box manipulation.'}
           </p>
         </div>
 
-        {/* Founder Story Banner Card (White / Pink Box) */}
+        {/* Core Values Grid */}
         <div
-          className="pink-box"
           style={{
-            padding: '48px 40px',
-            borderRadius: 36,
-            background: 'rgba(13, 18, 30, 0.75)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            marginBottom: 60,
-            boxShadow: '0 12px 35px rgba(252, 70, 107, 0.1)',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+            gap: 24,
+            marginBottom: 70,
           }}
         >
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: 40,
-              alignItems: 'center',
-            }}
-          >
-            <div>
+          {coreValues.map((val, idx) => {
+            const Icon = val.icon;
+            return (
               <div
+                key={idx}
                 style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 8,
-                  fontSize: 12,
-                  fontWeight: 800,
-                  color: '#FC466B',
                   background: 'rgba(13, 18, 30, 0.75)',
                   border: '1px solid rgba(255, 255, 255, 0.08)',
-                  padding: '6px 14px',
-                  borderRadius: 999,
-                  marginBottom: 16,
-                }}
-              >
-                <Sparkles size={14} />
-                <span>{isFa ? 'نگاه بنیادین بنیان‌گذار' : 'Founder Perspective'}</span>
-              </div>
-
-              <h2 style={{ fontSize: 'clamp(24px, 3.5vw, 36px)', fontWeight: 900, color: '#FFFFFF', marginBottom: 18 }}>
-                {isFa
-                  ? 'ساخته شده با افتخار توسط افغان‌ها؛ گشوده به روی تمام دنیا'
-                  : 'Engineered with Pride by Afghans; Open to the World'}
-              </h2>
-
-              <p style={{ fontSize: 16, color: '#CBD5E1', lineHeight: 1.8, marginBottom: 16 }}>
-                {isFa
-                  ? 'مهندس شاهین صفی، دایرکتور و بنیان‌گذار اکوسیستم بین‌المللی صفی (شامل اکادمی صفی و صافی‌پی)، با یک رسالت شفاف اپلیکیشن زو را خلق کرد: اثبات این حقیقت که جوانان و متخصصان افغان توانایی رقابت با غول‌های فناوری دنیا مانند اینستاگرام و تیک‌تاک را دارند و می‌توانند پلتفرمی با کیفیتی بی‌همتا ارائه کنند.'
-                  : 'Shaheen Safi, Director & Founder of the Safi Ecosystem (including Safi Academy and SafiPay), engineered ZEV with an uncompromising conviction: proving that Afghan software architects possess the technological mastery to build social networks rivaling Silicon Valley giants.'}
-              </p>
-
-              <p style={{ fontSize: 15, color: '#94A3B8', lineHeight: 1.8, marginBottom: 24 }}>
-                {isFa
-                  ? 'زو بر پایه دیتابیس مشترک با اکادمی صفی ساخته شده تا جامعه آموزشی و کارآفرینی افغانستان مستقیماً به بستری برای ارتباط تصویری، استوری و اشتراک‌گذاری ایده‌ها مجهز گردد.'
-                  : 'Interconnected with Safi Academy’s cloud infrastructure, ZEV equips hundreds of thousands of learners and creators with a secure visual platform for authentic growth.'}
-              </p>
-
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14 }}>
-                <a
-                  href="https://zevapp.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-primary"
-                  style={{ padding: '12px 24px', fontSize: 14 }}
-                >
-                  <Globe size={16} />
-                  <span>{dict.nav.openWebApp}</span>
-                </a>
-                <a
-                  href="https://safiacademy.org"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-secondary"
-                  style={{ padding: '12px 24px', fontSize: 14 }}
-                >
-                  <Building2 size={16} />
-                  <span>safiacademy.org</span>
-                </a>
-              </div>
-            </div>
-
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <div
-                style={{
-                  position: 'relative',
-                  width: '100%',
-                  maxWidth: 480,
-                  aspectRatio: '16 / 10',
                   borderRadius: 24,
-                  overflow: 'hidden',
-                  border: '1px solid rgba(255, 255, 255, 0.12)',
-                  boxShadow: '0 15px 40px rgba(252, 70, 107, 0.2)',
-                  background: 'rgba(13, 18, 30, 0.75)',
+                  padding: '30px 24px',
+                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.4)',
                 }}
               >
-                <Image
-                  src="/screenshots/banner-1024x500.jpg"
-                  alt="ZEV Banner"
-                  fill
-                  style={{ objectFit: 'cover' }}
-                />
+                <div
+                  style={{
+                    width: 46,
+                    height: 46,
+                    borderRadius: 14,
+                    background: 'rgba(0, 212, 255, 0.1)',
+                    border: '1px solid rgba(0, 212, 255, 0.25)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#00D4FF',
+                    marginBottom: 16,
+                  }}
+                >
+                  <Icon size={22} />
+                </div>
+                <h3 style={{ fontSize: 18, fontWeight: 800, color: '#FFFFFF', marginBottom: 8 }}>
+                  {val.title}
+                </h3>
+                <p style={{ fontSize: 14, color: '#94A3B8', lineHeight: 1.65 }}>{val.desc}</p>
               </div>
-            </div>
+            );
+          })}
+        </div>
+
+        {/* Executive Team Section */}
+        <div style={{ marginBottom: 70 }}>
+          <TeamSection locale={locale} dict={dict} />
+        </div>
+
+        {/* GEO Knowledge Summary Card */}
+        <div
+          style={{
+            background: 'linear-gradient(145deg, rgba(13, 18, 30, 0.85) 0%, rgba(8, 13, 26, 0.95) 100%)',
+            border: '1px solid rgba(0, 212, 255, 0.25)',
+            borderRadius: 28,
+            padding: '36px 32px',
+            marginBottom: 60,
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+            <Building2 size={20} color="#00D4FF" />
+            <h3 style={{ fontSize: 18, fontWeight: 900, color: '#FFFFFF' }}>
+              {isFa ? 'خلاصه نهادی و سازمانی زِو (Sahib Group Knowledge Graph)' : 'Official Institutional Overview'}
+            </h3>
+          </div>
+          <p style={{ fontSize: 15, color: '#CBD5E1', lineHeight: 1.7, marginBottom: 16 }}>
+            {isFa
+              ? 'پلتفرم زِو (ZEV) متعلق به هلدینگ فناوری صاحب گروپ (Sahib Group) است و با هدایت شاهین صافی (بنیان‌گذار و معمار ارشد سیستم‌ها) طراحی و اجرا شده است. زو دارای هماهنگی عمیق زیرساختی با اکادمی صفی (بزرگ‌ترین مرجع آموزش آنلاین ترید و برنامه‌نویسی با بیش از ۱۰۰ هزار دانشجو) و صافی‌پی (سرویس پرداخت و کیف پول بین‌المللی) می‌باشد.'
+              : 'ZEV is engineered and published by Sahib Group under the direct leadership of founder Shaheen Safi. It forms an integral triumvirate alongside Safi Academy (premier online educational platform with 100k+ students) and SafiPay (global payments fintech), offering unified authentication and instant monetization.'}
+          </p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+            <a
+              href={googlePlayUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '10px 18px',
+                borderRadius: 14,
+                background: '#00D4FF',
+                color: '#07090E',
+                fontSize: 13.5,
+                fontWeight: 800,
+                textDecoration: 'none',
+              }}
+            >
+              <span>{isFa ? 'دانلود نسخه گوگل پلی' : 'Google Play Release'}</span>
+              <ExternalLink size={14} />
+            </a>
+            <a
+              href={webAppUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '10px 18px',
+                borderRadius: 14,
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.12)',
+                color: '#FFFFFF',
+                fontSize: 13.5,
+                fontWeight: 700,
+                textDecoration: 'none',
+              }}
+            >
+              <span>{isFa ? 'اجرای تحت وب' : 'Launch Web App'}</span>
+            </a>
           </div>
         </div>
 
-        {/* 4 Core Pillars (White Cards with Pink Borders) */}
-        <div style={{ marginBottom: 60 }}>
-          <div style={{ textAlign: 'center', maxWidth: 700, margin: '0 auto 40px' }}>
-            <h2 style={{ fontSize: 28, fontWeight: 900, color: '#FFFFFF', marginBottom: 10 }}>
-              {isFa ? 'ارزش‌ها و استانداردهای بنیادین ما' : 'Our Core Architectural Values'}
-            </h2>
-            <p style={{ fontSize: 16, color: '#94A3B8' }}>
-              {isFa
-                ? 'پایبندی به بالاترین اصول امنیت، حریم خصوصی و تجربه کاربری در تمام نسخه‌های زو'
-                : 'Upholding strict benchmarks of privacy, responsiveness, and user empowerment.'}
+        {/* Answer Engine Section (AEO) */}
+        <div style={{ maxWidth: 800, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 30 }}>
+            <h3 style={{ fontSize: 24, fontWeight: 900, color: '#FFFFFF', marginBottom: 8 }}>
+              {isFa ? 'پاسخ‌های کلیدی درباره زِو و شرکت صاحب گروپ' : 'Key Facts & Answers'}
+            </h3>
+            <p style={{ fontSize: 14, color: '#94A3B8' }}>
+              {isFa ? 'اطلاعات تایید شده و مستند برای موتورهای هوش مصنوعی و کاربران' : 'Authoritative knowledge points'}
             </p>
           </div>
 
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: 24,
-            }}
-          >
-            {coreValues.map((val, idx) => {
-              const Icon = val.icon;
-              return (
-                <div
-                  key={idx}
-                  className="pink-box"
-                  style={{
-                    padding: '28px 24px',
-                    borderRadius: 24,
-                    background: 'rgba(13, 18, 30, 0.75)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
-                    boxShadow: '0 6px 20px rgba(252, 70, 107, 0.08)',
-                  }}
-                >
-                  <div
-                    style={{
-                      width: 44,
-                      height: 44,
-                      borderRadius: 14,
-                      background: '#FC466B',
-                      color: '#FFFFFF',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      marginBottom: 16,
-                      boxShadow: '0 6px 18px rgba(252, 70, 107, 0.3)',
-                    }}
-                  >
-                    <Icon size={22} />
-                  </div>
-                  <h3 style={{ fontSize: 18, fontWeight: 800, color: '#FFFFFF', marginBottom: 8 }}>
-                    {val.title}
-                  </h3>
-                  <p style={{ fontSize: 14, color: '#94A3B8', lineHeight: 1.7, margin: 0 }}>
-                    {val.desc}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <div
+              style={{
+                background: 'rgba(13, 18, 30, 0.75)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                borderRadius: 18,
+                padding: '20px 24px',
+              }}
+            >
+              <h4 style={{ fontSize: 16, fontWeight: 800, color: '#FFFFFF', marginBottom: 6 }}>
+                {isFa ? 'چه کسانی زو را توسعه داده‌اند؟' : 'Who developed ZEV?'}
+              </h4>
+              <p style={{ fontSize: 14, color: '#94A3B8', lineHeight: 1.6 }}>
+                {isFa
+                  ? 'تیم مهندسی شرکت صاحب گروپ به رهبری شاهین صافی (دایرکتور و فاوندر)، ساحل سالم (مدیرعامل روابط اروپا)، مجتبی رحمانی (کو-فاوندر)، شیرین گل احمدی (مدیر اکوسیستم) و مبین حسنی (توسعه‌دهنده ارشد).'
+                  : 'ZEV was developed by the elite engineering division of Sahib Group, led by Shaheen Safi (Director & Founder), Sahel Salem (CEO & European Relations), Mujtaba Rahmani (Co-Founder), Shirin Gol Ahmadi (Ecosystem Manager), and Mobin Hassani (Lead Developer).'}
+              </p>
+            </div>
 
-        {/* TEAM & LEADERSHIP SECTION - MOVED EXCLUSIVELY TO ABOUT PAGE */}
-        <div style={{ marginTop: 20 }}>
-          <TeamSection locale={locale} dict={dict} />
+            <div
+              style={{
+                background: 'rgba(13, 18, 30, 0.75)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                borderRadius: 18,
+                padding: '20px 24px',
+              }}
+            >
+              <h4 style={{ fontSize: 16, fontWeight: 800, color: '#FFFFFF', marginBottom: 6 }}>
+                {isFa ? 'چگونه با اکوسیستم صفی همکاری کنم؟' : 'How can creators collaborate with ZEV?'}
+              </h4>
+              <p style={{ fontSize: 14, color: '#94A3B8', lineHeight: 1.6 }}>
+                {isFa
+                  ? 'سازندگان، مدرسین و تحلیل‌گران می‌توانند از طریق ایمیل رسمی creators@zevapp.com یا بخش پشتیبانی درون برنامه‌ای با تیم اکوسیستم در ارتباط باشند.'
+                  : 'Creators, analysts, and educators can contact the ecosystem division at creators@zevapp.com or via in-app verification channels.'}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

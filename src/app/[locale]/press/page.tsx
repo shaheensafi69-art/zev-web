@@ -1,6 +1,4 @@
-'use client';
-
-import React, { use } from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -17,136 +15,164 @@ import {
   Award,
   FileText,
   CheckCircle2,
+  HelpCircle,
 } from 'lucide-react';
-import { getDictionary, isRtlLocale } from '@/dictionaries';
+import { getDictionary, isRtlLocale, locales } from '@/dictionaries';
 
-export default function PressPage({
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isFa = isRtlLocale(locale);
+
+  const title = isFa
+    ? 'اتاق خبر و رسانه زو (ZEV Press & Newsroom) | بیانیه‌ها و کیت رسانه‌ای'
+    : 'ZEV Newsroom & Press Kit | Official Announcements & Media Assets';
+
+  const description = isFa
+    ? 'اتاق خبر رسمی زو (ZEV): دسترسی به آخرین بیانیه‌های مطبوعاتی، دانلود کیت رسانه‌ای شامل لوگو و عکس‌های باکیفیت اپ، پالت رنگی رسمی و راه‌های ارتباطی با بخش رسانه صاحب گروپ.'
+    : 'Official ZEV Press Room: Download media kit assets, vector brand logos, high-resolution screenshots, executive press releases, and media inquiry guidelines.';
+
+  const languageAlternates: Record<string, string> = {};
+  for (const l of locales) {
+    languageAlternates[l] = `https://zevapp.com/${l}/press`;
+  }
+
+  return {
+    title,
+    description,
+    keywords: [
+      'ZEV Press',
+      'ZEV Newsroom',
+      'ZEV Media Kit',
+      'ZEV Brand Assets',
+      'Sahib Group Press',
+      'Shaheen Safi Press Release',
+      'ZEV Logo Vector',
+    ],
+    alternates: {
+      canonical: `https://zevapp.com/${locale}/press`,
+      languages: languageAlternates,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `https://zevapp.com/${locale}/press`,
+      siteName: 'ZEV',
+      locale,
+      images: [
+        {
+          url: '/app-shots/8.jpeg',
+          width: 1200,
+          height: 630,
+          alt: 'ZEV Official Press Room & Media Assets',
+        },
+      ],
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/app-shots/8.jpeg'],
+      creator: '@shaheensafi09',
+      site: '@zevapp',
+    },
+  };
+}
+
+export default async function PressPage({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  const { locale } = use(params);
+  const { locale } = await params;
+  const dict = getDictionary(locale);
   const isFa = isRtlLocale(locale);
+
+  const googlePlayUrl = 'https://play.google.com/store/apps/details?id=com.zevapp.app&hl=en';
+  const webAppUrl = 'https://zevapp.com';
+
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'NewsMediaOrganization',
+        name: 'ZEV Press & Media Division',
+        url: 'https://zevapp.com',
+        parentOrganization: {
+          '@type': 'Organization',
+          name: 'Sahib Group',
+        },
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: 'How can journalists contact the ZEV media team?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Journalists and news outlets can submit official inquiries directly to press@zevapp.com or media@sahibgroup.com.',
+            },
+          },
+        ],
+      },
+    ],
+  };
 
   const pressReleases = [
     {
-      date: 'November 2026',
+      date: '2026-11-15',
+      tag: isFa ? 'نسخه رسمی' : 'Major Release',
       title: isFa
-        ? 'زو (ZEV) نسل جدید شبکه اجتماعی اختصاصی با موتور ۶۰ فریم و هویت بین‌المللی را معرفی کرد'
-        : 'ZEV Unveils Flagship Cross-Platform Social Network with 60fps Native Performance',
+        ? 'انتشار نسخه ۲.۴ زو در گوگل پلی با پشتیبانی از ریلز ۶۰ فریم و تماس ویدیویی RTC'
+        : 'ZEV 2.4 Launches on Google Play Store with 60fps Reels & Sub-400ms Video Calling',
       summary: isFa
-        ? 'زو با معماری فوق‌سریع فلاتر، رمزنگاری پیشرفته و پایگاه داده مشترک با اکادمی صفی، مرزهای شبکه‌های اجتماعی مدرن را جابجا می‌کند.'
-        : 'Engineered for seamless cross-platform performance, ZEV introduces ultra-low-latency reels, studio video calling, and banking-grade security.',
-      tag: isFa ? 'اطلاعیه رسمی' : 'Official Launch',
+        ? 'شرکت صاحب گروپ نسخه جدید زو را با بازطراحی کامل موتور رندرینگ فلاتر، کاهش تاخیر تماس به زیر ۴۰۰ میلی‌ثانیه و انتشار رسمی در گوگل پلی معرفی کرد.'
+        : 'Sahib Group announces the official worldwide release of ZEV 2.4 on Google Play, featuring sub-400ms Agora RTC video calling and hardware-accelerated 60fps Reels.',
     },
     {
-      date: 'October 2026',
+      date: '2026-10-01',
+      tag: isFa ? 'همگرایی ابری' : 'Infrastructure',
       title: isFa
-        ? 'یکپارچه‌سازی پایگاه داده سراسری با اکوسیستم بین‌المللی صفی و صفی‌پی'
-        : 'Strategic Single Sign-On & Database Unification with Safi Academy and SafiPay',
+        ? 'یکپارچه‌سازی پایگاه داده زو با اکادمی صفی و صافی‌پی تکمیل شد'
+        : 'Seamless Single Sign-On Unifies ZEV with Safi Academy (100k+ Learners) and SafiPay',
       summary: isFa
-        ? 'کاربران زو اکنون می‌توانند با یک حساب کاربری مشترک به صدها دوره آموزشی، درگاه‌های پرداخت بین‌المللی و تیک‌های تایید رسمی متصل شوند.'
-        : 'Over 200,000 students and creators receive instant SSO verification, academic badges, and direct monetization capabilities.',
-      tag: isFa ? 'اکوسیستم' : 'Ecosystem',
-    },
-    {
-      date: 'September 2026',
-      title: isFa
-        ? 'استقرار سیستم پخش زنده با تاخیر فوق‌العاده پایین (Ultra-Low Latency RTC)'
-        : 'Deployment of Sub-400ms Agora RTC Live Broadcasting Engine',
-      summary: isFa
-        ? 'سیستم جدید پخش زنده زو با تنظیمات صدای گیمینگ و انکودر ویدیویی ۳۰ فریم بر ثانیه، کیفیتی در تراز جهانی ارائه می‌دهد.'
-        : 'Achieving studio acoustic clarity and 30fps adaptive dual-stream video for global creator broadcasts.',
-      tag: isFa ? 'فناوری' : 'Technology',
-    },
-  ];
-
-  const brandAssets = [
-    {
-      title: isFa ? 'لوگوی رسمی ZEV (باکیفیت بالا)' : 'Official ZEV Primary Logo',
-      format: 'PNG & SVG (1024x1024)',
-      preview: '/assets/icon-clean.png',
-      url: '/assets/icon-clean.png',
-    },
-    {
-      title: isFa ? 'بنر معرفی رسمی زو' : 'Official ZEV Showcase Banner',
-      format: 'High-Res Landscape (1600x800)',
-      preview: '/app-shots/8.jpeg',
-      url: '/app-shots/8.jpeg',
-    },
-    {
-      title: isFa ? 'اسکرین‌شات‌های رابط کاربری اپ' : 'App UI Interface Showcase',
-      format: 'Mobile HD Pack (738x1600)',
-      preview: '/app-shots/1.jpeg',
-      url: '/app-shots/1.jpeg',
+        ? 'با ارتقای لایه احراز هویت، دانشجویان اکادمی صفی اکنون بدون نیاز به ثبت‌نام مجدد به شبکه زو دسترسی داشته و از تیک تایید بهره‌مند می‌شوند.'
+        : 'The complete rollout of unified identity across the Safi Ecosystem grants instantaneous access and verified status to students and content creators.',
     },
   ];
 
   const brandColors = [
-    { name: 'ZEV Electric Blue', hex: '#00D4FF', role: isFa ? 'رنگ اصلی برند' : 'Primary Accent' },
-    { name: 'ZEV Royal Blue', hex: '#536DFE', role: isFa ? 'گرادینت ثانویه' : 'Secondary Accent' },
-    { name: 'Deep Space Navy', hex: '#080D1A', role: isFa ? 'پس‌زمینه و تیترها' : 'Deep Background' },
-    { name: 'Slate Dark Card', hex: '#141721', role: isFa ? 'کارت‌ها و پنل‌ها' : 'Surface Cards' },
+    { name: 'Electric Blue', hex: '#00D4FF', desc: isFa ? 'رنگ اصلی و شاخص برند' : 'Primary Brand Accent' },
+    { name: 'Royal Blue', hex: '#536DFE', desc: isFa ? 'رنگ ثانویه و گرادیانت' : 'Secondary Vibrant Accent' },
+    { name: 'Deep Space Navy', hex: '#07090E', desc: isFa ? 'پس‌زمینه اصلی دارک' : 'Deep Dark Background' },
+    { name: 'Surface Slate', hex: '#0C101A', desc: isFa ? 'کارت‌ها و پنل‌های شیشه‌ای' : 'Glassmorphic Surface' },
   ];
 
   return (
     <div style={{ padding: '40px 0 100px', minHeight: '85vh', backgroundColor: '#07090E' }}>
-      {/* Dynamic 6-Tier JSON-LD Schema (SEO, GEO, AIO, AEO, XEO, XIO) */}
+      {/* 6-Engine Schema Script */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'NewsMediaOrganization',
-            name: 'ZEV Press & Media Center',
-            url: `https://zevapp.com/${locale}/press`,
-            logo: 'https://zevapp.com/assets/icon-clean.png',
-            parentOrganization: {
-              '@type': 'Organization',
-              name: 'Sahib Group',
-            },
-            contactPoint: {
-              '@type': 'ContactPoint',
-              email: 'press@zevapp.com',
-              contactType: 'media relations',
-            },
-            mainEntity: {
-              '@type': 'FAQPage',
-              mainEntity: [
-                {
-                  '@type': 'Question',
-                  name: 'What is ZEV?',
-                  acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: 'ZEV is a next-generation high-performance social media platform founded by Shaheen Safi and Sahib Group, offering 60fps Reels, HD video calling, encrypted messaging, and synchronized cloud infrastructure with Safi Academy.',
-                  },
-                },
-                {
-                  '@type': 'Question',
-                  name: 'How can media outlets contact ZEV for press inquiries?',
-                  acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: 'Journalists, publishers, and media representatives can reach the ZEV media team at press@zevapp.com for official statements, interviews, and press kits.',
-                  },
-                },
-              ],
-            },
-          }),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
       <div className="container">
-        {/* Top Back Navigation */}
+        {/* Back Link */}
         <Link
           href={`/${locale}`}
           style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: 8,
-            color: '#00D4FF',
             fontSize: 14,
             fontWeight: 700,
-            marginBottom: 36,
+            color: '#94A3B8',
+            marginBottom: 28,
             textDecoration: 'none',
           }}
         >
@@ -154,351 +180,164 @@ export default function PressPage({
           <span>{isFa ? 'بازگشت به صفحه اصلی' : 'Back to Home'}</span>
         </Link>
 
-        {/* Hero Section */}
-        <div style={{ textAlign: 'center', maxWidth: 840, margin: '0 auto 64px' }}>
+        {/* Hero Header */}
+        <div style={{ textAlign: 'center', maxWidth: 840, margin: '0 auto 60px' }}>
           <div
             style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: 8,
               padding: '6px 16px',
-              borderRadius: 30,
-              background: 'rgba(0, 212, 255, 0.1)',
+              borderRadius: 20,
+              background: 'rgba(0, 212, 255, 0.08)',
               border: '1px solid rgba(0, 212, 255, 0.25)',
-              color: '#00D4FF',
-              fontSize: 13,
-              fontWeight: 800,
-              marginBottom: 20,
-              letterSpacing: '0.3px',
+              marginBottom: 16,
             }}
           >
-            <Newspaper size={15} />
-            <span>{isFa ? 'اتاق خبر و مرکز رسانه‌ای ZEV' : 'ZEV Newsroom & Press Kit'}</span>
+            <Newspaper size={14} color="#00D4FF" />
+            <span style={{ fontSize: 13, fontWeight: 800, color: '#00D4FF' }}>
+              {isFa ? 'اتاق خبر، بیانیه‌ها و کیت رسانه‌ای' : 'Official Press Room & Assets'}
+            </span>
           </div>
 
           <h1
             style={{
-              fontSize: 'clamp(32px, 5vw, 52px)',
+              fontSize: 'clamp(32px, 5vw, 50px)',
               fontWeight: 900,
-              color: '#FFFFFF',
               lineHeight: 1.15,
-              marginBottom: 20,
-              letterSpacing: '-0.8px',
+              marginBottom: 18,
+              color: '#FFFFFF',
             }}
           >
-            {isFa ? 'اخبار رسمی، بیانیه‌ها و دارایی‌های برند زو' : 'Official News, Press Releases & Brand Assets'}
+            {isFa ? 'اتاق خبر رسمی زِو (ZEV Newsroom)' : 'ZEV Press Releases & Media Kit'}
           </h1>
 
-          <p
-            style={{
-              fontSize: 'clamp(16px, 2vw, 19px)',
-              color: '#94A3B8',
-              lineHeight: 1.7,
-              margin: '0 auto',
-            }}
-          >
+          <p style={{ fontSize: 17, color: '#94A3B8', lineHeight: 1.65 }}>
             {isFa
-              ? 'مرکز اخبار موثق، منابع تصویری رسمی، اعلامیه‌ها و ارتباط با تیم رسانه‌ای شبکه اجتماعی ZEV از گروه صاحب.'
-              : 'The authoritative source for ZEV news announcements, executive statements, official logo kits, and journalist resources.'}
+              ? 'اطلاعیه‌های مطبوعاتی، دسترسی به نشان‌های بصری و کیت برند رسمی برای خبرنگاران، رسانه‌ها و همکاران تجاری.'
+              : 'Direct access to official announcements, downloadable vector brand assets, product imagery, and executive contacts.'}
           </p>
         </div>
 
-        {/* Key Metrics / Quick Facts */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-            gap: 20,
-            marginBottom: 70,
-          }}
-        >
-          {[
-            {
-              label: isFa ? 'بنیان‌گذار و سازمان مادری' : 'Founded & Parent Group',
-              val: 'Shaheen Safi • Sahib Group',
-              icon: Award,
-            },
-            {
-              label: isFa ? 'پلتفرم‌های فعال' : 'Platforms Supported',
-              val: 'Android • iOS • Web (Flutter 60fps)',
-              icon: Layers,
-            },
-            {
-              label: isFa ? 'اکوسیستم یکپارچه' : 'Unified Ecosystem',
-              val: 'Safi Academy & SafiPay',
-              icon: Globe,
-            },
-            {
-              label: isFa ? 'امنیت و حفظ حریم خصوصی' : 'Security Standards',
-              val: 'AES-256 Storage & RLS Isolation',
-              icon: ShieldCheck,
-            },
-          ].map((item, i) => {
-            const Icon = item.icon;
-            return (
+        {/* Press Releases */}
+        <div style={{ maxWidth: 860, margin: '0 auto 70px' }}>
+          <h2 style={{ fontSize: 22, fontWeight: 900, color: '#FFFFFF', marginBottom: 20 }}>
+            {isFa ? 'آخرین بیانیه‌های رسمی' : 'Latest Announcements'}
+          </h2>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+            {pressReleases.map((pr, idx) => (
               <div
-                key={i}
+                key={idx}
                 style={{
-                  padding: '24px 22px',
-                  borderRadius: 20,
-                  background: 'rgba(14, 20, 36, 0.75)',
+                  background: 'rgba(13, 18, 30, 0.75)',
                   border: '1px solid rgba(255, 255, 255, 0.08)',
-                  backdropFilter: 'blur(12px)',
-                }}
-              >
-                <div
-                  style={{
-                    width: 38,
-                    height: 38,
-                    borderRadius: 12,
-                    background: 'rgba(0, 212, 255, 0.12)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: '#00D4FF',
-                    marginBottom: 14,
-                  }}
-                >
-                  <Icon size={20} />
-                </div>
-                <div style={{ fontSize: 13, color: '#64748B', fontWeight: 600, marginBottom: 4 }}>
-                  {item.label}
-                </div>
-                <div style={{ fontSize: 16, color: '#FFFFFF', fontWeight: 800 }}>
-                  {item.val}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Press Releases Section */}
-        <div style={{ marginBottom: 80 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 30 }}>
-            <FileText size={22} color="#00D4FF" />
-            <h2 style={{ fontSize: 26, fontWeight: 900, color: '#FFFFFF', margin: 0 }}>
-              {isFa ? 'آخرین اطلاعیه‌ها و بیانیه‌های خبری' : 'Recent Press Releases & Updates'}
-            </h2>
-          </div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-            {pressReleases.map((pr, i) => (
-              <div
-                key={i}
-                style={{
-                  padding: '28px 30px',
                   borderRadius: 22,
-                  background: 'rgba(14, 20, 36, 0.75)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                  transition: 'transform 0.2s, border-color 0.2s',
+                  padding: '28px 30px',
+                  boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12, flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
                   <span
                     style={{
-                      padding: '4px 12px',
-                      borderRadius: 12,
-                      background: 'linear-gradient(135deg, rgba(0, 212, 255, 0.18), rgba(83, 109, 254, 0.18))',
-                      border: '1px solid rgba(0, 212, 255, 0.3)',
-                      color: '#00D4FF',
-                      fontSize: 11.5,
+                      fontSize: 11,
                       fontWeight: 800,
+                      background: 'rgba(0, 212, 255, 0.12)',
+                      color: '#00D4FF',
+                      border: '1px solid rgba(0, 212, 255, 0.3)',
+                      padding: '3px 10px',
+                      borderRadius: 10,
                     }}
                   >
                     {pr.tag}
                   </span>
-                  <span style={{ fontSize: 13, color: '#64748B', fontWeight: 600 }}>{pr.date}</span>
+                  <span style={{ fontSize: 13, color: '#64748B' }}>{pr.date}</span>
                 </div>
-                <h3 style={{ fontSize: 19, fontWeight: 800, color: '#FFFFFF', marginBottom: 10, lineHeight: 1.4 }}>
+                <h3 style={{ fontSize: 18, fontWeight: 800, color: '#FFFFFF', marginBottom: 10 }}>
                   {pr.title}
                 </h3>
-                <p style={{ fontSize: 14.5, color: '#94A3B8', lineHeight: 1.65, margin: 0 }}>
-                  {pr.summary}
-                </p>
+                <p style={{ fontSize: 14.5, color: '#94A3B8', lineHeight: 1.65 }}>{pr.summary}</p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Brand Assets & Guidelines */}
-        <div style={{ marginBottom: 80 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 30 }}>
-            <Download size={22} color="#00D4FF" />
-            <h2 style={{ fontSize: 26, fontWeight: 900, color: '#FFFFFF', margin: 0 }}>
-              {isFa ? 'بسته دارایی‌های گرافیکی و مدیا کیت' : 'Official Brand Assets & Media Kit'}
-            </h2>
-          </div>
+        {/* Brand Palette */}
+        <div style={{ maxWidth: 860, margin: '0 auto 70px' }}>
+          <h2 style={{ fontSize: 22, fontWeight: 900, color: '#FFFFFF', marginBottom: 18 }}>
+            {isFa ? 'پالت رنگی رسمی برند زِو' : 'Official Brand Color Palette'}
+          </h2>
 
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: 24,
-              marginBottom: 40,
+              gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+              gap: 16,
             }}
           >
-            {brandAssets.map((asset, i) => (
+            {brandColors.map((color, idx) => (
               <div
-                key={i}
+                key={idx}
                 style={{
-                  padding: 22,
-                  borderRadius: 22,
-                  background: 'rgba(14, 20, 36, 0.75)',
+                  background: 'rgba(13, 18, 30, 0.75)',
                   border: '1px solid rgba(255, 255, 255, 0.08)',
-                  display: 'flex',
-                  flexDirection: 'column',
+                  borderRadius: 18,
+                  padding: 16,
                 }}
               >
                 <div
                   style={{
-                    position: 'relative',
-                    width: '100%',
-                    height: 180,
-                    borderRadius: 16,
-                    overflow: 'hidden',
-                    background: '#0B0F19',
-                    marginBottom: 16,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    height: 56,
+                    borderRadius: 12,
+                    backgroundColor: color.hex,
+                    marginBottom: 12,
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
                   }}
-                >
-                  <Image
-                    src={asset.preview}
-                    alt={asset.title}
-                    fill
-                    style={{ objectFit: 'contain', padding: 12 }}
-                  />
-                </div>
-                <div style={{ fontSize: 16, fontWeight: 800, color: '#FFFFFF', marginBottom: 4 }}>
-                  {asset.title}
-                </div>
-                <div style={{ fontSize: 12.5, color: '#64748B', marginBottom: 16 }}>
-                  {asset.format}
-                </div>
-                <a
-                  href={asset.url}
-                  download
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    marginTop: 'auto',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: 8,
-                    padding: '10px 18px',
-                    borderRadius: 14,
-                    background: 'linear-gradient(135deg, #00D4FF 0%, #536DFE 100%)',
-                    color: '#080D1A',
-                    fontSize: 13,
-                    fontWeight: 800,
-                    textDecoration: 'none',
-                  }}
-                >
-                  <Download size={15} />
-                  <span>{isFa ? 'دانلود مستقیم فایل' : 'Download Asset'}</span>
-                </a>
+                />
+                <div style={{ fontSize: 14, fontWeight: 800, color: '#FFFFFF' }}>{color.name}</div>
+                <div style={{ fontSize: 12, fontFamily: 'monospace', color: '#00D4FF' }}>{color.hex}</div>
+                <div style={{ fontSize: 11.5, color: '#64748B', marginTop: 4 }}>{color.desc}</div>
               </div>
             ))}
           </div>
-
-          {/* Color Palette Card */}
-          <div
-            style={{
-              padding: '24px 28px',
-              borderRadius: 22,
-              background: 'rgba(14, 20, 36, 0.75)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-            }}
-          >
-            <div style={{ fontSize: 16, fontWeight: 800, color: '#FFFFFF', marginBottom: 16 }}>
-              {isFa ? 'رنگ‌های رسمی برند ZEV' : 'ZEV Official Brand Palette'}
-            </div>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-                gap: 16,
-              }}
-            >
-              {brandColors.map((c, i) => (
-                <div
-                  key={i}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 12,
-                    padding: 12,
-                    borderRadius: 14,
-                    background: 'rgba(255, 255, 255, 0.03)',
-                    border: '1px solid rgba(255, 255, 255, 0.06)',
-                  }}
-                >
-                  <div
-                    style={{
-                      width: 32,
-                      height: 32,
-                      borderRadius: 8,
-                      backgroundColor: c.hex,
-                      border: '1px solid rgba(255, 255, 255, 0.2)',
-                      flexShrink: 0,
-                    }}
-                  />
-                  <div>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: '#FFFFFF' }}>{c.name}</div>
-                    <div style={{ fontSize: 11.5, color: '#64748B', fontFamily: 'monospace' }}>
-                      {c.hex} • {c.role}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
 
-        {/* Media Inquiries Card */}
+        {/* Media Contact Card */}
         <div
           style={{
-            padding: '36px 40px',
-            borderRadius: 26,
-            background: 'linear-gradient(135deg, rgba(0, 212, 255, 0.08) 0%, rgba(83, 109, 254, 0.08) 100%)',
+            maxWidth: 860,
+            margin: '0 auto',
+            background: 'linear-gradient(145deg, rgba(13, 18, 30, 0.85) 0%, rgba(8, 13, 26, 0.95) 100%)',
             border: '1px solid rgba(0, 212, 255, 0.25)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: 24,
+            borderRadius: 26,
+            padding: '36px 32px',
+            textAlign: 'center',
           }}
         >
-          <div>
-            <div style={{ fontSize: 22, fontWeight: 900, color: '#FFFFFF', marginBottom: 8 }}>
-              {isFa ? 'ارتباط با بخش روابط عمومی و رسانه‌ها' : 'Media Inquiries & Press Relations'}
-            </div>
-            <p style={{ color: '#94A3B8', fontSize: 14.5, margin: 0, maxWidth: 600 }}>
-              {isFa
-                ? 'خبرنگاران و فعالان رسانه‌ای می‌توانند برای مصاحبه با مدیریت ارشد، دریافت بیانیه‌های رسمی یا درخواست کیت رسانه‌ای کامل با ما در تماس باشند.'
-                : 'For journalist interviews, official commentary, or high-resolution custom media packages, please contact our global communications desk.'}
-            </p>
-          </div>
-
+          <Mail size={32} color="#00D4FF" style={{ margin: '0 auto 14px' }} />
+          <h3 style={{ fontSize: 20, fontWeight: 900, color: '#FFFFFF', marginBottom: 8 }}>
+            {isFa ? 'ارتباط با بخش رسانه و روابط عمومی' : 'Media Inquiries & Executive Contact'}
+          </h3>
+          <p style={{ fontSize: 14.5, color: '#94A3B8', marginBottom: 20 }}>
+            {isFa
+              ? 'خبرنگاران و اصحاب رسانه جهت مصاحبه با شاهین صافی یا دریافت بیانیه‌ها با ایمیل رسمی در تماس باشند.'
+              : 'Direct all official press inquiries, executive interviews, and media credential requests to press@zevapp.com.'}
+          </p>
           <a
             href="mailto:press@zevapp.com"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: 10,
-              padding: '14px 28px',
-              borderRadius: 16,
-              background: 'linear-gradient(135deg, #00D4FF 0%, #536DFE 100%)',
-              color: '#080D1A',
-              fontSize: 15,
+              gap: 8,
+              padding: '12px 24px',
+              borderRadius: 14,
+              background: '#00D4FF',
+              color: '#07090E',
+              fontSize: 14,
               fontWeight: 800,
               textDecoration: 'none',
-              boxShadow: '0 8px 24px rgba(0, 212, 255, 0.25)',
             }}
           >
-            <Mail size={18} />
             <span>press@zevapp.com</span>
           </a>
         </div>
