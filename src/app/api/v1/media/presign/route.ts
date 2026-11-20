@@ -13,6 +13,7 @@ const ALLOWED_FOLDERS = new Set([
   'direct_messages',
   'highlights',
   'ads',
+  'verification',
   'temp',
 ]);
 
