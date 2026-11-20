@@ -35,10 +35,55 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(redirectUrl);
   }
 
+  // ─── STRICT CORS FOR API ENDPOINTS (/api/:path*) ───────────────────────────
+  if (pathname.startsWith('/api/')) {
+    const origin = request.headers.get('origin');
+    const allowedOrigins = [
+      'https://zevapp.com',
+      'https://www.zevapp.com',
+      'https://web.zevapp.com',
+      'https://adminportal.zevapp.com',
+    ];
+    const isAllowed =
+      !origin ||
+      allowedOrigins.includes(origin) ||
+      origin.startsWith('http://localhost:') ||
+      origin.startsWith('http://127.0.0.1:');
+
+    // Handle OPTIONS Preflight immediately
+    if (request.method === 'OPTIONS') {
+      const response = new NextResponse(null, { status: 204 });
+      if (isAllowed && origin) {
+        response.headers.set('Access-Control-Allow-Origin', origin);
+        response.headers.set('Access-Control-Allow-Credentials', 'true');
+        response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+        response.headers.set(
+          'Access-Control-Allow-Headers',
+          'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization, x-cron-secret, Origin'
+        );
+        response.headers.set('Access-Control-Max-Age', '86400');
+        response.headers.set('Vary', 'Origin');
+      }
+      return response;
+    }
+
+    const response = NextResponse.next();
+    if (isAllowed && origin) {
+      response.headers.set('Access-Control-Allow-Origin', origin);
+      response.headers.set('Access-Control-Allow-Credentials', 'true');
+      response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+      response.headers.set(
+        'Access-Control-Allow-Headers',
+        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization, x-cron-secret, Origin'
+      );
+      response.headers.set('Vary', 'Origin');
+    }
+    return response;
+  }
+
   // Ignore static assets, APIs, and Next.js internals
   if (
     pathname.startsWith('/_next') ||
-    pathname.startsWith('/api/') ||
     pathname.startsWith('/assets') ||
     pathname.startsWith('/app-shots') ||
     pathname.startsWith('/screenshots') ||
@@ -84,6 +129,6 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Explicitly exclude .well-known paths from middleware processing
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|\\.well-known).*)'],
+  // Explicitly exclude static assets and .well-known paths from middleware processing
+  matcher: ['/((?!_next/static|_next/image|favicon.ico|\\.well-known).*)'],
 };

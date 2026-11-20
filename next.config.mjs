@@ -1,4 +1,14 @@
 /** @type {import('next').NextConfig} */
+const securityHeaders = [
+  { key: 'X-DNS-Prefetch-Control', value: 'on' },
+  { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
+  { key: 'X-XSS-Protection', value: '1; mode=block' },
+  { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+  { key: 'X-Content-Type-Options', value: 'nosniff' },
+  { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+  { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+];
+
 const nextConfig = {
   reactStrictMode: true,
   images: {
@@ -7,17 +17,8 @@ const nextConfig = {
   async headers() {
     return [
       {
-        // Global CORS headers for all /api/:path* routes across zevapp.com, web.zevapp.com & localhost
-        source: '/api/:path*',
-        headers: [
-          { key: 'Access-Control-Allow-Origin', value: '*' },
-          { key: 'Access-Control-Allow-Methods', value: 'GET,OPTIONS,PATCH,DELETE,POST,PUT' },
-          {
-            key: 'Access-Control-Allow-Headers',
-            value:
-              'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization, x-cron-secret, Origin',
-          },
-        ],
+        source: '/:path*',
+        headers: securityHeaders,
       },
       {
         // Allow Google Play Console to verify the assetlinks.json without issues
@@ -45,9 +46,6 @@ const nextConfig = {
         // If the public file is missing, Next.js serves 404, so we also keep the API fallback
         source: '/.well-known/assetlinks.json',
         destination: '/api/assetlinks',
-        // Note: Next.js serves public/ files BEFORE rewrites, so the static file
-        // in public/.well-known/assetlinks.json takes priority; this only fires
-        // if the static file is missing.
       },
     ];
   },
