@@ -116,6 +116,15 @@ export async function sendFcmMulticast(
   const resolvedImageUrl = (payload.imageUrl || '').trim();
 
   for (const token of payload.tokens) {
+    const isCallType =
+      payload.androidChannelId === 'zev_channel_voice_calls' ||
+      payload.androidChannelId === 'zev_channel_video_calls' ||
+      (payload.data &&
+        (payload.data.type === 'voice_call' ||
+          payload.data.type === 'video_call' ||
+          payload.data.notification_type === 'voice_call' ||
+          payload.data.notification_type === 'video_call'));
+
     try {
       const res = await fetch(endpoint, {
         method: 'POST',
@@ -141,20 +150,31 @@ export async function sendFcmMulticast(
             android: {
               priority: 'HIGH',
               notification: {
-                channel_id: payload.androidChannelId || 'zev_notifications_channel',
+                channel_id: payload.androidChannelId || (isCallType ? 'zev_channel_voice_calls' : 'zev_notifications_channel'),
                 icon: 'ic_notification',
                 color: '#2563EB',
                 sound: 'default',
+                ...(isCallType
+                  ? {
+                      notification_priority: 'PRIORITY_MAX',
+                      visibility: 'PUBLIC',
+                      default_vibrate_timings: true,
+                    }
+                  : {}),
                 ...(payload.collapseTag ? { tag: payload.collapseTag } : {}),
                 ...(resolvedImageUrl ? { image: resolvedImageUrl } : {}),
               },
             },
             apns: {
-              headers: { 'apns-priority': '10' },
+              headers: {
+                'apns-priority': '10',
+                ...(isCallType ? { 'apns-push-type': 'alert' } : {}),
+              },
               payload: {
                 aps: {
                   sound: 'default',
                   'mutable-content': 1,
+                  ...(isCallType ? { 'interruption-level': 'time-sensitive' } : {}),
                   ...(typeof payload.badgeCount === 'number'
                     ? { badge: payload.badgeCount }
                     : {}),

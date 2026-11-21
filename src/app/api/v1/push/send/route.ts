@@ -130,88 +130,97 @@ export async function POST(req: NextRequest) {
     }
   }
 
+  const isIncomingCall =
+    normType === 'voice_call' ||
+    normType === 'video_call' ||
+    normType === 'group_call' ||
+    normType.includes('call');
+
   // Respect notification_preferences & quiet hours (Phase 2 & Phase 5)
-  try {
-    const { data: prefs } = await admin
-      .from('notification_preferences')
-      .select('*')
-      .eq('user_id', recipientUserId)
-      .maybeSingle();
+  // Incoming voice/video calls are urgent real-time alerts and bypass social quiet hours
+  if (!isIncomingCall) {
+    try {
+      const { data: prefs } = await admin
+        .from('notification_preferences')
+        .select('*')
+        .eq('user_id', recipientUserId)
+        .maybeSingle();
 
-    if (prefs) {
-      const p = prefs as Record<string, unknown>;
-      if (p.push_enabled === false || p.pause_all === true) {
-        return NextResponse.json({ ok: true, skipped: 'preferences_paused', sentCount: 0 });
-      }
-      if (
-        (normType === 'message' ||
-          normType.includes('chat') ||
-          normType === 'dm' ||
-          normType === 'direct_message' ||
-          normType === 'group_message' ||
-          normType === 'group_invitation') &&
-        p.messages_enabled === false
-      ) {
-        return NextResponse.json({ ok: true, skipped: 'preferences_messages', sentCount: 0 });
-      }
-      if (normType.includes('like') && p.likes_enabled === false) {
-        return NextResponse.json({ ok: true, skipped: 'preferences_likes', sentCount: 0 });
-      }
-      if (
-        (normType.includes('comment') || normType.includes('reply')) &&
-        p.comments_enabled === false
-      ) {
-        return NextResponse.json({ ok: true, skipped: 'preferences_comments', sentCount: 0 });
-      }
-      if (normType.includes('follow') && p.follows_enabled === false) {
-        return NextResponse.json({ ok: true, skipped: 'preferences_follows', sentCount: 0 });
-      }
-      if (
-        (normType.includes('mention') || normType.includes('tag')) &&
-        p.mentions_enabled === false
-      ) {
-        return NextResponse.json({ ok: true, skipped: 'preferences_mentions', sentCount: 0 });
-      }
-      if (normType.includes('story') && p.stories_enabled === false) {
-        return NextResponse.json({ ok: true, skipped: 'preferences_stories', sentCount: 0 });
-      }
-      if (normType.includes('live') && p.live_enabled === false) {
-        return NextResponse.json({ ok: true, skipped: 'preferences_live', sentCount: 0 });
-      }
-      if (
-        (normType.includes('marketing') || normType.includes('promo')) &&
-        p.marketing_enabled === false
-      ) {
-        return NextResponse.json({ ok: true, skipped: 'preferences_marketing', sentCount: 0 });
-      }
+      if (prefs) {
+        const p = prefs as Record<string, unknown>;
+        if (p.push_enabled === false || p.pause_all === true) {
+          return NextResponse.json({ ok: true, skipped: 'preferences_paused', sentCount: 0 });
+        }
+        if (
+          (normType === 'message' ||
+            normType.includes('chat') ||
+            normType === 'dm' ||
+            normType === 'direct_message' ||
+            normType === 'group_message' ||
+            normType === 'group_invitation') &&
+          p.messages_enabled === false
+        ) {
+          return NextResponse.json({ ok: true, skipped: 'preferences_messages', sentCount: 0 });
+        }
+        if (normType.includes('like') && p.likes_enabled === false) {
+          return NextResponse.json({ ok: true, skipped: 'preferences_likes', sentCount: 0 });
+        }
+        if (
+          (normType.includes('comment') || normType.includes('reply')) &&
+          p.comments_enabled === false
+        ) {
+          return NextResponse.json({ ok: true, skipped: 'preferences_comments', sentCount: 0 });
+        }
+        if (normType.includes('follow') && p.follows_enabled === false) {
+          return NextResponse.json({ ok: true, skipped: 'preferences_follows', sentCount: 0 });
+        }
+        if (
+          (normType.includes('mention') || normType.includes('tag')) &&
+          p.mentions_enabled === false
+        ) {
+          return NextResponse.json({ ok: true, skipped: 'preferences_mentions', sentCount: 0 });
+        }
+        if (normType.includes('story') && p.stories_enabled === false) {
+          return NextResponse.json({ ok: true, skipped: 'preferences_stories', sentCount: 0 });
+        }
+        if (normType.includes('live') && p.live_enabled === false) {
+          return NextResponse.json({ ok: true, skipped: 'preferences_live', sentCount: 0 });
+        }
+        if (
+          (normType.includes('marketing') || normType.includes('promo')) &&
+          p.marketing_enabled === false
+        ) {
+          return NextResponse.json({ ok: true, skipped: 'preferences_marketing', sentCount: 0 });
+        }
 
-      // Check optional UTC quiet hours window (HH:MM)
-      const qStart = typeof p.quiet_hours_start === 'string' ? p.quiet_hours_start.trim() : '';
-      const qEnd = typeof p.quiet_hours_end === 'string' ? p.quiet_hours_end.trim() : '';
-      const parseMinutes = (hhmm: string): number | null => {
-        const m = /^(\d{1,2}):(\d{2})$/.exec(hhmm);
-        if (!m) return null;
-        const h = Number(m[1]);
-        const min = Number(m[2]);
-        if (h < 0 || h > 23 || min < 0 || min > 59) return null;
-        return h * 60 + min;
-      };
-      const startMin = parseMinutes(qStart);
-      const endMin = parseMinutes(qEnd);
-      if (startMin !== null && endMin !== null && startMin !== endMin) {
-        const now = new Date();
-        const nowMin = now.getUTCHours() * 60 + now.getUTCMinutes();
-        const inQuiet =
-          startMin < endMin
-            ? nowMin >= startMin && nowMin < endMin
-            : nowMin >= startMin || nowMin < endMin;
-        if (inQuiet) {
-          return NextResponse.json({ ok: true, skipped: 'quiet_hours', sentCount: 0 });
+        // Check optional UTC quiet hours window (HH:MM)
+        const qStart = typeof p.quiet_hours_start === 'string' ? p.quiet_hours_start.trim() : '';
+        const qEnd = typeof p.quiet_hours_end === 'string' ? p.quiet_hours_end.trim() : '';
+        const parseMinutes = (hhmm: string): number | null => {
+          const m = /^(\d{1,2}):(\d{2})$/.exec(hhmm);
+          if (!m) return null;
+          const h = Number(m[1]);
+          const min = Number(m[2]);
+          if (h < 0 || h > 23 || min < 0 || min > 59) return null;
+          return h * 60 + min;
+        };
+        const startMin = parseMinutes(qStart);
+        const endMin = parseMinutes(qEnd);
+        if (startMin !== null && endMin !== null && startMin !== endMin) {
+          const now = new Date();
+          const nowMin = now.getUTCHours() * 60 + now.getUTCMinutes();
+          const inQuiet =
+            startMin < endMin
+              ? nowMin >= startMin && nowMin < endMin
+              : nowMin >= startMin || nowMin < endMin;
+          if (inQuiet) {
+            return NextResponse.json({ ok: true, skipped: 'quiet_hours', sentCount: 0 });
+          }
         }
       }
+    } catch {
+      // notification_preferences fallback
     }
-  } catch {
-    // notification_preferences fallback
   }
 
   // Collect deduplicated active FCM tokens
