@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { checkRateLimit, requireAuthUser } from '@/lib/server/supabaseAdmin';
+import { checkRateLimit, requireAuthUser, getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 
 interface SafetyResult {
   isSafe: boolean;
@@ -7,6 +7,113 @@ interface SafetyResult {
   errorMessage?: string;
   likelihoods?: Record<string, string>;
   provider: string;
+}
+
+async function handleModerationViolation(userId: string, blockedCategory: string) {
+  try {
+    const supabaseAdmin = getSupabaseAdmin();
+    const { data: profile } = await supabaseAdmin
+      .from('profiles')
+      .select('warning_count, is_restricted')
+      .eq('id', userId)
+      .single();
+
+    const currentStrikes = profile?.warning_count || 0;
+    const newStrikes = currentStrikes + 1;
+    const nowIso = new Date().toISOString();
+
+    if (newStrikes >= 2) {
+      // 2nd strike or more: Automatically restrict account for 3 days (72 hours)
+      const expiresAt = new Date(Date.now() + 72 * 3600 * 1000).toISOString();
+      const reason =
+        'Automated AI Moderation: Repeated attempts to upload prohibited (+18) content.';
+
+      await supabaseAdmin
+        .from('profiles')
+        .update({
+          is_restricted: true,
+          restricted_until: expiresAt,
+          restriction_reason: reason,
+          warning_count: newStrikes,
+          last_warning_at: nowIso,
+          last_warning_reason: 'Prohibited adult content violation (Strike 2 - Account Restricted)',
+          updated_at: nowIso,
+        })
+        .eq('id', userId);
+
+      try {
+        await supabaseAdmin.from('user_restrictions').insert({
+          user_id: userId,
+          type: 'RESTRICTION',
+          warning_level: 2,
+          reason: 'Automated AI Moderation: Prohibited adult (+18) content violation (Strike 2)',
+          details: `Automated detection via Cloud Vision/Gemini (${blockedCategory}). Account placed under 72h restriction.`,
+          duration_hours: 72,
+          expires_at: expiresAt,
+          status: 'active',
+          created_by: 'ZEV AI Cloud Moderation',
+        });
+      } catch (e) {
+        console.warn('Failed to insert user_restrictions log:', e);
+      }
+
+      try {
+        await supabaseAdmin.from('user_notifications').insert({
+          user_id: userId,
+          title: 'Account Restriction Notice 🚫',
+          message:
+            'Your ZEV account has been temporarily restricted for 3 days due to repeated attempts to post prohibited (+18) content. Certain features are limited.',
+          notification_type: 'account_restricted',
+          app_source: 'zev',
+          is_read: false,
+        });
+      } catch (e) {
+        console.warn('Failed to insert user_notifications log:', e);
+      }
+
+      return {
+        isRestricted: true,
+        strikes: newStrikes,
+        errorMessage:
+          'این محتوا به دلیل شامل بودن موارد غیراخلاقی (+۱۸) مسدود شد. به دلیل نقض مکرر قوانین، حساب شما به مدت ۳ روز محدود (ری‌استریکت) شد.',
+      };
+    } else {
+      // 1st strike: Warning
+      await supabaseAdmin
+        .from('profiles')
+        .update({
+          warning_count: 1,
+          last_warning_at: nowIso,
+          last_warning_reason: 'Prohibited adult content violation (Strike 1 - Warning)',
+          updated_at: nowIso,
+        })
+        .eq('id', userId);
+
+      try {
+        await supabaseAdmin.from('user_notifications').insert({
+          user_id: userId,
+          title: 'Policy Warning: Inappropriate Content ⚠️',
+          message:
+            'Your upload was blocked because it contained prohibited (+18) adult content. Please note that a second attempt will result in immediate account restriction.',
+          notification_type: 'warning',
+          app_source: 'zev',
+          is_read: false,
+        });
+      } catch (e) {
+        console.warn('Failed to insert warning notification:', e);
+      }
+
+      return {
+        isRestricted: false,
+        strikes: 1,
+        errorMessage:
+          'این محتوا به دلیل شامل بودن موارد غیراخلاقی (+۱۸) مسدود شد (اخطار ۱ از ۲). در صورت تکرار مجدد، حساب شما به صورت خودکار ری‌استریکت خواهد شد.',
+      };
+    }
+  } catch (err) {
+    console.error('[handleModerationViolation] Error updating strikes:', err);
+    return { isRestricted: false, strikes: 1 };
+  }
 }
 
 async function runGoogleVisionSafeSearch(
@@ -212,6 +319,19 @@ export async function POST(req: NextRequest) {
   if (visionKey) {
     const visionRes = await runGoogleVisionSafeSearch(base64Image, visionKey);
     if (visionRes) {
+      if (!visionRes.isSafe) {
+        const violation = await handleModerationViolation(
+          user.id,
+          visionRes.blockedCategory || 'adult'
+        );
+        return NextResponse.json({
+          ok: true,
+          ...visionRes,
+          isRestricted: violation.isRestricted,
+          strikes: violation.strikes,
+          errorMessage: violation.errorMessage || visionRes.errorMessage,
+        });
+      }
       return NextResponse.json({ ok: true, ...visionRes });
     }
   }
@@ -219,6 +339,19 @@ export async function POST(req: NextRequest) {
   if (geminiKey) {
     const geminiRes = await runGeminiSafetyFallback(base64Image, mimeType, geminiKey);
     if (geminiRes) {
+      if (!geminiRes.isSafe) {
+        const violation = await handleModerationViolation(
+          user.id,
+          geminiRes.blockedCategory || 'adult'
+        );
+        return NextResponse.json({
+          ok: true,
+          ...geminiRes,
+          isRestricted: violation.isRestricted,
+          strikes: violation.strikes,
+          errorMessage: violation.errorMessage || geminiRes.errorMessage,
+        });
+      }
       return NextResponse.json({ ok: true, ...geminiRes });
     }
   }
