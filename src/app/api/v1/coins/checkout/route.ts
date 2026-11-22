@@ -29,7 +29,6 @@ export async function POST(req: NextRequest) {
 
       // Create Stripe Checkout Session via Stripe REST API
       const params = new URLSearchParams();
-      params.append('payment_method_types[0]', 'card');
       params.append('line_items[0][price_data][currency]', 'usd');
       params.append('line_items[0][price_data][product_data][name]', `ZEV Coins (${coins.toLocaleString()} Coins)`);
       params.append('line_items[0][price_data][product_data][description]', `Instant deposit to @${target_username || target_user_id}`);

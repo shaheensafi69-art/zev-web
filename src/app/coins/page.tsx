@@ -59,6 +59,7 @@ function CoinsRechargeContent() {
   const searchParams = useSearchParams();
   const urlUid = searchParams.get('uid')?.trim() || '';
   const urlUsername = searchParams.get('username')?.trim() || '';
+  const urlStatus = searchParams.get('status')?.trim() || '';
 
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loadingProfile, setLoadingProfile] = useState(true);
@@ -74,6 +75,12 @@ function CoinsRechargeContent() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [checkoutComplete, setCheckoutComplete] = useState(false);
   const [purchasedAmount, setPurchasedAmount] = useState(0);
+
+  useEffect(() => {
+    if (urlStatus === 'success') {
+      setCheckoutComplete(true);
+    }
+  }, [urlStatus]);
 
   // 1. Initial Profile Resolution: via URL params (?uid= or ?username=) or current Supabase session
   useEffect(() => {
