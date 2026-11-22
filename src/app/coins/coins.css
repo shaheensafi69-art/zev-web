@@ -1,0 +1,939 @@
+/* ZEV Coins Top-Up Portal Luxury Styling */
+.coins-container {
+  min-height: 100vh;
+  background-color: #07090E;
+  color: #F8FAFC;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  position: relative;
+  overflow-x: hidden;
+  padding-bottom: 120px;
+}
+
+.coins-ambient-glow {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1000px;
+  height: 380px;
+  background: radial-gradient(circle at 50% 0%, rgba(0, 212, 255, 0.14) 0%, rgba(245, 158, 11, 0.08) 40%, transparent 80%);
+  pointer-events: none;
+  filter: blur(60px);
+  z-index: 0;
+}
+
+/* Header */
+.coins-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(12, 16, 26, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.coins-header-inner {
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.coins-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.coins-logo-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #00D4FF 0%, #536DFE 50%, #A855F7 100%);
+  padding: 1.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 212, 255, 0.25);
+}
+
+.coins-logo-icon-inner {
+  width: 100%;
+  height: 100%;
+  background: #07090E;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.coins-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.coins-title {
+  font-size: 17px;
+  font-weight: 900;
+  color: #FFFFFF;
+  letter-spacing: -0.3px;
+}
+
+.coins-badge-official {
+  font-size: 9.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 2px 7px;
+  border-radius: 9999px;
+  background: rgba(245, 158, 11, 0.15);
+  color: #FBBF24;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+.coins-subtitle {
+  font-size: 11px;
+  color: #94A3B8;
+  font-weight: 500;
+  margin-top: 1px;
+}
+
+.coins-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.coins-protected-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 12px;
+  color: #CBD5E1;
+}
+
+.coins-app-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  color: #00D4FF;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.coins-app-link:hover {
+  background: rgba(0, 212, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Main Content */
+.coins-main {
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 28px 20px 0 20px;
+  position: relative;
+  z-index: 10;
+}
+
+/* Banner */
+.coins-hero-banner {
+  margin-bottom: 24px;
+  padding: 18px 22px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(0, 212, 255, 0.08) 50%, rgba(13, 18, 30, 0.7) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.coins-hero-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.coins-hero-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: rgba(245, 158, 11, 0.2);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.coins-hero-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.coins-hero-pill {
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: rgba(16, 185, 129, 0.2);
+  color: #34D399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.coins-hero-desc {
+  font-size: 12.5px;
+  color: #CBD5E1;
+  margin-top: 3px;
+  line-height: 1.4;
+}
+
+.coins-hero-badges {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 12px;
+  color: #94A3B8;
+  flex-shrink: 0;
+}
+
+.coins-badge-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* User Account Section */
+.coins-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.coins-section-label {
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #94A3B8;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.coins-change-btn {
+  background: none;
+  border: none;
+  color: #00D4FF;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.coins-change-btn:hover {
+  color: #38BDF8;
+}
+
+.coins-account-card {
+  padding: 16px 20px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(12, 16, 26, 0.95) 0%, rgba(18, 24, 38, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.coins-account-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.coins-avatar-wrap {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #1E293B;
+  border: 2px solid rgba(0, 212, 255, 0.45);
+  box-shadow: 0 0 14px rgba(0, 212, 255, 0.2);
+  flex-shrink: 0;
+}
+
+.coins-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.coins-avatar-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 900;
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #00D4FF 0%, #536DFE 100%);
+}
+
+.coins-user-name-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.coins-full-name {
+  font-size: 15px;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+.coins-verified-icon {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #00D4FF;
+  color: #07090E;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.coins-username {
+  font-size: 12.5px;
+  color: #94A3B8;
+  margin-top: 1px;
+}
+
+.coins-balance-pill {
+  padding: 8px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.coins-balance-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #94A3B8;
+}
+
+.coins-balance-val {
+  font-size: 14px;
+  font-weight: 900;
+  color: #FBBF24;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 2px;
+}
+
+/* Search Form */
+.coins-search-card {
+  padding: 16px 20px;
+  border-radius: 20px;
+  background: #0C101A;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.coins-search-form {
+  display: flex;
+  gap: 10px;
+}
+
+.coins-search-input-wrap {
+  position: relative;
+  flex: 1;
+}
+
+.coins-search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748B;
+}
+
+.coins-search-input {
+  width: 100%;
+  padding: 12px 16px 12px 40px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.coins-search-input:focus {
+  border-color: #00D4FF;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.coins-search-btn {
+  padding: 12px 22px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #00D4FF 0%, #536DFE 100%);
+  color: #07090E;
+  font-weight: 800;
+  font-size: 13px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+
+.coins-search-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.coins-search-error {
+  margin-top: 10px;
+  color: #F87171;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Tier Grid */
+.coins-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.coins-tier-card {
+  position: relative;
+  padding: 18px 16px 14px 16px;
+  border-radius: 18px;
+  background: #0C101A;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  min-height: 126px;
+}
+
+.coins-tier-card:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: #101624;
+  transform: translateY(-2px);
+}
+
+.coins-tier-card.selected {
+  background: linear-gradient(180deg, rgba(20, 31, 51, 0.95) 0%, rgba(12, 18, 32, 0.95) 100%);
+  border-color: #00D4FF;
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.coins-tier-badge {
+  position: absolute;
+  top: -10px;
+  right: 12px;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.coins-tier-badge.popular {
+  background: linear-gradient(135deg, #F59E0B 0%, #EF4444 100%);
+  color: #FFFFFF;
+}
+
+.coins-tier-badge.default {
+  background: linear-gradient(135deg, #00D4FF 0%, #536DFE 100%);
+  color: #07090E;
+}
+
+.coins-tier-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.coins-icon-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.coins-tier-amount {
+  font-size: 20px;
+  font-weight: 900;
+  color: #FFFFFF;
+  letter-spacing: -0.4px;
+}
+
+.coins-tier-label {
+  font-size: 11px;
+  color: #94A3B8;
+  font-weight: 500;
+}
+
+.coins-tier-bottom {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.coins-tier-price {
+  font-size: 16px;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+.coins-tier-savings {
+  font-size: 10px;
+  font-weight: 800;
+  color: #34D399;
+  background: rgba(16, 185, 129, 0.12);
+  padding: 2px 6px;
+  border-radius: 6px;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+/* Custom Tier Card */
+.coins-custom-card {
+  margin-top: 14px;
+  padding: 18px 20px;
+  border-radius: 18px;
+  background: #0C101A;
+  border: 1px solid rgba(0, 212, 255, 0.35);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.coins-custom-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.coins-custom-input-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.coins-custom-input {
+  width: 140px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: 900;
+  text-align: right;
+  outline: none;
+}
+
+.coins-custom-input:focus {
+  border-color: #00D4FF;
+}
+
+.coins-slider {
+  width: 100%;
+  accent-color: #00D4FF;
+  cursor: pointer;
+  height: 6px;
+}
+
+/* Payment Gateways */
+.coins-gateways-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.coins-gateway-card {
+  padding: 16px 14px;
+  border-radius: 16px;
+  background: #0C101A;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.2s;
+  min-height: 94px;
+}
+
+.coins-gateway-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: #101624;
+}
+
+.coins-gateway-card.selected {
+  background: linear-gradient(180deg, rgba(20, 31, 51, 0.95) 0%, rgba(12, 18, 32, 0.95) 100%);
+  border-color: #00D4FF;
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.2);
+}
+
+.coins-gateway-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.coins-gateway-badge {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #94A3B8;
+}
+
+.coins-gateway-name {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+.coins-gateway-desc {
+  font-size: 11px;
+  color: #64748B;
+  margin-top: 2px;
+}
+
+/* Sticky Bottom Bar */
+.coins-bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(12, 16, 26, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 14px 20px;
+  z-index: 50;
+}
+
+.coins-bottom-inner {
+  max-width: 1020px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.coins-bottom-summary {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.coins-summary-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.coins-summary-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #94A3B8;
+}
+
+.coins-summary-val {
+  font-size: 20px;
+  font-weight: 900;
+  color: #FBBF24;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.coins-summary-divider {
+  width: 1px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.coins-checkout-btn {
+  padding: 14px 32px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #00D4FF 0%, #38BDF8 50%, #536DFE 100%);
+  color: #07090E;
+  font-size: 14px;
+  font-weight: 900;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.coins-checkout-btn:hover {
+  opacity: 0.95;
+  box-shadow: 0 8px 28px rgba(0, 212, 255, 0.45);
+  transform: translateY(-1px);
+}
+
+.coins-checkout-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Modal */
+.coins-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 100;
+}
+
+.coins-modal {
+  width: 100%;
+  max-width: 440px;
+  padding: 32px 28px;
+  border-radius: 26px;
+  background: #0C101A;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.coins-modal-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.18);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #34D399;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px auto;
+}
+
+.coins-modal-title {
+  font-size: 20px;
+  font-weight: 900;
+  color: #FFFFFF;
+}
+
+.coins-modal-subtitle {
+  font-size: 12px;
+  color: #94A3B8;
+  margin-top: 4px;
+}
+
+.coins-modal-details {
+  margin: 22px 0;
+  padding: 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: left;
+}
+
+.coins-modal-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12.5px;
+  padding: 4px 0;
+}
+
+.coins-modal-close-btn {
+  width: 100%;
+  padding: 13px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #00D4FF 0%, #536DFE 100%);
+  color: #07090E;
+  font-size: 13.5px;
+  font-weight: 900;
+  border: none;
+  cursor: pointer;
+  margin-top: 6px;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+  .coins-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .coins-gateways-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .coins-hero-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .coins-hero-badges {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 6px;
+  }
+
+  .coins-account-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .coins-balance-pill {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .coins-bottom-inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .coins-bottom-summary {
+    justify-content: space-between;
+  }
+
+  .coins-checkout-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
+/* Additional Helper & Creator Styles */
+.coins-creator-banner {
+  padding: 16px 20px;
+  border-radius: 18px;
+  background: #0C101A;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.coins-creator-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(236, 72, 153, 0.15);
+  border: 1px solid rgba(236, 72, 153, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #F472B6;
+  flex-shrink: 0;
+}
+
+.coins-creator-text {
+  font-size: 12.5px;
+  color: #CBD5E1;
+  line-height: 1.5;
+}
+
+.coins-creator-text strong {
+  color: #FFFFFF;
+}
+
+.coins-loader-container {
+  min-height: 100vh;
+  background-color: #07090E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.coins-loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #94A3B8;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

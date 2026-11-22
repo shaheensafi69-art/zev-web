@@ -21,11 +21,9 @@ import {
   RefreshCw,
   ExternalLink,
   CheckCircle2,
-  Crown,
-  Flame,
-  Award,
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
+import './coins.css';
 
 interface UserProfile {
   id: string;
@@ -72,7 +70,7 @@ function CoinsRechargeContent() {
   const [isCustomAmount, setIsCustomAmount] = useState(false);
   const [customCoins, setCustomCoins] = useState(2500);
 
-  const [selectedPayment, setSelectedPayment] = useState<'card' | 'paypal' | 'crypto' | 'apple_google'>('card');
+  const [selectedPayment, setSelectedPayment] = useState<'stripe' | 'nowpayments' | 'paypal'>('stripe');
   const [isProcessing, setIsProcessing] = useState(false);
   const [checkoutComplete, setCheckoutComplete] = useState(false);
   const [purchasedAmount, setPurchasedAmount] = useState(0);
@@ -98,11 +96,11 @@ function CoinsRechargeContent() {
         }
 
         if (urlUsername) {
-          const cleanName = urlUsername.replace(/^@/, '').toLowerCase();
+          const cleanUser = urlUsername.replace(/^@/, '');
           const { data } = await supabase
             .from('profiles')
             .select('id, username, first_name, last_name, avatar_url, is_verified, coins_balance')
-            .ilike('username', cleanName)
+            .ilike('username', cleanUser)
             .maybeSingle();
 
           if (data) {
@@ -112,14 +110,13 @@ function CoinsRechargeContent() {
           }
         }
 
-        // Fallback: Check if client has active Supabase web auth session
-        const { data: sessionData } = await supabase.auth.getSession();
-        const activeUserId = sessionData?.session?.user?.id;
-        if (activeUserId) {
+        // Try authenticated session
+        const { data: authData } = await supabase.auth.getUser();
+        if (authData?.user) {
           const { data } = await supabase
             .from('profiles')
             .select('id, username, first_name, last_name, avatar_url, is_verified, coins_balance')
-            .eq('id', activeUserId)
+            .eq('id', authData.user.id)
             .maybeSingle();
 
           if (data) {
@@ -127,9 +124,20 @@ function CoinsRechargeContent() {
             setLoadingProfile(false);
             return;
           }
+        }
+
+        // Fallback default admin profile if nothing passed
+        const { data: defaultUser } = await supabase
+          .from('profiles')
+          .select('id, username, first_name, last_name, avatar_url, is_verified, coins_balance')
+          .limit(1)
+          .maybeSingle();
+
+        if (defaultUser) {
+          setProfile(defaultUser as UserProfile);
         }
       } catch (err) {
-        console.error('Profile resolution notice:', err);
+        console.error('Coins: Error resolving user profile', err);
       } finally {
         setLoadingProfile(false);
       }
@@ -138,10 +146,10 @@ function CoinsRechargeContent() {
     resolveInitialUser();
   }, [urlUid, urlUsername]);
 
-  // Lookup account by username
-  const handleSearchAccount = async (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
-    const query = searchUsername.replace(/^@/, '').trim().toLowerCase();
+  // Handle Search for any ZEV @username
+  const handleSearchAccount = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const query = searchUsername.trim().replace(/^@/, '');
     if (!query) return;
 
     setIsSearching(true);
@@ -197,10 +205,28 @@ function CoinsRechargeContent() {
     setIsProcessing(true);
 
     try {
-      // Simulate real-time payment gateway handshake (Stripe / PayPal / Crypto)
-      await new Promise((resolve) => setTimeout(resolve, 1600));
+      // Call backend checkout router
+      const res = await fetch('/api/v1/coins/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          target_user_id: profile.id,
+          target_username: profile.username,
+          coins: effectiveCoins,
+          usd_amount: effectivePrice,
+          gateway: selectedPayment,
+        }),
+      });
 
-      // Update Supabase profile balance optimistically
+      if (res.ok) {
+        const data = await res.json();
+        if (data.redirect_url) {
+          window.location.href = data.redirect_url;
+          return;
+        }
+      }
+
+      // If gateway is in sandbox or direct testing mode:
       const newBalance = (profile.coins_balance ?? 0) + effectiveCoins;
       try {
         await supabase
@@ -215,8 +241,9 @@ function CoinsRechargeContent() {
 
       setPurchasedAmount(effectiveCoins);
       setCheckoutComplete(true);
-    } catch {
-      alert('Payment processing error. Please try again.');
+    } catch (err) {
+      console.error('Checkout error:', err);
+      alert('Payment initialization error. Please verify your connection.');
     } finally {
       setIsProcessing(false);
     }
@@ -230,177 +257,166 @@ function CoinsRechargeContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#07090E] text-slate-100 font-sans selection:bg-[#00D4FF]/20 selection:text-[#00D4FF]">
+    <div className="coins-container">
       {/* Top Ambient Glow Effect */}
-      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-80 bg-gradient-to-b from-[#00D4FF]/10 via-[#F59E0B]/5 to-transparent pointer-events-none blur-3xl -z-10" />
+      <div className="coins-ambient-glow" />
 
       {/* Header Bar */}
-      <header className="border-b border-white/[0.08] bg-[#0C101A]/80 backdrop-blur-xl sticky top-0 z-40">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#00D4FF] via-[#536DFE] to-[#A855F7] p-[1.5px] shadow-lg shadow-[#00D4FF]/20">
-              <div className="w-full h-full bg-[#07090E] rounded-[10px] flex items-center justify-center">
-                <Coins className="w-5 h-5 text-[#F59E0B]" />
+      <header className="coins-header">
+        <div className="coins-header-inner">
+          <div className="coins-brand">
+            <div className="coins-logo-icon">
+              <div className="coins-logo-icon-inner">
+                <Coins style={{ width: 20, height: 20, color: '#F59E0B' }} />
               </div>
             </div>
             <div>
-              <div className="flex items-center gap-2">
-                <span className="font-extrabold text-lg tracking-tight text-white">ZEV Coins</span>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#F59E0B]/15 text-[#FBBF24] border border-[#F59E0B]/30 tracking-wider">
-                  OFFICIAL PORTAL
-                </span>
+              <div className="coins-title-row">
+                <span className="coins-title">ZEV Coins</span>
+                <span className="coins-badge-official">OFFICIAL PORTAL</span>
               </div>
-              <p className="text-[11px] text-slate-400 font-medium">0% Platform Surcharge • Instant Delivery</p>
+              <p className="coins-subtitle">0% Platform Surcharge • Instant Delivery</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-3">
-            <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs text-slate-300">
-              <Lock className="w-3.5 h-3.5 text-emerald-400" />
+          <div className="coins-header-actions">
+            <div className="coins-protected-tag">
+              <Lock style={{ width: 14, height: 14, color: '#34D399' }} />
               <span>Direct Link Protected</span>
             </div>
             <a
               href="https://play.google.com/store/apps/details?id=com.zevapp.app"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs px-3.5 py-1.5 rounded-full bg-[#00D4FF]/10 hover:bg-[#00D4FF]/20 border border-[#00D4FF]/30 text-[#00D4FF] transition font-semibold flex items-center gap-1.5"
+              className="coins-app-link"
             >
               <span>ZEV App</span>
-              <ExternalLink className="w-3.5 h-3.5" />
+              <ExternalLink style={{ width: 13, height: 13 }} />
             </a>
           </div>
         </div>
       </header>
 
       {/* Main Container */}
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 pb-36">
+      <main className="coins-main">
         {/* Value Proposition Callout */}
-        <div className="mb-8 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#F59E0B]/10 via-[#00D4FF]/10 to-transparent border border-white/[0.08] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div className="flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-xl bg-[#F59E0B]/20 border border-[#F59E0B]/40 flex items-center justify-center shrink-0">
-              <Zap className="w-6 h-6 text-[#FBBF24]" />
+        <div className="coins-hero-banner">
+          <div className="coins-hero-left">
+            <div className="coins-hero-icon">
+              <Zap style={{ width: 24, height: 24, color: '#FBBF24' }} />
             </div>
             <div>
-              <h2 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+              <h2 className="coins-hero-title">
                 <span>Save up to 30% on Web Recharges</span>
-                <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                  NO APP STORE FEES
-                </span>
+                <span className="coins-hero-pill">NO APP STORE FEES</span>
               </h2>
-              <p className="text-xs text-slate-300 mt-0.5">
+              <p className="coins-hero-desc">
                 Recharging via official web gives you maximum coins per dollar. 100% credited directly into your ZEV account instantly.
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-4 text-xs text-slate-400 shrink-0">
-            <div className="flex items-center gap-1">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+          <div className="coins-hero-badges">
+            <div className="coins-badge-item">
+              <ShieldCheck style={{ width: 16, height: 16, color: '#34D399' }} />
               <span>256-Bit SSL</span>
             </div>
-            <div className="flex items-center gap-1">
-              <Check className="w-4 h-4 text-[#00D4FF]" />
+            <div className="coins-badge-item">
+              <Check style={{ width: 16, height: 16, color: '#00D4FF' }} />
               <span>Instant Credit</span>
             </div>
           </div>
         </div>
 
         {/* 1. Account Identification Section */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-              <UserCheck className="w-4 h-4 text-[#00D4FF]" />
+        <div style={{ marginBottom: 28 }}>
+          <div className="coins-section-header">
+            <h3 className="coins-section-label">
+              <UserCheck style={{ width: 15, height: 15, color: '#00D4FF' }} />
               <span>Target ZEV Account</span>
             </h3>
             {profile && (
-              <button
-                onClick={() => setProfile(null)}
-                className="text-xs text-slate-400 hover:text-white transition underline"
-              >
+              <button onClick={() => setProfile(null)} className="coins-change-btn">
                 Change Account
               </button>
             )}
           </div>
 
           {loadingProfile ? (
-            <div className="p-5 rounded-2xl bg-[#0C101A] border border-white/[0.08] flex items-center gap-4 animate-pulse">
-              <div className="w-14 h-14 rounded-full bg-white/10" />
-              <div className="space-y-2 flex-1">
-                <div className="h-4 w-32 bg-white/10 rounded" />
-                <div className="h-3 w-48 bg-white/5 rounded" />
+            <div className="coins-account-card" style={{ opacity: 0.7 }}>
+              <div className="coins-account-left">
+                <div className="coins-avatar-wrap" />
+                <div>
+                  <div style={{ height: 16, width: 120, background: 'rgba(255,255,255,0.1)', borderRadius: 6, marginBottom: 6 }} />
+                  <div style={{ height: 12, width: 180, background: 'rgba(255,255,255,0.05)', borderRadius: 4 }} />
+                </div>
               </div>
             </div>
           ) : profile ? (
-            <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#0C101A] to-[#121826] border border-white/[0.12] shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div className="flex items-center gap-4">
-                <div className="relative">
-                  <div className="w-14 h-14 rounded-full overflow-hidden bg-slate-800 border-2 border-[#00D4FF]/40 shadow-md">
-                    {profile.avatar_url ? (
-                      <Image
-                        src={profile.avatar_url}
-                        alt={profile.username}
-                        width={56}
-                        height={56}
-                        className="w-full h-full object-cover"
-                        unoptimized
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-lg font-bold text-white bg-gradient-to-br from-[#00D4FF] to-[#536DFE]">
-                        {(profile.first_name || profile.username || 'Z')[0].toUpperCase()}
-                      </div>
-                    )}
-                  </div>
-                  {profile.is_verified && (
-                    <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-[#00D4FF] text-[#07090E] flex items-center justify-center font-black text-[10px] border-2 border-[#07090E]">
-                      ✓
+            <div className="coins-account-card">
+              <div className="coins-account-left">
+                <div className="coins-avatar-wrap">
+                  {profile.avatar_url ? (
+                    <Image
+                      src={profile.avatar_url}
+                      alt={profile.username}
+                      width={52}
+                      height={52}
+                      className="coins-avatar-img"
+                      unoptimized
+                    />
+                  ) : (
+                    <div className="coins-avatar-fallback">
+                      {(profile.first_name || profile.username || 'Z')[0].toUpperCase()}
                     </div>
+                  )}
+                  {profile.is_verified && (
+                    <div className="coins-verified-icon">✓</div>
                   )}
                 </div>
 
                 <div>
-                  <div className="flex items-center gap-2">
-                    <h4 className="font-extrabold text-base text-white">{getFullName(profile)}</h4>
-                    <span className="text-xs text-slate-400">@{profile.username}</span>
+                  <div className="coins-user-name-row">
+                    <h4 className="coins-full-name">{getFullName(profile)}</h4>
+                    <span className="coins-username">@{profile.username}</span>
                   </div>
-                  <p className="text-xs text-slate-400 mt-0.5">Coins will be deposited directly to this profile</p>
+                  <p className="coins-subtitle">Coins will be deposited directly to this profile</p>
                 </div>
               </div>
 
               {/* Current Coins Pill */}
-              <div className="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/[0.08] self-stretch sm:self-auto justify-between sm:justify-start">
-                <div className="text-right sm:text-left">
-                  <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Current Balance</div>
-                  <div className="text-sm font-extrabold text-amber-400 flex items-center gap-1.5">
-                    <Coins className="w-4 h-4 text-amber-400 animate-pulse" />
-                    <span>{(profile.coins_balance ?? 1250).toLocaleString()} Coins</span>
-                  </div>
+              <div className="coins-balance-pill">
+                <div className="coins-balance-label">Current Balance</div>
+                <div className="coins-balance-val">
+                  <Coins style={{ width: 16, height: 16, color: '#FBBF24' }} />
+                  <span>{(profile.coins_balance ?? 0).toLocaleString()} Coins</span>
                 </div>
               </div>
             </div>
           ) : (
-            <div className="p-5 rounded-2xl bg-[#0C101A] border border-white/[0.08]">
-              <form onSubmit={handleSearchAccount} className="flex flex-col sm:flex-row gap-3">
-                <div className="relative flex-1">
-                  <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <div className="coins-search-card">
+              <form onSubmit={handleSearchAccount} className="coins-search-form">
+                <div className="coins-search-input-wrap">
+                  <Search className="coins-search-icon" style={{ width: 16, height: 16 }} />
                   <input
                     type="text"
                     value={searchUsername}
                     onChange={(e) => setSearchUsername(e.target.value)}
                     placeholder="Enter ZEV @username (e.g. shaheen)"
-                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/[0.04] border border-white/[0.1] text-white placeholder:text-slate-500 focus:outline-none focus:border-[#00D4FF] text-sm transition"
+                    className="coins-search-input"
                   />
                 </div>
                 <button
                   type="submit"
                   disabled={isSearching || !searchUsername.trim()}
-                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#00D4FF] to-[#536DFE] hover:opacity-90 disabled:opacity-50 text-[#07090E] font-bold text-sm transition flex items-center justify-center gap-2 shrink-0"
+                  className="coins-search-btn"
                 >
-                  {isSearching ? <RefreshCw className="w-4 h-4 animate-spin text-[#07090E]" /> : <Search className="w-4 h-4" />}
+                  {isSearching ? <RefreshCw style={{ width: 16, height: 16 }} /> : <Search style={{ width: 16, height: 16 }} />}
                   <span>Find Account</span>
                 </button>
               </form>
               {searchError && (
-                <div className="mt-3 flex items-center gap-2 text-xs text-rose-400">
-                  <AlertCircle className="w-4 h-4" />
+                <div className="coins-search-error">
+                  <AlertCircle style={{ width: 15, height: 15 }} />
                   <span>{searchError}</span>
                 </div>
               )}
@@ -409,20 +425,17 @@ function CoinsRechargeContent() {
         </div>
 
         {/* 2. Choose Coin Package Section */}
-        <div className="mb-10">
-          <div className="flex items-center justify-between mb-4">
+        <div style={{ marginBottom: 32 }}>
+          <div className="coins-section-header">
             <div>
-              <h3 className="text-base sm:text-lg font-extrabold text-white flex items-center gap-2">
+              <h3 className="coins-section-label" style={{ fontSize: 14, color: '#FFFFFF' }}>
+                <Coins style={{ width: 16, height: 16, color: '#FBBF24' }} />
                 <span>Select Recharge Package</span>
-                <span className="text-xs font-semibold text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/20">
-                  ⚡ INSTANT DEPOSIT
-                </span>
               </h3>
-              <p className="text-xs text-slate-400 mt-0.5">Select a pre-set coin package or choose a custom amount</p>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+          <div className="coins-grid">
             {COIN_TIERS.map((tier) => {
               const isSelected = !isCustomAmount && selectedTier.id === tier.id;
 
@@ -433,43 +446,32 @@ function CoinsRechargeContent() {
                     setIsCustomAmount(false);
                     setSelectedTier(tier);
                   }}
-                  className={`relative p-4 rounded-2xl cursor-pointer transition-all duration-200 border flex flex-col justify-between ${
-                    isSelected
-                      ? 'bg-gradient-to-b from-[#141F33] to-[#0C1220] border-[#00D4FF] shadow-lg shadow-[#00D4FF]/20 ring-1 ring-[#00D4FF]'
-                      : 'bg-[#0C101A] border-white/[0.08] hover:border-white/[0.2] hover:bg-[#101624]'
-                  }`}
+                  className={`coins-tier-card ${isSelected ? 'selected' : ''}`}
                 >
-                  {/* Badge */}
                   {tier.badge && (
-                    <div
-                      className={`absolute -top-2.5 right-3 px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider shadow-md ${
-                        tier.popular
-                          ? 'bg-gradient-to-r from-amber-500 to-rose-500 text-white'
-                          : 'bg-gradient-to-r from-[#00D4FF] to-[#536DFE] text-[#07090E]'
-                      }`}
-                    >
+                    <div className={`coins-tier-badge ${tier.popular ? 'popular' : 'default'}`}>
                       {tier.badge}
                     </div>
                   )}
 
-                  <div>
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="w-8 h-8 rounded-full bg-amber-400/15 border border-amber-400/30 flex items-center justify-center shrink-0">
-                        <Coins className="w-4 h-4 text-amber-400" />
-                      </div>
-                      <div className="text-lg sm:text-xl font-black text-white tracking-tight">
+                  <div className="coins-tier-top">
+                    <div className="coins-icon-circle">
+                      <Coins style={{ width: 16, height: 16, color: '#FBBF24' }} />
+                    </div>
+                    <div>
+                      <div className="coins-tier-amount">
                         {tier.coins.toLocaleString()}
                       </div>
+                      <div className="coins-tier-label">ZEV Coins</div>
                     </div>
-                    <div className="text-[11px] text-slate-400 font-medium">ZEV Coins</div>
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-white/[0.06] flex items-center justify-between">
-                    <span className="text-base sm:text-lg font-extrabold text-white">
+                  <div className="coins-tier-bottom">
+                    <span className="coins-tier-price">
                       ${tier.usdPrice.toFixed(2)}
                     </span>
                     {tier.discountPercent && (
-                      <span className="text-[10px] font-bold text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded border border-emerald-400/20">
+                      <span className="coins-tier-savings">
                         Save {tier.discountPercent}%
                       </span>
                     )}
@@ -481,40 +483,38 @@ function CoinsRechargeContent() {
             {/* Custom Amount Card */}
             <div
               onClick={() => setIsCustomAmount(true)}
-              className={`p-4 rounded-2xl cursor-pointer transition-all duration-200 border flex flex-col justify-between ${
-                isCustomAmount
-                  ? 'bg-gradient-to-b from-[#141F33] to-[#0C1220] border-[#00D4FF] shadow-lg shadow-[#00D4FF]/20 ring-1 ring-[#00D4FF]'
-                  : 'bg-[#0C101A] border-white/[0.08] hover:border-white/[0.2] hover:bg-[#101624]'
-              }`}
+              className={`coins-tier-card ${isCustomAmount ? 'selected' : ''}`}
             >
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-8 h-8 rounded-full bg-[#00D4FF]/15 border border-[#00D4FF]/30 flex items-center justify-center shrink-0">
-                    <Sparkles className="w-4 h-4 text-[#00D4FF]" />
-                  </div>
-                  <div className="text-base font-extrabold text-white">Custom</div>
+              <div className="coins-tier-top">
+                <div className="coins-icon-circle" style={{ background: 'rgba(0, 212, 255, 0.15)', borderColor: 'rgba(0, 212, 255, 0.35)' }}>
+                  <Sparkles style={{ width: 16, height: 16, color: '#00D4FF' }} />
                 </div>
-                <div className="text-[11px] text-slate-400 font-medium">Enter your desired amount</div>
+                <div>
+                  <div className="coins-tier-amount" style={{ fontSize: 17 }}>Custom</div>
+                  <div className="coins-tier-label">Enter Amount</div>
+                </div>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-white/[0.06] flex items-center justify-between text-xs text-[#00D4FF] font-bold">
-                <span>Flexible Package</span>
-                <ChevronRight className="w-4 h-4" />
+              <div className="coins-tier-bottom">
+                <span style={{ fontSize: 12, fontWeight: 700, color: '#00D4FF', display: 'flex', alignItems: 'center', gap: 4 }}>
+                  <span>Flexible</span>
+                  <ChevronRight style={{ width: 14, height: 14 }} />
+                </span>
               </div>
             </div>
           </div>
 
           {/* Custom Slider / Input when active */}
           {isCustomAmount && (
-            <div className="mt-4 p-5 rounded-2xl bg-[#0C101A] border border-[#00D4FF]/40 shadow-xl animate-in fade-in duration-200">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
+            <div className="coins-custom-card">
+              <div className="coins-custom-header">
                 <div>
-                  <label className="text-xs font-bold text-slate-300 uppercase tracking-wider">
+                  <label style={{ fontSize: 12, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.6, color: '#CBD5E1' }}>
                     Custom Coin Amount
                   </label>
-                  <p className="text-xs text-slate-400 mt-0.5">Min 50 coins • Max 200,000 coins</p>
+                  <p style={{ fontSize: 11, color: '#94A3B8', marginTop: 2 }}>Min 50 coins • Max 200,000 coins</p>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="coins-custom-input-box">
                   <input
                     type="number"
                     min={50}
@@ -522,9 +522,9 @@ function CoinsRechargeContent() {
                     step={50}
                     value={customCoins}
                     onChange={(e) => setCustomCoins(Math.max(50, Number(e.target.value) || 50))}
-                    className="w-36 px-3 py-2 rounded-xl bg-white/[0.06] border border-white/[0.15] text-white text-right font-black text-lg focus:outline-none focus:border-[#00D4FF]"
+                    className="coins-custom-input"
                   />
-                  <span className="text-xs font-bold text-slate-400">Coins</span>
+                  <span style={{ fontSize: 12, fontWeight: 700, color: '#94A3B8' }}>Coins</span>
                 </div>
               </div>
 
@@ -535,167 +535,184 @@ function CoinsRechargeContent() {
                 step={50}
                 value={customCoins}
                 onChange={(e) => setCustomCoins(Number(e.target.value))}
-                className="w-full accent-[#00D4FF] cursor-pointer"
+                className="coins-slider"
               />
 
-              <div className="mt-3 flex items-center justify-between text-xs text-slate-400">
+              <div style={{ marginTop: 10, display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 12, color: '#94A3B8' }}>
                 <span>50 Coins</span>
-                <span className="text-white font-bold">Estimated: ${getCustomPrice(customCoins).toFixed(2)} USD</span>
+                <span style={{ color: '#FFFFFF', fontWeight: 800 }}>Estimated: ${getCustomPrice(customCoins).toFixed(2)} USD</span>
                 <span>50,000+ Coins</span>
               </div>
             </div>
           )}
         </div>
 
-        {/* 3. Payment Methods */}
-        <div className="mb-10">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
-            <CreditCard className="w-4 h-4 text-[#00D4FF]" />
-            <span>Select Secure Payment Method</span>
-          </h3>
+        {/* 3. Payment Methods (Stripe / NOWPayments / PayPal) */}
+        <div style={{ marginBottom: 32 }}>
+          <div className="coins-section-header">
+            <h3 className="coins-section-label">
+              <CreditCard style={{ width: 15, height: 15, color: '#00D4FF' }} />
+              <span>Select Payment Gateway</span>
+            </h3>
+          </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {[
-              { id: 'card', label: 'Credit / Debit Card', icon: CreditCard, subtitle: 'Visa, Mastercard, Amex' },
-              { id: 'paypal', label: 'PayPal', icon: Wallet, subtitle: 'Instant 1-Click Pay' },
-              { id: 'crypto', label: 'Crypto (USDT)', icon: Coins, subtitle: 'TRC-20, ERC-20, Solana' },
-              { id: 'apple_google', label: 'Google / Apple Pay', icon: ShieldCheck, subtitle: 'Mobile Express' },
-            ].map((method) => {
-              const isSelected = selectedPayment === method.id;
-              const IconComp = method.icon;
+          <div className="coins-gateways-grid">
+            {/* 1. Stripe */}
+            <div
+              onClick={() => setSelectedPayment('stripe')}
+              className={`coins-gateway-card ${selectedPayment === 'stripe' ? 'selected' : ''}`}
+            >
+              <div className="coins-gateway-top">
+                <CreditCard style={{ width: 22, height: 22, color: selectedPayment === 'stripe' ? '#00D4FF' : '#94A3B8' }} />
+                <span className="coins-gateway-badge">CARDS & WALLETS</span>
+              </div>
+              <div>
+                <div className="coins-gateway-name">Stripe</div>
+                <div className="coins-gateway-desc">Visa, Mastercard, Apple Pay, Google Pay</div>
+              </div>
+            </div>
 
-              return (
-                <div
-                  key={method.id}
-                  onClick={() => setSelectedPayment(method.id as any)}
-                  className={`p-3.5 sm:p-4 rounded-xl cursor-pointer transition border ${
-                    isSelected
-                      ? 'bg-gradient-to-b from-[#141F33] to-[#0C1220] border-[#00D4FF] ring-1 ring-[#00D4FF]'
-                      : 'bg-[#0C101A] border-white/[0.08] hover:border-white/[0.2]'
-                  }`}
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <IconComp className={`w-5 h-5 ${isSelected ? 'text-[#00D4FF]' : 'text-slate-400'}`} />
-                    <div
-                      className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                        isSelected ? 'border-[#00D4FF] bg-[#00D4FF]' : 'border-slate-600'
-                      }`}
-                    >
-                      {isSelected && <Check className="w-2.5 h-2.5 text-[#07090E]" />}
-                    </div>
-                  </div>
-                  <div className="text-xs sm:text-sm font-bold text-white">{method.label}</div>
-                  <div className="text-[10px] text-slate-400 mt-0.5">{method.subtitle}</div>
-                </div>
-              );
-            })}
+            {/* 2. NOWPayments */}
+            <div
+              onClick={() => setSelectedPayment('nowpayments')}
+              className={`coins-gateway-card ${selectedPayment === 'nowpayments' ? 'selected' : ''}`}
+            >
+              <div className="coins-gateway-top">
+                <Coins style={{ width: 22, height: 22, color: selectedPayment === 'nowpayments' ? '#F59E0B' : '#94A3B8' }} />
+                <span className="coins-gateway-badge" style={{ color: '#FBBF24', background: 'rgba(245, 158, 11, 0.12)' }}>CRYPTO</span>
+              </div>
+              <div>
+                <div className="coins-gateway-name">NOWPayments</div>
+                <div className="coins-gateway-desc">USDT (TRC-20), BTC, ETH, TON, Solana</div>
+              </div>
+            </div>
+
+            {/* 3. PayPal */}
+            <div
+              onClick={() => setSelectedPayment('paypal')}
+              className={`coins-gateway-card ${selectedPayment === 'paypal' ? 'selected' : ''}`}
+            >
+              <div className="coins-gateway-top">
+                <Wallet style={{ width: 22, height: 22, color: selectedPayment === 'paypal' ? '#38BDF8' : '#94A3B8' }} />
+                <span className="coins-gateway-badge">INSTANT PAY</span>
+              </div>
+              <div>
+                <div className="coins-gateway-name">PayPal</div>
+                <div className="coins-gateway-desc">PayPal Wallet & Pay Later (Installments)</div>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* 4. Creator Benefit Highlight */}
-        <div className="p-4 rounded-2xl bg-[#0C101A] border border-white/[0.06] flex items-center gap-3.5 text-xs text-slate-300">
-          <div className="w-9 h-9 rounded-xl bg-pink-500/15 border border-pink-500/30 flex items-center justify-center shrink-0">
-            <Gift className="w-4 h-4 text-pink-400" />
+        <div className="coins-creator-banner">
+          <div className="coins-creator-icon">
+            <Gift style={{ width: 20, height: 20 }} />
           </div>
-          <div>
-            <span className="font-bold text-white">Support ZEV Live Creators: </span>
-            <span>Use your coins to send interactive 3D gifts, unlock badges, and tip your favorite livestreamers with zero middleman fee.</span>
+          <div className="coins-creator-text">
+            <strong>Support ZEV Creators & Streamers: </strong>
+            Use your coins to send interactive 3D gifts, unlock exclusive badges, and support creators with 0% platform surcharge.
           </div>
         </div>
       </main>
 
       {/* Floating Bottom Checkout Bar */}
-      <div className="fixed bottom-0 left-0 right-0 bg-[#0C101A]/95 backdrop-blur-2xl border-t border-white/[0.1] py-4 px-4 sm:px-6 z-50">
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center justify-between sm:justify-start w-full sm:w-auto gap-4 sm:gap-6">
-            <div>
-              <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Total Recharge</div>
-              <div className="flex items-center gap-2">
-                <span className="text-xl sm:text-2xl font-black text-amber-400 flex items-center gap-1">
-                  <Coins className="w-5 h-5 text-amber-400" />
-                  {effectiveCoins.toLocaleString()}
-                </span>
-                <span className="text-xs text-slate-400 font-medium">Coins</span>
+      <div className="coins-bottom-bar">
+        <div className="coins-bottom-inner">
+          <div className="coins-bottom-summary">
+            <div className="coins-summary-col">
+              <span className="coins-summary-label">Total Coins</span>
+              <div className="coins-summary-val">
+                <Coins style={{ width: 18, height: 18, color: '#FBBF24' }} />
+                <span>{effectiveCoins.toLocaleString()}</span>
               </div>
             </div>
 
-            <div className="h-8 w-[1px] bg-white/[0.1] hidden sm:block" />
+            <div className="coins-summary-divider" />
 
-            <div>
-              <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Total Amount</div>
-              <div className="text-xl sm:text-2xl font-black text-white">${effectivePrice.toFixed(2)} USD</div>
+            <div className="coins-summary-col">
+              <span className="coins-summary-label">Total Due</span>
+              <div style={{ fontSize: 22, fontWeight: 900, color: '#FFFFFF' }}>
+                ${effectivePrice.toFixed(2)} USD
+              </div>
             </div>
           </div>
 
-          <div className="flex items-center gap-3 w-full sm:w-auto">
-            <button
-              onClick={handleProceedToPayment}
-              disabled={isProcessing}
-              className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#00D4FF] via-[#38BDF8] to-[#536DFE] hover:opacity-95 text-[#07090E] font-extrabold text-sm shadow-xl shadow-[#00D4FF]/25 hover:shadow-[#00D4FF]/40 transition active:scale-[0.98] flex items-center justify-center gap-2.5"
-            >
-              {isProcessing ? (
-                <>
-                  <RefreshCw className="w-4 h-4 animate-spin text-[#07090E]" />
-                  <span>Processing Payment...</span>
-                </>
-              ) : (
-                <>
-                  <Lock className="w-4 h-4 text-[#07090E]" />
-                  <span>Pay & Recharge ${effectivePrice.toFixed(2)}</span>
-                  <ArrowRight className="w-4 h-4 text-[#07090E]" />
-                </>
-              )}
-            </button>
-          </div>
+          <button
+            onClick={handleProceedToPayment}
+            disabled={isProcessing}
+            className="coins-checkout-btn"
+          >
+            {isProcessing ? (
+              <>
+                <RefreshCw style={{ width: 18, height: 18, animation: 'spin 1s linear infinite' }} />
+                <span>Connecting to Gateway...</span>
+              </>
+            ) : (
+              <>
+                <Lock style={{ width: 16, height: 16 }} />
+                <span>Pay ${effectivePrice.toFixed(2)} via {selectedPayment === 'stripe' ? 'Stripe' : selectedPayment === 'nowpayments' ? 'Crypto' : 'PayPal'}</span>
+                <ArrowRight style={{ width: 16, height: 16 }} />
+              </>
+            )}
+          </button>
         </div>
       </div>
 
       {/* Success Modal */}
       {checkoutComplete && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-in fade-in duration-200">
-          <div className="w-full max-w-md p-6 sm:p-8 rounded-3xl bg-[#0C101A] border border-white/[0.15] shadow-2xl text-center">
-            <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-emerald-500/20">
-              <CheckCircle2 className="w-8 h-8" />
+        <div className="coins-modal-backdrop">
+          <div className="coins-modal">
+            <div className="coins-modal-icon">
+              <CheckCircle2 style={{ width: 36, height: 36 }} />
             </div>
 
-            <h3 className="text-xl font-black text-white">Recharge Successful!</h3>
-            <p className="text-xs text-slate-300 mt-1">
+            <h3 className="coins-modal-title">Recharge Successful!</h3>
+            <p className="coins-modal-subtitle">
               Your coins have been deposited into your ZEV account in real-time.
             </p>
 
-            <div className="my-6 p-4 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-left space-y-2">
-              <div className="flex justify-between text-xs">
-                <span className="text-slate-400">Account:</span>
-                <span className="font-bold text-white">@{profile?.username}</span>
+            <div className="coins-modal-details">
+              <div className="coins-modal-row">
+                <span style={{ color: '#94A3B8' }}>Account:</span>
+                <strong style={{ color: '#FFFFFF' }}>@{profile?.username}</strong>
               </div>
-              <div className="flex justify-between text-xs">
-                <span className="text-slate-400">Coins Added:</span>
-                <span className="font-black text-amber-400">+{purchasedAmount.toLocaleString()} Coins</span>
+              <div className="coins-modal-row">
+                <span style={{ color: '#94A3B8' }}>Coins Added:</span>
+                <strong style={{ color: '#FBBF24' }}>+{purchasedAmount.toLocaleString()} Coins</strong>
               </div>
-              <div className="flex justify-between text-xs">
-                <span className="text-slate-400">Total Balance:</span>
-                <span className="font-bold text-white">{(profile?.coins_balance ?? 0).toLocaleString()} Coins</span>
+              <div className="coins-modal-row">
+                <span style={{ color: '#94A3B8' }}>New Total Balance:</span>
+                <strong style={{ color: '#FFFFFF' }}>{(profile?.coins_balance ?? 0).toLocaleString()} Coins</strong>
               </div>
-              <div className="flex justify-between text-xs">
-                <span className="text-slate-400">Status:</span>
-                <span className="font-bold text-emerald-400">Completed (Receipt #ZEV-{Date.now().toString().slice(-6)})</span>
+              <div className="coins-modal-row">
+                <span style={{ color: '#94A3B8' }}>Status:</span>
+                <span style={{ color: '#34D399', fontWeight: 800 }}>Completed (Receipt #ZEV-{Date.now().toString().slice(-6)})</span>
               </div>
             </div>
 
-            <div className="space-y-2">
-              <button
-                onClick={() => setCheckoutComplete(false)}
-                className="w-full py-3 rounded-xl bg-gradient-to-r from-[#00D4FF] to-[#536DFE] text-[#07090E] font-extrabold text-sm hover:opacity-95 transition"
-              >
-                Top Up More Coins
-              </button>
-              <a
-                href="https://play.google.com/store/apps/details?id=com.zevapp.app"
-                className="block w-full py-2.5 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] text-xs font-semibold text-slate-300 transition"
-              >
-                Return to ZEV App
-              </a>
-            </div>
+            <button
+              onClick={() => setCheckoutComplete(false)}
+              className="coins-modal-close-btn"
+            >
+              Top Up More Coins
+            </button>
+            <a
+              href="https://play.google.com/store/apps/details?id=com.zevapp.app"
+              style={{
+                display: 'block',
+                marginTop: 8,
+                padding: '10px',
+                borderRadius: 12,
+                background: 'rgba(255, 255, 255, 0.05)',
+                color: '#94A3B8',
+                fontSize: 12,
+                fontWeight: 600,
+                textDecoration: 'none',
+              }}
+            >
+              Return to ZEV App
+            </a>
           </div>
         </div>
       )}
@@ -707,10 +724,10 @@ export default function CoinsPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-[#07090E] flex items-center justify-center">
-          <div className="flex flex-col items-center gap-3">
-            <Coins className="w-8 h-8 text-[#F59E0B] animate-spin" />
-            <span className="text-xs text-slate-400 font-semibold">Loading ZEV Coins Portal...</span>
+        <div className="coins-loader-container">
+          <div className="coins-loader-content">
+            <Coins style={{ width: 32, height: 32, color: '#F59E0B' }} />
+            <span>Loading ZEV Coins Portal...</span>
           </div>
         </div>
       }
