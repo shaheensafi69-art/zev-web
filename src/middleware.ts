@@ -97,6 +97,7 @@ export function middleware(request: NextRequest) {
     pathname.startsWith('/forgot-password') ||
     pathname.startsWith('/verify-email') ||
     pathname.startsWith('/login') ||
+    pathname.startsWith('/coins') ||
     pathname.startsWith('/favicon.ico') ||
     pathname === '/robots.txt' ||
     pathname === '/sitemap.xml' ||
